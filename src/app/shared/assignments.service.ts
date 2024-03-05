@@ -18,7 +18,7 @@ export class AssignmentsService {
               private http:HttpClient) { }
 
   //uri = 'http://localhost:8010/api/assignments';
-  uri = "https://angularmbdsmadagascar2024.onrender.com/api/assignments";
+  uri = "https://assignementnodeapi.onrender.com/api/assignments";
 
   // retourne tous les assignments
   getAssignments():Observable<Assignment[]> {

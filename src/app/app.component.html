@@ -1,4 +1,4 @@
-<h1>
+<!-- <h1>
   <nav>
     <a routerLink="/home">{{title}}</a>
   </nav>
@@ -6,8 +6,21 @@
 <mat-slide-toggle (click)="login()" color="primary">Login</mat-slide-toggle>
 <button mat-button (click)="genererDonneesDeTest()">Peupler BD</button>
 
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> -->
 <!--
 <app-assignments></app-assignments>
 -->
+<mat-toolbar class="mat-elevation-z3">
+    <button mat-icon-button>
+        <mat-icon>menu</mat-icon>
+    </button>
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav opened mode="side">
+        <app-custom-sidenav/>
+    </mat-sidenav>
+    <mat-sidenav-content class="content">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
 

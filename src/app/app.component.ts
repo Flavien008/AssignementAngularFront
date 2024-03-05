@@ -36,6 +36,7 @@ export class AppComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isLoginPage = event.url === '/login';
+        this.isLoginPage = event.url === '/inscription';
       }
     });
   }

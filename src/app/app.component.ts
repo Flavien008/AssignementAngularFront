@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,6 +23,8 @@ import { CustomSidenavComponent } from "./compoments/custom-sidenav/custom-siden
 })
 export class AppComponent {
   title = 'Application de gestion des assignments';
+  collapsed = signal(false);
+  sidenavWidth = computed(() => this.collapsed() ? '65px':'250px');
 
   constructor(private authService:AuthService,
               private assignmentsService: AssignmentsService,

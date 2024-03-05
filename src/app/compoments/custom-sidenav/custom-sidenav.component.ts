@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, Input, computed, signal } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 
 export type MenuItem = {
@@ -13,22 +14,29 @@ export type MenuItem = {
 @Component({
   selector: 'app-custom-sidenav',
   standalone: true,
-  imports: [CommonModule,MatListModule,MatIconModule],
+  imports: [CommonModule,MatListModule,MatIconModule,RouterLink,RouterLinkActive],
   templateUrl: './custom-sidenav.component.html',
   styleUrl: './custom-sidenav.component.css'
 })
 export class CustomSidenavComponent {
+
+    sideNavCollapsed = signal(false);
+    @Input() set collapsed(val:boolean){
+        this.sideNavCollapsed.set(val);
+    }
     MenuItems = signal<MenuItem[]>([
         {
             icon : 'dashboard',
             label : 'Dahsboard',
-            route : 'dashboard',
+            route : 'home',
         },
         {
             icon : 'video_library',
             label : 'Assignement',
-            route : 'Assignement',
+            route : 'add',
         }
         
     ]);
+
+    profilePicSize = computed(() => this.sideNavCollapsed() ? '20':'100');
 }

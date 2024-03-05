@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,10 +20,20 @@ import { AssignmentsService } from './shared/assignments.service';
 })
 export class AppComponent {
   title = 'Application de gestion des assignments';
+  isLoginPage: boolean = false;
+
 
   constructor(private authService:AuthService,
               private assignmentsService: AssignmentsService,
               private router:Router) {}
+
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isLoginPage = event.url === '/login';
+      }
+    });
+  }
 
   login() {
     // on utilise le service d'autentification

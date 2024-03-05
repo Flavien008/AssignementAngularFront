@@ -1,4 +1,6 @@
-<h1>
+
+@if (!isLoginPage) {
+<h1> 
   <nav>
     <a routerLink="/home">{{title}}</a>
   </nav>
@@ -10,4 +12,11 @@
 <!--
 <app-assignments></app-assignments>
 -->
+}
+
+@if (isLoginPage) {
+  <router-outlet></router-outlet>
+}
+
+
 

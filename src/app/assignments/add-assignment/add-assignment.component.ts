@@ -37,7 +37,7 @@ export class AddAssignmentComponent {
   nomAssignment = '';
   dateDeRendu = undefined;
   selectedImage = '';
-  imageList: string[] = [];
+  selectedFile: File | undefined;
 
   constructor(private assignmentsService: AssignmentsService,
               private router:Router) {}
@@ -66,27 +66,14 @@ export class AddAssignmentComponent {
   }
 
 
-  onImageDropped(event: CdkDragDrop<string[]>): void {
-    if (event.previousContainer === event.container) {
-      // If item dropped in the same container, just rearrange the list
-      moveItemInArray(this.imageList, event.previousIndex, event.currentIndex);
-    } else {
-      // If item dropped in a different container, update the selected image
-      this.selectedImage = event.item.data;
+  onFileSelected(event: any): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      this.selectedFile = fileInput.files[0];
+      console.log(this.selectedFile);
+      
+      // Optionally, you can access file properties like name, size, type:
+      // console.log('Selected File:', this.selectedFile.name, this.selectedFile.size, this.selectedFile.type);
     }
   }
-
-  // Additional methods to prevent the default behavior when dropping an image
-  onImageDrop(event: any): void {
-    console.log('imagefropp');
-    
-    event.preventDefault();
-  }
-
-  onImageDragOver(event: any): void {
-    console.log('imagefropp drag');
-
-    event.preventDefault();
-  }
-
 }

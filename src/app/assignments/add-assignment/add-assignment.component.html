@@ -33,6 +33,17 @@
             <button mat-button matStepperNext>Suivant</button>
         </div>
     </mat-step>
+    
+    <mat-step>
+      <ng-template matStepLabel>Upload File</ng-template>
+      <div class="file-input-container">
+        <input type="file" (change)="onFileSelected($event)" />
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Retour</button>
+        <button mat-button matStepperNext>Suivant</button>
+      </div>
+    </mat-step>
 
     <mat-step>
         <ng-template matStepLabel>Matiere</ng-template>

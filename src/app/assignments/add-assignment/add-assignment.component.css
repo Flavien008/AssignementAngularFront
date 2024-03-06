@@ -3,3 +3,24 @@
   flex-direction: column;
   margin:5px;
 }
+
+.custom-form-field {
+  width: 50%; 
+}
+
+/* styles.css or your component's stylesheet */
+.drag-drop-container {
+  border: 2px dashed #ccc;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.drag-drop-placeholder {
+  text-align: center;
+}
+
+

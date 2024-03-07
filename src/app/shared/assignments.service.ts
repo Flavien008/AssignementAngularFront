@@ -4,6 +4,7 @@ import { Observable, forkJoin, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 // importation des données de test
 import { bdInitialAssignments } from './data';
@@ -18,7 +19,7 @@ export class AssignmentsService {
               private http:HttpClient) { }
 
   //uri = 'http://localhost:8010/api/assignments';
-  uri = "https://assignementnodeapi.onrender.com/api/assignments";
+  uri = environment.baseUrl+"/assignments";
 
   // retourne tous les assignments
   getAssignments():Observable<Assignment[]> {

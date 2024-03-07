@@ -1,3 +1,4 @@
+import { MatiereService } from './../../shared/matiere.service';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Matiere } from '../../matiere/matiere.model';
 
 @Component({
   selector: 'app-add-assignment',
@@ -36,11 +37,28 @@ export class AddAssignmentComponent {
   // champs du formulaire
   nomAssignment = '';
   dateDeRendu = undefined;
-  selectedImage = '';
+  matieres:Matiere[] = [];
   selectedFile: File | undefined;
 
   constructor(private assignmentsService: AssignmentsService,
+    private matiereService: MatiereService,
               private router:Router) {}
+
+    ngOnInit() {
+        this.getMatiereFromService();
+    }
+
+
+    getMatiereFromService() {
+        this.matiereService.getMatiere()
+        .subscribe((matiere) => {
+          // les données arrivent ici au bout d'un certain temps
+          console.log('Données arrivées');
+          this.matieres = matiere;
+        });
+        console.log('Requête envoyée');
+      }
+    
 
   onSubmit(event: any) {
     if((this.nomAssignment == '') || (this.dateDeRendu === undefined)) return;
@@ -65,15 +83,4 @@ export class AddAssignmentComponent {
       });
   }
 
-
-  onFileSelected(event: any): void {
-    const fileInput = event.target as HTMLInputElement;
-    if (fileInput.files && fileInput.files.length > 0) {
-      this.selectedFile = fileInput.files[0];
-      console.log(this.selectedFile);
-      
-      // Optionally, you can access file properties like name, size, type:
-      // console.log('Selected File:', this.selectedFile.name, this.selectedFile.size, this.selectedFile.type);
-    }
-  }
 }

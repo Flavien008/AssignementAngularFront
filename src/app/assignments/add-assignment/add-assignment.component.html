@@ -2,11 +2,11 @@
     <mat-step>
         <ng-template matStepLabel>Titre</ng-template>
         <mat-form-field class="custom-form-field" appearance="fill">
-            <mat-label>Title</mat-label>
+            <mat-label>Titre</mat-label>
             <input type="text" matInput placeholder="Titre"/>
         </mat-form-field>
         <div>
-            <button mat-button matStepperNext>Suivant</button>
+            <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
         </div>
     </mat-step>
     <mat-step>
@@ -16,8 +16,8 @@
             <textarea matInput></textarea>
         </mat-form-field>
         <div>
-            <button mat-button matStepperPrevious>Retour</button>
-            <button mat-button matStepperNext>Suivant</button>
+            <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
+            <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
         </div>
     </mat-step>
     <mat-step>
@@ -29,36 +29,38 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <div>
-            <button mat-button matStepperPrevious>Retour</button>
-            <button mat-button matStepperNext>Suivant</button>
+            <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
+            <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
         </div>
     </mat-step>
     
     <mat-step>
-      <ng-template matStepLabel>Upload File</ng-template>
-      <div class="file-input-container">
-        <input type="file" (change)="onFileSelected($event)" />
-      </div>
-      <div>
-        <button mat-button matStepperPrevious>Retour</button>
-        <button mat-button matStepperNext>Suivant</button>
-      </div>
+        <ng-template matStepLabel>Matiere</ng-template>
+        <mat-form-field class="custom-form-field">
+            <mat-label>Matiere</mat-label>
+            <mat-select>
+                @for(mat of matieres; track mat.nom) {
+                    <mat-option value="{{ mat.nom }}">{{ mat.nom }}</mat-option>
+                }
+            </mat-select>
+          </mat-form-field>
+          <div>
+            <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
+            <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
+          </div>
     </mat-step>
 
     <mat-step>
-        <ng-template matStepLabel>Matiere</ng-template>
-        <mat-form-field class="custom-form-field">
-            <mat-label>Select</mat-label>
-            <mat-select>
-              <mat-option value="one">First option</mat-option>
-              <mat-option value="two">Second option</mat-option>
-            </mat-select>
-          </mat-form-field>
-    
+        <ng-template matStepLabel>Lien</ng-template>
+        <mat-form-field class="custom-form-field" appearance="fill">
+            <mat-label>Lien</mat-label>
+            <input type="text" matInput placeholder="Lien "/>
+        </mat-form-field>
+     
         <div>
-            <button mat-button matStepperPrevious>Retour</button>
-            <button mat-button (click)="formStepper.reset()">Réinitialiser</button>
-            <button mat-button>Enregistrer</button>
+            <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
+            <button mat-button mat-raised-button class="reinitialiseBtn" style="margin-right: 10px;" (click)="formStepper.reset()">Réinitialiser</button>
+            <button mat-button class="saveBtn">Enregistrer</button>
         </div>
     </mat-step>
 </mat-vertical-stepper>

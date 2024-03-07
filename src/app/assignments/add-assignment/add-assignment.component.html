@@ -1,5 +1,5 @@
 <mat-vertical-stepper style="text-align: center;" linear #formStepper>
-    <mat-step>
+    <mat-step class="teste">
         <ng-template matStepLabel>Titre</ng-template>
         <mat-form-field class="custom-form-field" appearance="fill">
             <mat-label>Titre</mat-label>
@@ -33,6 +33,23 @@
             <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
         </div>
     </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Groupe étudiants</ng-template>
+        <mat-form-field class="custom-form-field" appearance="fill">
+            <mat-label>Sélectionnez les groupes d'étudiants</mat-label>
+            <mat-select [(value)]="selectedStudentGroups" multiple>
+                <mat-option *ngFor="let group of studentGroups" [value]="group.nom">
+                    {{ group.nom }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div>
+            <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
+            <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
+        </div>
+    </mat-step>
+    
     
     <mat-step>
         <ng-template matStepLabel>Matiere</ng-template>

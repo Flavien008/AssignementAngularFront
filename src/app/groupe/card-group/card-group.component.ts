@@ -9,11 +9,12 @@ import { GroupeService } from '../../shared/groupe.service';
 import { MatDivider } from '@angular/material/divider';
 import { MatList,MatListItem } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-card-group',
   standalone: true,
-  imports: [MatCard,MatCardContent,MatCardModule,MatGridListModule,MatIcon,CommonModule,MatDivider,MatListItem,MatList,MatProgressSpinnerModule],
+  imports: [RouterLink,MatCard,MatCardContent,MatCardModule,MatGridListModule,MatIcon,CommonModule,MatDivider,MatListItem,MatList,MatProgressSpinnerModule],
   templateUrl: './card-group.component.html',
   styleUrl: './card-group.component.css'
 })

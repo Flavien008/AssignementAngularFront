@@ -39,6 +39,13 @@
     background-color: #3e8e41; /* Darker green on hover */
     cursor: pointer; /* Change cursor to "hand" on hover */
   }
+
+  .loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
   
   
 

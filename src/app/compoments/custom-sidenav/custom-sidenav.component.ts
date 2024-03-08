@@ -31,7 +31,7 @@ export class CustomSidenavComponent {
             route : 'home',
         },
         {
-            icon : 'video_library',
+            icon : 'work',
             label : 'Assignement',
             route : 'add',
         }, {

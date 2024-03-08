@@ -4,12 +4,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-
-export interface Carte {
-  image: string;
-  titre: string;
-  description: string;
-}
+import { Groupe } from '../goupe.model';
+import { GroupeService } from '../../shared/groupe.service';
 
 @Component({
   selector: 'app-card-group',
@@ -19,65 +15,22 @@ export interface Carte {
   styleUrl: './card-group.component.css'
 })
 export class CardGroupComponent {
-  cartes: Carte[] = [
-    {
-      image: "https://picsum.photos/id/237/200/300",
-      titre: "Titre de la carte 1",
-      description: "Description de la carte 1"
-    },
-    {
-      image: "https://picsum.photos/id/1075/200/300",
-      titre: "Titre de la carte 2",
-      description: "Description de la carte 2"
-    },
-    {
-      image: "https://picsum.photos/id/873/200/300",
-      titre: "Titre de la carte 3",
-      description: "Description de la carte 3"
-    },{
-      image: "https://picsum.photos/id/237/200/300",
-      titre: "Titre de la carte 1",
-      description: "Description de la carte 1"
-    },
-    {
-      image: "https://picsum.photos/id/1075/200/300",
-      titre: "Titre de la carte 2",
-      description: "Description de la carte 2"
-    },
-    {
-      image: "https://picsum.photos/id/873/200/300",
-      titre: "Titre de la carte 3",
-      description: "Description de la carte 3"
-    },
-    {
-      image: "https://picsum.photos/id/237/200/300",
-      titre: "Titre de la carte 1",
-      description: "Description de la carte 1"
-    },
-    {
-      image: "https://picsum.photos/id/1075/200/300",
-      titre: "Titre de la carte 2",
-      description: "Description de la carte 2"
-    },
-    {
-      image: "https://picsum.photos/id/873/200/300",
-      titre: "Titre de la carte 3",
-      description: "Description de la carte 3"
-    },{
-      image: "https://picsum.photos/id/237/200/300",
-      titre: "Titre de la carte 1",
-      description: "Description de la carte 1"
-    },
-    {
-      image: "https://picsum.photos/id/1075/200/300",
-      titre: "Titre de la carte 2",
-      description: "Description de la carte 2"
-    },
-    {
-      image: "https://picsum.photos/id/873/200/300",
-      titre: "Titre de la carte 3",
-      description: "Description de la carte 3"
-    }
-  ];
+  groupes:Groupe[] = [];
+
+  constructor(private groupeservice:GroupeService){}
+  ngOnInit() {
+    this.getGroupeFromService(); 
+  }
+
+  getGroupeFromService() {
+    this.groupeservice.getGroupe()
+    .subscribe((grp) => {
+      console.log('Données arrivées atoo');
+      console.log(grp);
+      this.groupes = grp;
+    });
+    console.log('Requête envoyée');
+  }
+
 
 }

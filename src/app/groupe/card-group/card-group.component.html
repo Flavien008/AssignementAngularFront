@@ -1,8 +1,8 @@
 <div class="conteneur-cartes">
-    <ng-container *ngFor="let carte of cartes">
+    <ng-container *ngFor="let carte of groupes">
       <mat-card class="carte">
         <mat-card-header style="display: flex; justify-content: center;">
-            <mat-card-title>{{ carte.titre }}</mat-card-title>
+            <mat-card-title>{{ carte.nom }}</mat-card-title>
         </mat-card-header>
         
         <!-- <mat-card-content>

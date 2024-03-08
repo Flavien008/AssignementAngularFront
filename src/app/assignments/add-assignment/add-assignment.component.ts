@@ -14,7 +14,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { Matiere } from '../../matiere/matiere.model';
-import { Groupe } from '../../groupe/Groupe';
+import { Groupe } from '../../groupe/goupe.model';
 
 @Component({
   selector: 'app-add-assignment',

@@ -6,11 +6,13 @@ import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Groupe } from '../goupe.model';
 import { GroupeService } from '../../shared/groupe.service';
+import { MatDivider } from '@angular/material/divider';
+import { MatList,MatListItem } from '@angular/material/list';
 
 @Component({
   selector: 'app-card-group',
   standalone: true,
-  imports: [MatCard,MatCardContent,MatCardModule,MatGridListModule,MatIcon,CommonModule],
+  imports: [MatCard,MatCardContent,MatCardModule,MatGridListModule,MatIcon,CommonModule,MatDivider,MatListItem,MatList],
   templateUrl: './card-group.component.html',
   styleUrl: './card-group.component.css'
 })

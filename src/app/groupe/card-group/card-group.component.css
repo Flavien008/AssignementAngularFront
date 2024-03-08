@@ -7,9 +7,13 @@
   }
   
   .carte {
-    width: calc(33.33% - 20px); 
+    width: calc(33.33% - 20px);
     margin: 10px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
+  }
+  
+  .carte:hover {
+    cursor: pointer; /* Rétablit le curseur par défaut au survol */
   }
   
   @media (max-width: 768px) {
@@ -22,5 +26,20 @@
       width: 100%; 
     }
   }
+
+  .suivantbtn {
+    border: none;
+    background-color: #4CAF50; /* Green color */
+    color: white; /* White text */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for spacing */
+  }
+  
+  .suivantbtn:hover {
+    background-color: #3e8e41; /* Darker green on hover */
+    cursor: pointer; /* Change cursor to "hand" on hover */
+  }
+  
+  
 
 

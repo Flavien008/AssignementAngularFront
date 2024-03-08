@@ -34,8 +34,11 @@ export class CustomSidenavComponent {
             icon : 'video_library',
             label : 'Assignement',
             route : 'add',
+        }, {
+            icon : 'groups',
+            label : 'Groups',
+            route : 'groups',
         }
-        
     ]);
 
     profilePicSize = computed(() => this.sideNavCollapsed() ? '20':'100');

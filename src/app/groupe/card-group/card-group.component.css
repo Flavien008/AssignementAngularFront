@@ -1,0 +1,26 @@
+.conteneur-cartes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .carte {
+    width: calc(33.33% - 20px); 
+    margin: 10px;
+    box-sizing: border-box; 
+  }
+  
+  @media (max-width: 768px) {
+    .conteneur-cartes {
+      flex-direction: column; 
+      justify-content: center; 
+    }
+  
+    .carte {
+      width: 100%; 
+    }
+  }
+
+

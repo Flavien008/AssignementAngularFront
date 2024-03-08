@@ -1,0 +1,14 @@
+<div class="conteneur-cartes">
+    <ng-container *ngFor="let carte of cartes">
+      <mat-card class="carte">
+        <mat-card-header style="display: flex; justify-content: center;">
+            <mat-card-title>{{ carte.titre }}</mat-card-title>
+        </mat-card-header>
+        
+        <!-- <mat-card-content>
+          <p>{{carte.description}}</p>
+        </mat-card-content> -->
+      </mat-card>
+    </ng-container>
+  </div>
+  

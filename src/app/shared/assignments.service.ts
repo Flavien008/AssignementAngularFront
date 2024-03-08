@@ -13,7 +13,6 @@ import { bdInitialAssignments } from './data';
   providedIn: 'root'
 })
 export class AssignmentsService {
-  assignments:Assignment[] = [];
 
   constructor(private logService:LoggingService,
               private http:HttpClient) { }

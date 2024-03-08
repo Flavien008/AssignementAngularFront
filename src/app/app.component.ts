@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,12 +23,23 @@ import { CustomSidenavComponent } from "./compoments/custom-sidenav/custom-siden
 })
 export class AppComponent {
   title = 'Application de gestion des assignments';
+  isLoginPage: boolean = false;
+
   collapsed = signal(false);
   sidenavWidth = computed(() => this.collapsed() ? '65px':'250px');
 
   constructor(private authService:AuthService,
               private assignmentsService: AssignmentsService,
               private router:Router) {}
+
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isLoginPage = event.url === '/login';
+        this.isLoginPage = event.url === '/inscription';
+      }
+    });
+  }
 
   login() {
     // on utilise le service d'autentification

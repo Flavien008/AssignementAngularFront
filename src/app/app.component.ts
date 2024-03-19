@@ -35,8 +35,19 @@ export class AppComponent {
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.isLoginPage = event.url === '/login';
-        this.isLoginPage = event.url === '/inscription';
+        if(event.url === '/login'){
+          this.isLoginPage = event.url === '/login';
+        }
+        if(event.url === '/'){
+          this.isLoginPage = event.url === '/';
+        }
+        if(event.url === '/inscription'){
+          this.isLoginPage = event.url === '/inscription';
+        }
+        
+      }
+      else{
+        this.isLoginPage = false;
       }
     });
   }

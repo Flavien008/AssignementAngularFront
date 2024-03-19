@@ -45,11 +45,12 @@
         <mat-form-field class="custom-form-field" appearance="fill">
             <mat-label>Sélectionnez les groupes d'étudiants</mat-label>
             <mat-select [(value)]="selectedStudentGroups" multiple [(ngModel)]="groupes" name="groupes">
-                <mat-option *ngFor="let group of studentGroups" [value]="group.nom">
+                <mat-option *ngFor="let group of studentGroups" [value]="group._id">
                     {{ group.nom }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        
         <div>
             <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
             <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>

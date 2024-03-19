@@ -3,6 +3,7 @@ export class Assignment {
   titre !: string;
   description !: string;
   matiere !: string;
+  groupe !: string;
   dateLimite!: Date;
   lien!: string;
 }

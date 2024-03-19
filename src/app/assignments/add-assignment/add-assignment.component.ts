@@ -38,8 +38,11 @@ import { GroupeService } from '../../shared/groupe.service';
 export class AddAssignmentComponent {
   // champs du formulaire
   titre = '';
+  description = '';
   dateLimite = undefined;
-
+  groupes = '';
+  matierechamp = '';
+  lien = ''; 
 
   //données formulaire
   matieres:Matiere[] = [];
@@ -76,7 +79,14 @@ export class AddAssignmentComponent {
       }
     
 
-  onSubmit(event: any) {
+    submitForm() {
+    console.log('titre : '+this.titre);
+    console.log('description : '+this.description);
+    console.log('dateLimite : '+this.dateLimite);
+    console.log('groupes : '+this.groupes);
+    console.log('matierechamp : '+this.matierechamp);
+    console.log('lien : '+this.lien);
+ 
     if((this.titre == '') || (this.dateLimite === undefined)) return;
 
     // on crée un nouvel assignment
@@ -84,7 +94,12 @@ export class AddAssignmentComponent {
     // on genere un id aléatoire (plus tard ce sera fait coté serveur par
     // une base de données)
     nouvelAssignment.titre = this.titre;
+    nouvelAssignment.description = this.description;
     nouvelAssignment.dateLimite = this.dateLimite;
+    nouvelAssignment.groupe = this.groupes;
+    nouvelAssignment.matiere = this.matierechamp;
+    nouvelAssignment.lien = this.lien;
+    
     // nouvelAssignment.rendu = false;
 
     // on utilise le service pour directement ajouter
@@ -98,5 +113,6 @@ export class AddAssignmentComponent {
         this.router.navigate(['/home']);
       });
   }
+  
 
 }

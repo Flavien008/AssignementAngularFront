@@ -115,6 +115,10 @@ export class AssignmentsComponent implements OnInit {
       });
   }
 
+  peupler(){
+    this.assignmentsService.peuplerBD();
+  }
+
   getAssignmentsFromService() {
     // on récupère les assignments depuis le service
     this.assignmentsService

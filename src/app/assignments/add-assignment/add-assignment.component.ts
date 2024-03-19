@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { Matiere } from '../../matiere/matiere.model';
 import { Groupe } from '../../groupe/goupe.model';
+import { GroupeService } from '../../shared/groupe.service';
 
 @Component({
   selector: 'app-add-assignment',
@@ -44,22 +45,22 @@ export class AddAssignmentComponent {
   selectedFile: File | undefined;
 
   constructor(private assignmentsService: AssignmentsService,
-    private matiereService: MatiereService,
+    private matiereService: MatiereService,private groupeservice:GroupeService,
               private router:Router) {}
 
     ngOnInit() {
         this.getMatiereFromService();
-        this.studentGroups = [
-          {
-            nom:"PROM13"
-          },
-          {
-            nom:"PROM14"
-          },
-          {
-            nom:"PROM15"
-          }
-        ];
+        this.getGroupeFromService();
+    }
+
+    getGroupeFromService() {
+      this.groupeservice.getGroupe()
+      .subscribe((grp) => {
+        console.log('Données arrivées atoo');
+        console.log(grp);
+        this.studentGroups = grp;
+      });
+      console.log('Requête envoyée');
     }
 
     getMatiereFromService() {

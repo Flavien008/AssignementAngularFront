@@ -26,8 +26,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EditAssignmentComponent implements OnInit {
   assignment: Assignment | undefined;
   // Pour les champs de formulaire
-  nomAssignment = '';
-  dateDeRendu?: Date = undefined;
+  titre = '';
+  dateLimite?: Date = undefined;
 
   constructor(
     private assignmentsService: AssignmentsService,
@@ -43,19 +43,19 @@ export class EditAssignmentComponent implements OnInit {
       this.assignment = assignment;
       // on met à jour les champs du formulaire
       if (assignment !== undefined) {
-        this.nomAssignment = assignment.nom;
-        this.dateDeRendu = assignment.dateDeRendu;
+        this.titre = assignment.titre;
+        this.dateLimite = assignment.dateLimite;
       }
     });
   }
 
   onSaveAssignment() {
     if (!this.assignment) return;
-    if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
+    if (this.titre == '' || this.dateLimite === undefined) return;
 
     // on récupère les valeurs dans le formulaire
-    this.assignment.nom = this.nomAssignment;
-    this.assignment.dateDeRendu = this.dateDeRendu;
+    this.assignment.titre = this.titre;
+    this.assignment.dateLimite = this.dateLimite;
     this.assignmentsService
       .updateAssignment(this.assignment)
       .subscribe((message) => {

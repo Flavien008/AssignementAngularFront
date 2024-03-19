@@ -37,12 +37,14 @@ import { GroupeService } from '../../shared/groupe.service';
 })
 export class AddAssignmentComponent {
   // champs du formulaire
-  nomAssignment = '';
-  dateDeRendu = undefined;
+  titre = '';
+  dateLimite = undefined;
+
+
+  //données formulaire
   matieres:Matiere[] = [];
   selectedStudentGroups: string[] = [];
   studentGroups: Groupe[] = [];
-  selectedFile: File | undefined;
 
   constructor(private assignmentsService: AssignmentsService,
     private matiereService: MatiereService,private groupeservice:GroupeService,
@@ -75,15 +77,15 @@ export class AddAssignmentComponent {
     
 
   onSubmit(event: any) {
-    if((this.nomAssignment == '') || (this.dateDeRendu === undefined)) return;
+    if((this.titre == '') || (this.dateLimite === undefined)) return;
 
     // on crée un nouvel assignment
     let nouvelAssignment = new Assignment();
     // on genere un id aléatoire (plus tard ce sera fait coté serveur par
     // une base de données)
-    nouvelAssignment.nom = this.nomAssignment;
-    nouvelAssignment.dateDeRendu = this.dateDeRendu;
-    nouvelAssignment.rendu = false;
+    nouvelAssignment.titre = this.titre;
+    nouvelAssignment.dateLimite = this.dateLimite;
+    // nouvelAssignment.rendu = false;
 
     // on utilise le service pour directement ajouter
     // le nouvel assignment dans le tableau

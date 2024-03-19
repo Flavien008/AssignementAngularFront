@@ -43,7 +43,7 @@ export class AssignmentDetailComponent implements OnInit {
   onAssignmentRendu() {
     // on a cliqué sur la checkbox, on change le statut de l'assignment
     if(this.assignmentTransmis) {
-      this.assignmentTransmis.rendu = true;
+      // this.assignmentTransmis.rendu = true;
       this.assignmentsService.updateAssignment(this.assignmentTransmis)
       .subscribe(message => {
         console.log(message);

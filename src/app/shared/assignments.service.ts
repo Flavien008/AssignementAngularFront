@@ -36,12 +36,12 @@ export class AssignmentsService {
            catchError(this.handleError<any>('### catchError: getAssignments by id avec id=' + id))
       /*
       map(a => {
-        a.nom += " MODIFIE PAR LE PIPE !"
+        a.titre += " MODIFIE PAR LE PIPE !"
         return a;
       }),
-      tap(a => console.log("Dans le pipe avec " + a.nom)),
+      tap(a => console.log("Dans le pipe avec " + a.titre)),
       map(a => {
-        a.nom += " MODIFIE UNE DEUXIEME FOIS PAR LE PIPE !";
+        a.titre += " MODIFIE UNE DEUXIEME FOIS PAR LE PIPE !";
         return a;
       })
       */
@@ -65,7 +65,7 @@ export class AssignmentsService {
   // ajoute un assignment et retourne une confirmation
   addAssignment(assignment:Assignment):Observable<any> {
     //this.assignments.push(assignment);
-    this.logService.log(assignment.nom, "ajouté");
+    this.logService.log(assignment.titre, "ajouté");
     //return of("Assignment ajouté avec succès");
     return this.http.post<Assignment>(this.uri, assignment);
   }
@@ -74,7 +74,7 @@ export class AssignmentsService {
    // l'assignment passé en paramètre est le même objet que dans le tableau
    // plus tard on verra comment faire avec une base de données
    // il faudra faire une requête HTTP pour envoyer l'objet modifié
-    this.logService.log(assignment.nom, "modifié");
+    this.logService.log(assignment.titre, "modifié");
     //return of("Assignment modifié avec succès");
     return this.http.put<Assignment>(this.uri, assignment);
   }
@@ -83,7 +83,7 @@ export class AssignmentsService {
     // on va supprimer l'assignment dans le tableau
     //let pos = this.assignments.indexOf(assignment);
     //this.assignments.splice(pos, 1);
-    this.logService.log(assignment.nom, "supprimé");
+    this.logService.log(assignment.titre, "supprimé");
     //return of("Assignment supprimé avec succès");
     return this.http.delete(this.uri + "/" + assignment._id);
   }
@@ -94,13 +94,13 @@ export class AssignmentsService {
     // de données
     bdInitialAssignments.forEach(a => {
       let nouvelAssignment = new Assignment();
-      nouvelAssignment.nom = a.nom;
-      nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
-      nouvelAssignment.rendu = a.rendu;
+      nouvelAssignment.titre = a.titre;
+      nouvelAssignment.dateLimite = new Date(a.dateLimite);
+      nouvelAssignment.description = a.description;
 
       this.addAssignment(nouvelAssignment)
       .subscribe(() => {
-        console.log("Assignment " + a.nom + " ajouté");
+        console.log("Assignment " + a.titre + " ajouté");
       });
     });
   }
@@ -110,9 +110,9 @@ export class AssignmentsService {
 
     bdInitialAssignments.forEach(a => {
       const nouvelAssignment = new Assignment();
-      nouvelAssignment.nom = a.nom;
-      nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
-      nouvelAssignment.rendu = a.rendu;
+      nouvelAssignment.titre = a.titre;
+      nouvelAssignment.dateLimite = new Date(a.dateLimite);
+      nouvelAssignment.description = a.description;
 
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment))
     });

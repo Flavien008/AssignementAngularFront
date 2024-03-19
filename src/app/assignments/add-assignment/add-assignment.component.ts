@@ -93,7 +93,6 @@ export class AddAssignmentComponent {
         let nouvelAssignment = new Assignment();
         // on genere un id aléatoire (plus tard ce sera fait coté serveur par
         // une base de données)
-        const groupesString = this.groupes.map(g => g.idGroupe).join(',');
         nouvelAssignment.titre = this.titre;
         nouvelAssignment.description = this.description;
         nouvelAssignment.dateLimite = this.dateLimite;

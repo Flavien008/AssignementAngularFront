@@ -38,6 +38,9 @@ export class AppComponent {
         if(event.url === '/login'){
           this.isLoginPage = event.url === '/login';
         }
+        if(event.url === '/'){
+          this.isLoginPage = event.url === '/';
+        }
         if(event.url === '/inscription'){
           this.isLoginPage = event.url === '/inscription';
         }

@@ -11,6 +11,7 @@ import { MatList,MatListItem } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+
 @Component({
   selector: 'app-card-group',
   standalone: true,
@@ -24,7 +25,7 @@ export class CardGroupComponent {
 
   searchTerm = '';
   page = 1;
-  limit = 10;
+  limit = 2;
   totalDocs!: number;
   totalPages!: number;
   nextPage!: number;

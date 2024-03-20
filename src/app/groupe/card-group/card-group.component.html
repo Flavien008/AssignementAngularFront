@@ -24,45 +24,46 @@
           <mat-card-header style="display: flex; justify-content: center;">
               <mat-card-title>{{ carte.nom }}</mat-card-title>
           </mat-card-header>
-      <div>
-          <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!hasPrevPage"
-      [disabled]="!hasPrevPage"
-      (click)="premierePage()"
-    >
-      Première
-    </button>
-    &nbsp;&nbsp;&nbsp;
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!hasPrevPage"
-      (click)="pagePrecedente()"
-    >
-      Précédent
-    </button>
-    &nbsp;&nbsp;&nbsp;
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!hasNextPage"
-      (click)="pageSuivante()"
-    >
-      Suivante
-    </button>
-    &nbsp;&nbsp;&nbsp;
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!hasNextPage"
-      (click)="dernierePage()"
-    >
-      Dernière
-    </button>
-  </div>
+     
         </mat-card>
       </ng-container>
     </div>
   </mat-list>
+  <div>
+    <button
+mat-raised-button
+color="primary"
+[disabled]="!hasPrevPage"
+[disabled]="!hasPrevPage"
+(click)="premierePage()"
+>
+Première
+</button>
+&nbsp;&nbsp;&nbsp;
+<button
+mat-raised-button
+color="primary"
+[disabled]="!hasPrevPage"
+(click)="pagePrecedente()"
+>
+Précédent
+</button>
+&nbsp;&nbsp;&nbsp;
+<button
+mat-raised-button
+color="primary"
+[disabled]="!hasNextPage"
+(click)="pageSuivante()"
+>
+Suivante
+</button>
+&nbsp;&nbsp;&nbsp;
+<button
+mat-raised-button
+color="primary"
+[disabled]="!hasNextPage"
+(click)="dernierePage()"
+>
+Dernière
+</button>
+</div>

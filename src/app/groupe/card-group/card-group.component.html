@@ -17,19 +17,51 @@
          
       </ng-container>
     </div>
-    <mat-list-item><h3>Autres groupes</h3></mat-list-item>
+    <mat-list-item><h3>Tout les groupes</h3></mat-list-item>
     <div class="conteneur-cartes">
       <ng-container *ngFor="let carte of groupes">
         <mat-card class="carte">
           <mat-card-header style="display: flex; justify-content: center;">
               <mat-card-title>{{ carte.nom }}</mat-card-title>
           </mat-card-header>
-          <mat-card-actions>
-            <button mat-button mat-raised-button class="suivantbtn">Rejoindre</button>
-          </mat-card-actions>
-          <!-- <mat-card-content>
-            <p>{{carte.description}}</p>
-          </mat-card-content> -->
+      <div>
+          <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!hasPrevPage"
+      [disabled]="!hasPrevPage"
+      (click)="premierePage()"
+    >
+      Première
+    </button>
+    &nbsp;&nbsp;&nbsp;
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!hasPrevPage"
+      (click)="pagePrecedente()"
+    >
+      Précédent
+    </button>
+    &nbsp;&nbsp;&nbsp;
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!hasNextPage"
+      (click)="pageSuivante()"
+    >
+      Suivante
+    </button>
+    &nbsp;&nbsp;&nbsp;
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!hasNextPage"
+      (click)="dernierePage()"
+    >
+      Dernière
+    </button>
+  </div>
         </mat-card>
       </ng-container>
     </div>

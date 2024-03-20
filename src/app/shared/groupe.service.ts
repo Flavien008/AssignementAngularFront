@@ -14,4 +14,8 @@ export class GroupeService {
   getGroupe():Observable<Groupe[]> {
     return this.http.get<Groupe[]>(this.uri);
   }
+
+  getGroupesPagines(page:number, limit:number,nom:string):Observable<any> {
+    return this.http.get<Groupe[]>(this.uri + "?page=" + page + "&limit=" + limit + "&nom="+nom);
+  }
 }

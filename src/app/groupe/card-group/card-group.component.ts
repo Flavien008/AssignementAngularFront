@@ -46,6 +46,7 @@ export class CardGroupComponent {
   }
   
   onSearchTermChange() {
+    this.page = 1;
     this.getGroupeFromServicePaginate();
   }
 

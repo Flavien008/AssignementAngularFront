@@ -29,41 +29,23 @@
       </ng-container>
     </div>
   </mat-list>
-  <div>
-    <button
-mat-raised-button
-color="primary"
-[disabled]="!hasPrevPage"
-[disabled]="!hasPrevPage"
-(click)="premierePage()"
->
-Première
-</button>
-&nbsp;&nbsp;&nbsp;
-<button
-mat-raised-button
-color="primary"
-[disabled]="!hasPrevPage"
-(click)="pagePrecedente()"
->
-Précédent
-</button>
-&nbsp;&nbsp;&nbsp;
-<button
-mat-raised-button
-color="primary"
-[disabled]="!hasNextPage"
-(click)="pageSuivante()"
->
-Suivante
-</button>
-&nbsp;&nbsp;&nbsp;
-<button
-mat-raised-button
-color="primary"
-[disabled]="!hasNextPage"
-(click)="dernierePage()"
->
-Dernière
-</button>
+  <div class="pagination-container">
+          <button mat-flat-button color="accent" [disabled]="page === 1" (click)="premierePage()">
+        Première
+    </button>
+          <button mat-flat-button color="accent" [disabled]="page === 1" (click)="pagePrecedente()">
+        Précédent
+    </button>
+    <ng-container *ngFor="let pageNumber of getPageNumbers()">
+              <button mat-flat-button color="accent" [disabled]="page === pageNumber" (click)="goToPage(pageNumber)">
+            {{ pageNumber }}
+        </button>
+    </ng-container>
+          <button mat-flat-button color="accent" [disabled]="page === totalPages" (click)="pageSuivante()">
+        Suivante    
+    </button>
+          <button mat-flat-button color="accent" [disabled]="page === totalPages" (click)="dernierePage()">
+        Dernière
+    </button>
 </div>
+

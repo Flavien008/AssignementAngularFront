@@ -25,7 +25,7 @@ export class CardGroupComponent {
 
   searchTerm = '';
   page = 1;
-  limit = 2;
+  limit = 1;
   totalDocs!: number;
   totalPages!: number;
   nextPage!: number;
@@ -74,23 +74,41 @@ export class CardGroupComponent {
     this.getGroupeFromServicePaginate();
   }
 
-  pagePrecedente() {
-    this.page = this.prevPage;
-    this.getGroupeFromServicePaginate();
-  }
-  pageSuivante() {
-    this.page = this.nextPage;
-    this.getGroupeFromServicePaginate();
-  }
-
   premierePage() {
     this.page = 1;
     this.getGroupeFromServicePaginate();
   }
 
   dernierePage() {
-    this.page = this.totalPages;
-    this.getGroupeFromServicePaginate();
+      this.page = this.totalPages;
+      this.getGroupeFromServicePaginate();
+  }
+
+  pagePrecedente() {
+      if (this.page > 1) {
+          this.page--;
+      }
+      this.getGroupeFromServicePaginate();
+  }
+
+  pageSuivante() {
+      if (this.page < this.totalPages) {
+          this.page++;
+      }
+      this.getGroupeFromServicePaginate();
+  }
+
+  goToPage(pageNumber: number) {
+      this.page = pageNumber;
+      this.getGroupeFromServicePaginate();
+  }
+
+  getPageNumbers(): number[] {
+      const pageNumbers = [];
+      for (let i = 1; i <= this.totalPages; i++) {
+          pageNumbers.push(i);
+      }
+      return pageNumbers;
   }
 
 

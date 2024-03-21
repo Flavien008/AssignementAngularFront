@@ -27,19 +27,6 @@
     }
   }
 
-  .suivantbtn {
-    border: none;
-    background-color: #4CAF50; /* Green color */
-    color: white; /* White text */
-    border-radius: 5px; /* Rounded corners */
-    padding: 10px 20px; /* Padding for spacing */
-  }
-  
-  .suivantbtn:hover {
-    background-color: #3e8e41; /* Darker green on hover */
-    cursor: pointer; /* Change cursor to "hand" on hover */
-  }
-
   .loading-spinner {
     position: absolute;
     top: 50%;
@@ -47,6 +34,18 @@
     transform: translate(-50%, -50%);
   }
   
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pagination-container button {
+      margin: 0 4px;
+  }
+  
+
+
   
 
 

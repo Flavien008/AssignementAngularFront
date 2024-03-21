@@ -3,10 +3,10 @@
     <mat-list *cdkVirtualFor="let a of assignments" class="example-item">
       <a routerLink="/assignments/{{ a._id }}">
         <h3 mat-subheader>
-          Date limite: {{ a.dateLimite | date : "dd/MM/yy" }}
+          Matiere : {{ a.matiere}} |  Date limite: {{ a.dateLimite | date : "dd/MM/yy" }}
         </h3>
         <mat-list-item>
-          <p>{{ a.titre }} id = {{ a._id }}, rendu : {{ a.rendu }}</p>
+          <p>{{ a.titre }} , description : {{ a.description }}</p>
         </mat-list-item>
         <mat-divider></mat-divider>
       </a>

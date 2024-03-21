@@ -7,6 +7,7 @@ import { authGuard } from './shared/auth.guard';
 import { CardGroupComponent } from './groupe/card-group/card-group.component';
 import { LoginComponent } from './login/login.component';
 import { InscriptionComponent } from './inscription/inscription.component';
+import { AssignmentListComponent } from './assignments/assignment-list/assignment-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: "add", component: AddAssignmentComponent },
   { path: "groups", component: CardGroupComponent },
   { path: "assignment/:id", component: AssignmentDetailComponent},
+  {path: "assignment/groupe/:id",component: AssignmentListComponent},
   {
     path: "assignment/:id/edit",
     component: EditAssignmentComponent,

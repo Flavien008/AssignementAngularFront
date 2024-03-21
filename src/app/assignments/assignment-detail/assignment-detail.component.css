@@ -1,4 +1,9 @@
-.container {
-  display: flex;
-  justify-content: space-between;
+.example-viewport {
+  height: 300px;
+  width: 800px;
+  border: 1px solid black;
+  margin: 0;
+  border: none;
+  height: 100vh; /* 100vh for full viewport height */
+  width: 100vw; 
 }

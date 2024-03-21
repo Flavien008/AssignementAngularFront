@@ -1,51 +1,68 @@
-
-  
-  <mat-list>
-    <mat-list-item><h3>Vos groupes</h3></mat-list-item>
+<mat-list>
+    <mat-list-item>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3>Vos groupes</h3>
+          <mat-form-field appearance="fill" class="search-container">
+            <!-- <mat-label>Rechercher</mat-label> -->
+            <input matInput type="text" [(ngModel)]="searchTerm" placeholder="Rechercher..." (ngModelChange)="onSearchTermChange()">
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="searchTerm='';onSearchTermChange()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
     <mat-divider></mat-divider>
     <div class="conteneur-cartes">
-      <mat-list-item *ngIf="groupes?.length === 0 && !isLoading">
-        <h3>Aucun groupe trouvé</h3>
-      </mat-list-item>    
-      <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="loading-spinner"diameter="30" style="display: flex; justify-content: center;"></mat-progress-spinner>
-      <ng-container *ngFor="let carte of groupes">
+        <ng-container *ngIf="groupes?.length === 0 && !isLoading">
+            <mat-list-item>
+              <p style="text-align: center;">Aucun groupe trouvé</p>
+            </mat-list-item>
+          </ng-container>
+        <ng-container *ngFor="let carte of groupes">
             <mat-card class="carte" routerLink="/assignment/65f9d30fbe71164db0bac441">
-                    <mat-card-header style="display: flex; justify-content: center;">
-                        <mat-card-title>{{ carte.nom }}</mat-card-title>
-                    </mat-card-header>
+                <mat-card-header style="display: flex; justify-content: center;">
+                    <mat-card-title>{{ carte.nom }}</mat-card-title>
+                </mat-card-header>
             </mat-card>
-         
-      </ng-container>
+        </ng-container>
     </div>
-    <mat-list-item><h3>Tout les groupes</h3></mat-list-item>
+    <mat-list-item>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3>Tout les groupes</h3>
+          <mat-form-field appearance="fill" class="search-container">
+            <!-- <mat-label>Rechercher</mat-label> -->
+            <input matInput type="text" [(ngModel)]="searchTerm" placeholder="Rechercher..." (ngModelChange)="onSearchTermChange()">
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="searchTerm='';onSearchTermChange()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    <mat-divider></mat-divider>
     <div class="conteneur-cartes">
-      <ng-container *ngFor="let carte of groupes">
-        <mat-card class="carte">
-          <mat-card-header style="display: flex; justify-content: center;">
-              <mat-card-title>{{ carte.nom }}</mat-card-title>
-          </mat-card-header>
-     
-        </mat-card>
-      </ng-container>
+        <ng-container *ngIf="groupes?.length === 0 && !isLoading">
+            <mat-list-item>
+              <p style="text-align: center;">Aucun groupe trouvé</p>
+            </mat-list-item>
+          </ng-container>
+        <ng-container *ngFor="let carte of groupes">
+            <mat-card class="carte">
+                <mat-card-header style="display: flex; justify-content: center;">
+                    <mat-card-title>{{ carte.nom }}</mat-card-title>
+                </mat-card-header>
+            </mat-card>
+        </ng-container>
     </div>
-  </mat-list>
-  <div class="pagination-container">
-          <button mat-flat-button color="accent" [disabled]="page === 1" (click)="premierePage()">
-        Première
-    </button>
-          <button mat-flat-button color="accent" [disabled]="page === 1" (click)="pagePrecedente()">
-        Précédent
-    </button>
+</mat-list>
+<div class="pagination-container">
+    <button mat-flat-button [disabled]="page === 1" (click)="premierePage()">Première</button>
+    <button mat-flat-button [disabled]="page === 1" (click)="pagePrecedente()">Précédent</button>
     <ng-container *ngFor="let pageNumber of getPageNumbers()">
-              <button mat-flat-button color="accent" [disabled]="page === pageNumber" (click)="goToPage(pageNumber)">
-            {{ pageNumber }}
-        </button>
+        <button mat-flat-button [disabled]="page === pageNumber" (click)="goToPage(pageNumber)">{{ pageNumber
+            }}</button>
     </ng-container>
-          <button mat-flat-button color="accent" [disabled]="page === totalPages" (click)="pageSuivante()">
-        Suivante    
-    </button>
-          <button mat-flat-button color="accent" [disabled]="page === totalPages" (click)="dernierePage()">
-        Dernière
-    </button>
+    <button mat-flat-button [disabled]="page === totalPages" (click)="pageSuivante()">Suivante</button>
+    <button mat-flat-button [disabled]="page === totalPages" (click)="dernierePage()">Dernière</button>
 </div>
-

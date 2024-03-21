@@ -11,15 +11,21 @@ import { MatList,MatListItem } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
-
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
 @Component({
   selector: 'app-card-group',
   standalone: true,
-  imports: [MatPaginatorModule,RouterLink,MatCard,MatCardContent,MatCardModule,MatGridListModule,MatIcon,CommonModule,MatDivider,MatListItem,MatList,MatProgressSpinnerModule],
+  imports: [MatInputModule,MatIconModule,MatFormFieldModule,MatButtonModule,FormsModule,MatLabel,MatFormField,MatPaginatorModule,RouterLink,MatCard,MatCardContent,MatCardModule,MatGridListModule,MatIcon,CommonModule,MatDivider,MatListItem,MatList,MatProgressSpinnerModule],
   templateUrl: './card-group.component.html',
   styleUrl: './card-group.component.css'
 })
 export class CardGroupComponent {
+  value = 'Clear me';
   groupes:Groupe[] = [];
   isLoading = true;
 
@@ -36,6 +42,10 @@ export class CardGroupComponent {
   constructor(private groupeservice:GroupeService){}
   ngOnInit() {
     // this.getGroupeFromService(); 
+    this.getGroupeFromServicePaginate();
+  }
+  
+  onSearchTermChange() {
     this.getGroupeFromServicePaginate();
   }
 

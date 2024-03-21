@@ -15,7 +15,7 @@ import { ViewChild, NgZone } from '@angular/core';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
 
 @Component({
-  selector: 'app-assignment-detail',
+  selector: 'app-assignment-detail', 
   standalone: true,
   imports: [CommonModule, RouterLink,
     MatButtonModule, MatCardModule, MatCheckboxModule,CdkVirtualScrollViewport,ScrollingModule,MatListModule],

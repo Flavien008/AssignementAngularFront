@@ -1,14 +1,43 @@
-<h2>Liste des assignements</h2>
-  <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
-    <mat-list *cdkVirtualFor="let a of assignments" class="example-item">
-      <a routerLink="/assignments/{{ a._id }}">
-        <h3 mat-subheader>
-          Date limite: {{ a.dateLimite | date : "dd/MM/yy" }}
-        </h3>
-        <mat-list-item>
-          <p>{{ a.titre }} id = {{ a._id }}, rendu : {{ a.rendu }}</p>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </a>
-    </mat-list>
-  </cdk-virtual-scroll-viewport>
+<h2>{{ titre }}</h2>
+<div class="container">
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>Titre</mat-card-title>
+    <mat-card-subtitle>matiere</mat-card-subtitle>
+    <mat-card-subtitle>A rendre avant le : </mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="../../../assets/images/Taking notes-amico.png" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <p>
+      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+      bred for hunting.
+    </p>
+  </mat-card-content>
+</mat-card>
+<mat-card class="formulaire-card">
+  <mat-card-header>
+    <mat-card-title>Rendre l'assignement</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field>
+      <mat-label>Titre</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Select</mat-label>
+      <mat-select>
+        <mat-option value="one">First option</mat-option>
+        <mat-option value="two">Second option</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Déscription</mat-label>
+      <textarea matInput></textarea>
+    </mat-form-field>    
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Envoyer</button>
+  </mat-card-actions>
+</mat-card>
+</div>

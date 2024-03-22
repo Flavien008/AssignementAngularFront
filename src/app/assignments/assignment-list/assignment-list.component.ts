@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -19,6 +19,8 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatOption } from '@angular/material/core';
+import {MatDialog} from '@angular/material/dialog';
+import { AssignementEditComponent } from '../assignement-edit/assignement-edit.component';
 
 @Component({
   selector: 'app-assignment-list', 
@@ -47,9 +49,19 @@ export class AssignmentListComponent implements OnInit {
   constructor(private assignmentsService:AssignmentsService,
               private authService:AuthService,
               private route:ActivatedRoute,
-              private router:Router,private ngZone: NgZone) { }
+              private router:Router,private ngZone: NgZone,
+              public dialog: MatDialog) { }
+
+    openDialog() {
+        this.dialog.open(AssignementEditComponent, {
+            data: {
+            animal: 'panda',
+            },
+        });
+    }
               
   assignments: Assignment[] = [];
+  
 
   ngOnInit() {
     // Recuperation des query params (ce qui suit le ? dans l'url)

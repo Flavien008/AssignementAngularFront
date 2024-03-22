@@ -18,14 +18,16 @@
 <mat-divider></mat-divider>
 <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
   <mat-list *cdkVirtualFor="let a of assignments" class="example-item">
-    <a routerLink="/assignments/{{ a._id }}">
-      <h3 mat-subheader>
-        Matiere : {{ a.matiere}} |  Date limite: {{ a.dateLimite | date : "dd/MM/yy" }}
-      </h3>
-      <mat-list-item>
-        <p>{{ a.titre }} , description : {{ a.description }}</p>
-      </mat-list-item>
+        <a routerLink="/assignments/{{ a._id }}">
+            <h3 mat-subheader>
+                Matiere : {{ a.matiere}} |  Date limite: {{ a.dateLimite | date : "dd/MM/yy" }}
+              </h3>
+              <mat-list-item>
+                <p>{{ a.titre }} , description : {{ a.description }}</p>
+              </mat-list-item>
+            </a>
+      <button mat-raised-button color="primary" (click)="openDialog()">Modifier</button>
+      <br><br>
       <mat-divider></mat-divider>
-    </a>
   </mat-list>
 </cdk-virtual-scroll-viewport>

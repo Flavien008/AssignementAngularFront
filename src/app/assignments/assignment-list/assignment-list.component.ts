@@ -24,6 +24,8 @@ import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
 })
 export class AssignmentListComponent implements OnInit {
   assignmentTransmis!: Assignment|undefined;
+  titrefiltre = '';
+  matierefiltre = '';
   page = 1;
   limit = 10;
   totalDocs!: number;
@@ -62,7 +64,7 @@ export class AssignmentListComponent implements OnInit {
   getAssignmentsFromService() {
     // on récupère les assignments depuis le service
     this.assignmentsService
-      .getAssignmentsPagines(this.page, this.limit)
+      .getAssignmentsPagines(this.page, this.limit,this.titrefiltre,this.matierefiltre)
       .subscribe((data) => {
         // les données arrivent ici au bout d'un certain temps
         this.assignments = data.docs;
@@ -123,7 +125,7 @@ export class AssignmentListComponent implements OnInit {
   getAssignmentsFromServicePourScrollInfini() {
     // on récupère les assignments depuis le service
     this.assignmentsService
-      .getAssignmentsPagines(this.page, this.limit)
+      .getAssignmentsPagines(this.page, this.limit,this.titrefiltre,this.matierefiltre)
       .subscribe((data) => {
         // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées scroll');

@@ -24,7 +24,8 @@ import { CustomSidenavComponent } from "./compoments/custom-sidenav/custom-siden
 export class AppComponent {
   title = 'Application de gestion des assignments';
   isLoginPage: boolean = false;
-
+  titrefiltre = '';
+  matierefiltre = '';
   collapsed = signal(false);
   sidenavWidth = computed(() => this.collapsed() ? '65px':'250px');
 

@@ -43,6 +43,8 @@ import { filter, map, pairwise, tap, throttleTime } from 'rxjs/operators';
 })
 export class AssignmentsComponent implements OnInit {
   titre = 'Liste des assignments';
+  titrefiltre = '';
+  matierefiltre = '';
   // Pour la pagination
   page = 1;
   limit = 10;
@@ -122,7 +124,7 @@ export class AssignmentsComponent implements OnInit {
   getAssignmentsFromService() {
     // on récupère les assignments depuis le service
     this.assignmentsService
-      .getAssignmentsPagines(this.page, this.limit)
+      .getAssignmentsPagines(this.page, this.limit,this.titrefiltre,this.matierefiltre)
       .subscribe((data) => {
         // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées');
@@ -140,7 +142,7 @@ export class AssignmentsComponent implements OnInit {
   getAssignmentsFromServicePourScrollInfini() {
     // on récupère les assignments depuis le service
     this.assignmentsService
-      .getAssignmentsPagines(this.page, this.limit)
+      .getAssignmentsPagines(this.page, this.limit,this.titrefiltre,this.matierefiltre)
       .subscribe((data) => {
         // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées');

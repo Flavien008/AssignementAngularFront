@@ -1,4 +1,13 @@
-<h2>Liste des assignements</h2>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <h3>Liste des assignments</h3>
+  <mat-form-field appearance="fill" class="search-container">
+    <input matInput type="text" [(ngModel)]="titrefiltre" placeholder="Rechercher..." (ngModelChange)="applyFilters()">
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="titrefiltre='';applyFilters()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+<mat-divider></mat-divider>
   <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
     <mat-list *cdkVirtualFor="let a of assignments" class="example-item">
       <a routerLink="/assignments/{{ a._id }}">

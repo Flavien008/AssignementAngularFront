@@ -13,11 +13,17 @@ import {CdkVirtualScrollViewport,ScrollingModule} from '@angular/cdk/scrolling';
 import { MatListModule } from '@angular/material/list';
 import { ViewChild, NgZone } from '@angular/core';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
+import { MatFormField } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms'; 
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatOption } from '@angular/material/core';
 
 @Component({
   selector: 'app-assignment-list', 
   standalone: true,
-  imports: [CommonModule, RouterLink,
+  imports: [MatOption,MatInputModule,MatFormFieldModule,FormsModule,MatIcon,MatFormField,CommonModule, RouterLink,
     MatButtonModule, MatCardModule, MatCheckboxModule,CdkVirtualScrollViewport,ScrollingModule,MatListModule],
   templateUrl: './assignment-list.component.html',
   styleUrl: './assignment-list.component.css'
@@ -60,6 +66,10 @@ export class AssignmentListComponent implements OnInit {
       this.assignmentTransmis = assignment;
     });
   }
+
+    applyFilters(): void {
+        this.getAssignmentsFromService();
+    }
 
   getAssignmentsFromService() {
     // on récupère les assignments depuis le service

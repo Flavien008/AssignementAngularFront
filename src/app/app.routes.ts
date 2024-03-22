@@ -8,6 +8,7 @@ import { CardGroupComponent } from './groupe/card-group/card-group.component';
 import { LoginComponent } from './login/login.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { AssignmentListComponent } from './assignments/assignment-list/assignment-list.component';
+import { ListeRenduComponent } from './assignments/liste-rendu/liste-rendu.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -18,6 +19,7 @@ export const routes: Routes = [
   { path: "groups", component: CardGroupComponent },
   { path: "assignment/:id", component: AssignmentListComponent},
   {path: "assignment/groupe/:id",component: AssignmentDetailComponent},
+  {path: "rendu/assignment/:id",component: ListeRenduComponent},
   {
     path: "assignment/:id/edit",
     component: EditAssignmentComponent,

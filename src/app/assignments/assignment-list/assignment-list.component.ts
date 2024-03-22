@@ -32,6 +32,7 @@ export class AssignmentListComponent implements OnInit {
   assignmentTransmis!: Assignment|undefined;
   titrefiltre = '';
   matierefiltre = '';
+  groupeid = '';
   page = 1;
   limit = 10;
   totalDocs!: number;
@@ -58,7 +59,7 @@ export class AssignmentListComponent implements OnInit {
 
     // On recupere l'id de l'assignment dans l'URL à l'aide de ActivatedRoute
     const id = this.route.snapshot.params['id'];
-    console.log('ngOnInit assignments, appelée AVANT affichage du composant');
+    this.groupeid = id;
     this.getAssignmentsFromService();
     // On utilise le service pour récupérer l'assignment avec cet id
     this.assignmentsService.getAssignment(id)
@@ -74,7 +75,7 @@ export class AssignmentListComponent implements OnInit {
   getAssignmentsFromService() {
     // on récupère les assignments depuis le service
     this.assignmentsService
-      .getAssignmentsPagines(this.page, this.limit,this.titrefiltre,this.matierefiltre)
+      .getAssignmentsPaginesListe(this.page, this.limit,this.titrefiltre,this.matierefiltre,this.groupeid)
       .subscribe((data) => {
         // les données arrivent ici au bout d'un certain temps
         this.assignments = data.docs;
@@ -135,7 +136,7 @@ export class AssignmentListComponent implements OnInit {
   getAssignmentsFromServicePourScrollInfini() {
     // on récupère les assignments depuis le service
     this.assignmentsService
-      .getAssignmentsPagines(this.page, this.limit,this.titrefiltre,this.matierefiltre)
+      .getAssignmentsPaginesListe(this.page, this.limit,this.titrefiltre,this.matierefiltre,this.groupeid)
       .subscribe((data) => {
         // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées scroll');

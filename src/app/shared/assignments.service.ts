@@ -29,6 +29,11 @@ export class AssignmentsService {
     return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit+ "&titre=" + titre+ "&matiere=" + matiere);
   }
 
+  getAssignmentsPaginesListe(page:number, limit:number,titre:string,matiere:string,groupe:string):Observable<any> {
+    return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit+ "&titre=" + titre+ "&matiere=" + matiere+ "&groupe=" + groupe);
+  }
+
+
   // renvoie un assignment par son id, renvoie undefined si pas trouvé
   getAssignment(id:number):Observable<Assignment|undefined> {
     return this.http.get<Assignment>(this.uri + "/" + id)

@@ -69,7 +69,7 @@ export class AssignmentListComponent implements OnInit {
 
     // On recupere l'id de l'assignment dans l'URL à l'aide de ActivatedRoute
     const id = this.route.snapshot.params['id'];
-    this.groupeid = id;
+    this.groupeid = id ? id : '';
     this.getAssignmentsFromService();
     // On utilise le service pour récupérer l'assignment avec cet id
     this.assignmentsService.getAssignment(id)

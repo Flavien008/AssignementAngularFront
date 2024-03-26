@@ -20,6 +20,8 @@ export const routes: Routes = [
   { path: "assignment/:id", component: AssignmentListComponent},
   {path: "assignment/groupe/:id",component: AssignmentDetailComponent},
   {path: "rendu/assignment/:id",component: ListeRenduComponent},
+  {path: "assignments",component: AssignmentListComponent},
+
   {
     path: "assignment/:id/edit",
     component: EditAssignmentComponent,

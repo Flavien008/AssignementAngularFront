@@ -33,7 +33,7 @@ export class CustomSidenavComponent {
         {
             icon : 'work',
             label : 'Assignement',
-            route : 'add',
+            route : 'assignments',
         }, {
             icon : 'groups',
             label : 'Groups',

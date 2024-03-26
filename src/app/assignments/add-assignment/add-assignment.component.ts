@@ -110,7 +110,7 @@ export class AddAssignmentComponent {
             console.log(reponse);
             // On navigue pour afficher la liste des assignments
             // en utilisant le router de manière programmatique
-            this.router.navigate(['/home']);
+            this.router.navigate(['/assignments']);
         });
     }
   }

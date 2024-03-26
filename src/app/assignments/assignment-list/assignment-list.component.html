@@ -1,33 +1,40 @@
-<div style="display: flex; justify-content: space-between; align-items: center;">
-  <h3>Liste des assignments</h3>
-  <div style="display: flex; gap: 10px;"> <!-- Utilisez flexbox avec un espace entre les éléments -->
-    <mat-form-field appearance="fill" class="search-container">
-      <input matInput type="text" [(ngModel)]="titrefiltre" placeholder="Rechercher..." (ngModelChange)="applyFilters()">
-      <button matSuffix mat-icon-button aria-label="Clear" (click)="titrefiltre='';applyFilters()">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="search-container">
-      <input matInput type="text" [(ngModel)]="matierefiltre" placeholder="Matiere" (ngModelChange)="applyFilters()">
-      <button matSuffix mat-icon-button aria-label="Clear" (click)="matierefiltre='';applyFilters()">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
+<!-- Enveloppe du contenu -->
+<div class="content-wrapper">
+  <!-- Bouton Ajouter -->
+  
+
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h3>Liste des assignments</h3>
+    <div style="display: flex; gap: 10px;"> <!-- Utilisez flexbox avec un espace entre les éléments -->
+      <mat-form-field appearance="fill" class="search-container">
+        <input matInput type="text" [(ngModel)]="titrefiltre" placeholder="Rechercher..." (ngModelChange)="applyFilters()">
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="titrefiltre='';applyFilters()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="search-container">
+        <input matInput type="text" [(ngModel)]="matierefiltre" placeholder="Matiere" (ngModelChange)="applyFilters()">
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="matierefiltre='';applyFilters()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="add-button" routerLink="/add"><mat-icon>add</mat-icon> Ajouter</button>
+    </div>
   </div>
-</div>
-<mat-divider></mat-divider>
-<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
-  <mat-list *cdkVirtualFor="let a of assignments" class="example-item">
-        <a routerLink="/assignments/{{ a._id }}">
-            <h3 mat-subheader>
-                Matiere : {{ a.matiere}} |  Date limite: {{ a.dateLimite | date : "dd/MM/yyyy" }}
-              </h3>
-              <mat-list-item>
-                <p>{{ a.titre }} , description : {{ a.description }}</p>
-              </mat-list-item>
-            </a>
+  <mat-divider></mat-divider>
+  <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
+    <mat-list *cdkVirtualFor="let a of assignments" class="example-item">
+      <a routerLink="/assignments/{{ a._id }}">
+        <h3 mat-subheader>
+          Matiere : {{ a.matiere}} |  Date limite: {{ a.dateLimite | date : "dd/MM/yyyy" }}
+        </h3>
+        <mat-list-item>
+          <p>{{ a.titre }} , description : {{ a.description }}</p>
+        </mat-list-item>
+      </a>
       <button mat-raised-button color="primary" (click)="openDialog(a)">Modifier</button>
       <br><br>
       <mat-divider></mat-divider>
-  </mat-list>
-</cdk-virtual-scroll-viewport>
+    </mat-list>
+  </cdk-virtual-scroll-viewport>
+</div>

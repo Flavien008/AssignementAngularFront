@@ -52,11 +52,9 @@ export class AssignmentListComponent implements OnInit {
               private router:Router,private ngZone: NgZone,
               public dialog: MatDialog) { }
 
-    openDialog() {
+    openDialog(assignement:Assignment) {
         this.dialog.open(AssignementEditComponent, {
-            data: {
-            animal: 'panda',
-            },
+            data: { assignement }
         });
     }
               

@@ -21,6 +21,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatOption } from '@angular/material/core';
 import {MatDialog} from '@angular/material/dialog';
 import { AssignementEditComponent } from '../assignement-edit/assignement-edit.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-assignment-list', 
@@ -186,6 +187,23 @@ export class AssignmentListComponent implements OnInit {
         this.router.navigate(['/home']);
       });
     }
+  }
+
+  confirmDelete(assignment: any): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '500px',
+      data: { assignment: assignment }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.confirmed) { // Vérifiez si la confirmation est vraie
+          console.log(result.assignment); // Ceci vous donne accès à l'assignment sélectionné
+          this.assignmentsService.deleteAssignment(result.assignment).subscribe(message => {
+          console.log(message);
+          this.getAssignmentsFromService();
+      });
+      }
+    });
   }
 
   isAdmin() {

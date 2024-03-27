@@ -32,7 +32,8 @@
           <p>{{ a.titre }} , description : {{ a.description }}</p>
         </mat-list-item>
       </a>
-      <button mat-raised-button color="primary" (click)="openDialog(a)">Modifier</button>
+      <button mat-raised-button color="primary" (click)="openDialog(a)"  style="margin-right: 25px;">Modifier</button>
+      <button mat-raised-button color="warn" (click)="confirmDelete(a)">Supprimer</button>
       <br><br>
       <mat-divider></mat-divider>
     </mat-list>

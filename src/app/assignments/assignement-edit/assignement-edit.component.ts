@@ -45,12 +45,11 @@ export class AssignementEditComponent {
         .updateAssignment(modifiedAssignment)
         .subscribe((message) => {
         console.log(message);
-        this.router.navigate(['/home']);
       });
-    this.dialogRef.close(modifiedAssignment);
+    this.dialogRef.close(true);
   }
 
   closeDialog() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 }

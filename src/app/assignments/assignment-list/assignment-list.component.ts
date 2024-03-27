@@ -19,14 +19,14 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatOption } from '@angular/material/core';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogClose} from '@angular/material/dialog';
 import { AssignementEditComponent } from '../assignement-edit/assignement-edit.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-assignment-list', 
   standalone: true,
-  imports: [MatOption,MatInputModule,MatFormFieldModule,FormsModule,MatIcon,MatFormField,CommonModule, RouterLink,
+  imports: [MatDialogClose,MatOption,MatInputModule,MatFormFieldModule,FormsModule,MatIcon,MatFormField,CommonModule, RouterLink,
     MatButtonModule, MatCardModule, MatCheckboxModule,CdkVirtualScrollViewport,ScrollingModule,MatListModule],
   templateUrl: './assignment-list.component.html',
   styleUrl: './assignment-list.component.css'
@@ -54,8 +54,15 @@ export class AssignmentListComponent implements OnInit {
               public dialog: MatDialog) { }
 
     openDialog(assignement:Assignment) {
-        this.dialog.open(AssignementEditComponent, {
+        const dialogEditref =this.dialog.open(AssignementEditComponent, {
             data: { assignement }
+        });
+
+        dialogEditref.afterClosed().subscribe(result => {
+          console.log("confirmation : "+result);
+          if (result) { 
+              this.getAssignmentsFromService();
+          }
         });
     }
               

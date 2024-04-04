@@ -31,7 +31,7 @@ export class AppComponent {
 
   constructor(private authService:AuthService,
               private assignmentsService: AssignmentsService,
-              private router:Router) {}
+              private router:Router,) {}
 
   ngOnInit() {
     this.router.events.subscribe((event) => {
@@ -53,16 +53,21 @@ export class AppComponent {
     });
   }
 
-  login() {
-    // on utilise le service d'autentification
-    // pour se connecter ou se déconnecter
-    if(!this.authService.loggedIn) {
-      this.authService.logIn();
-    } else {
-      this.authService.logOut();
-      // on navigue vers la page d'accueil
-      this.router.navigate(['/home']);
-    }
+  // login() {
+  //   // on utilise le service d'autentification
+  //   // pour se connecter ou se déconnecter
+  //   if(!this.authService.loggedIn) {
+  //     this.authService.logIn();
+  //   } else {
+  //     this.authService.logOut();
+  //     // on navigue vers la page d'accueil
+  //     this.router.navigate(['/home']);
+  //   }
+  // }
+
+  logout(){
+    this.authService.logOut();
+    this.router.navigate(['/']);
   }
 
   genererDonneesDeTest() {

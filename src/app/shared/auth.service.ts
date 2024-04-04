@@ -1,36 +1,57 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // propriété pour savoir si l'utilisateur est connecté
+
+  uri = environment.baseUrl+"/login";
   loggedIn = false;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  // méthode pour connecter l'utilisateur
-  // Typiquement, il faudrait qu'elle accepte en paramètres
-  // un nom d'utilisateur et un mot de passe, que l'on vérifierait
-  // auprès d'un serveur...
-  logIn() {
-    this.loggedIn = true;
+  logIn(username: string, password: string): Observable<any> {
+    const data = {
+      "username" : username,
+      "password" : password
+    }
+    console.log(data);
+    return this.http.post(this.uri, data).pipe(
+      tap(response => this.storeUserData(response)),
+      catchError(error => {
+        console.error('Erreur lors de la connexion:', error);
+        throw error;
+      })
+    );
   }
 
-  // méthode pour déconnecter l'utilisateur
-  logOut() {
+  private storeUserData(userData: any): void {
+    localStorage.setItem('token', userData.token);
+    localStorage.setItem('user', JSON.stringify(userData.user)); 
+    this.loggedIn = true;
+    console.log(localStorage)
+  }
+
+  getUserData(): any {
+    const userData = localStorage.getItem('user');
+    return userData ? JSON.parse(userData) : null;
+  }
+
+  logOut(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     this.loggedIn = false;
   }
 
-  // methode qui indique si on est connecté en tant qu'admin ou pas
-  // pour le moment, on est admin simplement si on est connecté
-  // En fait cette méthode ne renvoie pas directement un booleén
-  // mais une Promise qui va renvoyer un booléen (c'est imposé par
-  // le système de securisation des routes de Angular)
-  //
-  // si on l'utilisait à la main dans un composant, on ferait:
-  // this.authService.isAdmin().then(....) ou
-  // admin = await this.authService.isAdmin()
+  
+  // propriété pour savoir si l'utilisateur est connecté
+
+
+
+  
   isAdmin() {
     const promesse = new Promise((resolve, reject) => {
       // ici accès BD? Web Service ? etc...

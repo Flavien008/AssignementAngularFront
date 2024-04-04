@@ -1,10 +1,14 @@
 
 @if (!isLoginPage) {
-  <mat-toolbar class="mat-elevation-z3">
-    <button mat-icon-button (click)="collapsed.set(!collapsed())" >
-        <mat-icon>menu</mat-icon>
-    </button>
-</mat-toolbar>
+    <mat-toolbar class="mat-elevation-z3">
+        <button mat-icon-button (click)="collapsed.set(!collapsed())">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="logout()" class="logout-button">
+            <mat-icon>exit_to_app</mat-icon>
+        </button>
+    </mat-toolbar>
 <mat-sidenav-container>
     <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
         <app-custom-sidenav [collapsed]="collapsed()" />

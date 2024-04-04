@@ -10,3 +10,12 @@ mat-toolbar {
 mat-sidenav-container{
     height: calc(100vh - 64px);
 }
+
+.spacer {
+    flex: 1; /* Pour occuper tout l'espace disponible */
+}
+
+.logout-button {
+    margin-left: auto; /* Pour pousser le bouton à droite */
+}
+

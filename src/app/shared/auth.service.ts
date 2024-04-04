@@ -8,7 +8,7 @@ import { Observable, catchError, tap } from 'rxjs';
 })
 export class AuthService {
 
-  uri = environment.baseUrl+"/login";
+  uri = environment.baseUrl;
   loggedIn = false;
 
   constructor(private http: HttpClient) { }
@@ -19,7 +19,7 @@ export class AuthService {
       "password" : password
     }
     console.log(data);
-    return this.http.post(this.uri, data).pipe(
+    return this.http.post(this.uri+"/login", data).pipe(
       tap(response => this.storeUserData(response)),
       catchError(error => {
         console.error('Erreur lors de la connexion:', error);
@@ -44,6 +44,21 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.loggedIn = false;
+  }
+
+  signIn(username: string, password : string, name : string, matricule : string){
+    const data = {
+      "username" : username,
+      "password" : password,
+      "name" : name,
+      "matricule" : matricule
+    }
+    return this.http.post(this.uri+"/signup", data).pipe(
+      catchError(error => {
+        console.error('Erreur lors de la connexion:', error);
+        throw error;
+      })
+    );
   }
 
   

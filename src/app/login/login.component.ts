@@ -20,6 +20,7 @@ export class LoginComponent {
   username = '';
   password = ''; 
   isloading: boolean = false;
+  error = '';
 
   constructor(private authService: AuthService,private router:Router) { }
 
@@ -36,6 +37,8 @@ export class LoginComponent {
         error => {
           console.error('Erreur lors de la connexion:', error);
           // Afficher un message d'erreur approprié à l'utilisateur
+          this.isloading = false;
+          this.error =  "Mot de passe ou nom d'utilisateur incorrect !"
         }
       );
   }

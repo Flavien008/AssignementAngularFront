@@ -21,6 +21,9 @@
                             <label for="your_pass"><mat-icon>lock</mat-icon></label>
                             <input type="password" name="password" [(ngModel)]="password" id="password" placeholder="Password"/>
                         </div>
+                        <div class="form-group">
+                           <p class="error-message">  @if(error != ''){<mat-icon>warning</mat-icon> } {{ error }} </p>
+                        </div>   
                         <div class="form-group form-button">
                             @if(!isloading){
                                 <input type="submit" (click)="login()" name="signin" id="signin" class="form-submit" value="Log in"/>

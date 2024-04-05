@@ -28,10 +28,10 @@
         <h3 mat-subheader>
           Matiere : {{ a.matiere}} |  Date limite: {{ a.dateLimite | date : "dd/MM/yyyy" }}
         </h3>
-        <mat-list-item>
-          <p>{{ a.titre }} , description : {{ a.description }}</p>
-        </mat-list-item>
       </a>
+      <mat-list-item>
+        <p>{{ a.titre }} , description : {{ a.description }}</p>
+      </mat-list-item>
       <button mat-raised-button color="primary" (click)="openDialog(a)"  style="margin-right: 25px;">Modifier</button>
       <button mat-raised-button color="warn" (click)="confirmDelete(a)">Supprimer</button>
       <br><br>

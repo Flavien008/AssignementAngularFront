@@ -20,7 +20,7 @@
             </mat-list-item>
           </ng-container>
         <ng-container *ngFor="let carte of groupes">
-            <mat-card class="carte" routerLink="/assignment/{{ carte._id}}">
+            <mat-card class="carte" routerLink="/groups/{{ carte._id}}">
                 <mat-card-header style="display: flex; justify-content: center;">
                     <mat-card-title>{{ carte.nom }}</mat-card-title>
                     <mat-card-subtitle>{{ carte.utilisateurs?.length+" membre(s)" }}</mat-card-subtitle>

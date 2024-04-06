@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-dahsboard',
   standalone: true,
   imports: [],
-  templateUrl: './dahsboard.component.html',
-  styleUrl: './dahsboard.component.css'
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css'
 })
 export class DahsboardComponent {
 

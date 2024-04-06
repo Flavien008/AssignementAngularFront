@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { AssignmentListComponent } from './assignments/assignment-list/assignment-list.component';
 import { ListeRenduComponent } from './assignments/liste-rendu/liste-rendu.component';
-import { DahsboardComponent } from './dashboard/dahsboard/dahsboard.component';
+import { DahsboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

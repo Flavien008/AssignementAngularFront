@@ -31,7 +31,7 @@ export class CardGroupComponent {
 
   searchTerm = '';
   page = 1;
-  limit = 1;
+  limit = 10;
   totalDocs!: number;
   totalPages!: number;
   nextPage!: number;

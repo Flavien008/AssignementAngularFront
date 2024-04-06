@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { AssignmentListComponent } from './assignments/assignment-list/assignment-list.component';
 import { ListeRenduComponent } from './assignments/liste-rendu/liste-rendu.component';
+import { DahsboardComponent } from './dashboard/dahsboard/dahsboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,6 +22,7 @@ export const routes: Routes = [
   {path: "assignments/:id",component: AssignmentDetailComponent},
   {path: "rendu/assignment/:id",component: ListeRenduComponent},
   {path: "assignments",component: AssignmentListComponent},
+  { path: "dashboard", component: DahsboardComponent },
 
   {
     path: "assignment/:id/edit",

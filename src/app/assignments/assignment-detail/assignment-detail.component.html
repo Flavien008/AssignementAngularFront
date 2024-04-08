@@ -4,6 +4,7 @@
 <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title></mat-card-title>
+    <mat-card-title>Matiere: {{assignmentTransmis.matiere}}</mat-card-title>
     <mat-card-subtitle>Titre : {{assignmentTransmis.titre}}</mat-card-subtitle>
     <mat-card-subtitle>A rendre avant le : {{assignmentTransmis.dateLimite | date:'dd/MM/yyyy'}}</mat-card-subtitle>
   </mat-card-header>
@@ -29,7 +30,16 @@
     </mat-form-field>    
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>Envoyer</button>
+    <div class="form-group form-button">
+      @if(!isloading){
+        <button mat-flat-button color="primary">Envoyer</button>
+      }
+      @if(isloading){
+              <mat-spinner diameter="40" mode="indeterminate"></mat-spinner>
+          
+      }
+     
+  </div>
   </mat-card-actions>
 </mat-card>
 

@@ -19,6 +19,7 @@ export class AssignmentsService {
 
   //uri = 'http://localhost:8010/api/assignments';
   uri = environment.baseUrl+"/assignments";
+  urirendu = environment.baseUrl+"/rendu";
 
   // retourne tous les assignments
   getAssignments():Observable<Assignment[]> {
@@ -78,6 +79,11 @@ export class AssignmentsService {
     this.logService.log(assignment.titre, "supprimé");
     //return of("Assignment supprimé avec succès");
     return this.http.delete(this.uri + "/" + assignment._id);
+  }
+
+  addRendu(data: any, idassignment : string):Observable<any> {
+    this.logService.log(data.matricule, "ajouté dans rendu");
+    return this.http.post(this.uri+"/"+idassignment, data);
   }
 
   // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)

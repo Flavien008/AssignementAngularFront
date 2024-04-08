@@ -12,11 +12,11 @@ import { AuthService } from '../../shared/auth.service';
 import {CdkVirtualScrollViewport,ScrollingModule} from '@angular/cdk/scrolling';
 import { MatListModule } from '@angular/material/list';
 import { ViewChild, NgZone } from '@angular/core';
-import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -24,13 +24,14 @@ import {MatIconModule} from '@angular/material/icon';
   selector: 'app-assignment-detail', 
   standalone: true,
   imports: [CommonModule, RouterLink,
-    MatButtonModule, MatCardModule, MatCheckboxModule,CdkVirtualScrollViewport,ScrollingModule,MatListModule,MatSelectModule,MatInputModule,MatFormFieldModule,MatIconModule],
+    MatButtonModule, MatCardModule, MatCheckboxModule,CdkVirtualScrollViewport,ScrollingModule,MatListModule,MatSelectModule,MatInputModule,MatFormFieldModule,MatIconModule,MatProgressSpinnerModule],
   templateUrl: './assignment-detail.component.html',
   styleUrl: './assignment-detail.component.css'
 })
 export class AssignmentDetailComponent implements OnInit {
   titre = 'Details de l\'assignment';
   assignmentTransmis: Assignment|undefined;
+  isloading: boolean = false;
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 

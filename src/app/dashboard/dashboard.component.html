@@ -1,7 +1,6 @@
-<mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile><canvas  id="MyChart" >{{ chart }}</canvas></mat-grid-tile>
-    <mat-grid-tile><canvas  id="Donus" >{{ donut }}</canvas></mat-grid-tile>
-    <mat-grid-tile><canvas  id="Line" >{{ line }}</canvas></mat-grid-tile>
-    <mat-grid-tile><canvas  id="Pyramide" >{{ pyramide }}</canvas></mat-grid-tile>
-  </mat-grid-list>
- 
+<mat-grid-list cols="4" rowHeight="500px">
+  <mat-grid-tile [colspan]="3" [rowspan]="1"><canvas id="MyChart">{{ chart }}</canvas></mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1"><canvas id="Donus">{{ donut }}</canvas></mat-grid-tile>
+  <mat-grid-tile [colspan]="2" [rowspan]="1"><canvas id="Line">{{ line }}</canvas></mat-grid-tile>
+  <mat-grid-tile [colspan]="2" [rowspan]="1"><canvas id="Pyramide">{{ pyramide }}</canvas></mat-grid-tile>
+</mat-grid-list>

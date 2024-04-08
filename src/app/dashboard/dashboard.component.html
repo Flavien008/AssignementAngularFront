@@ -1,6 +1,32 @@
-<mat-grid-list cols="4" rowHeight="500px">
-  <mat-grid-tile [colspan]="3" [rowspan]="1"><canvas id="MyChart">{{ chart }}</canvas></mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="1"><canvas id="Donus">{{ donut }}</canvas></mat-grid-tile>
-  <mat-grid-tile [colspan]="2" [rowspan]="1"><canvas id="Line">{{ line }}</canvas></mat-grid-tile>
-  <mat-grid-tile [colspan]="2" [rowspan]="1"><canvas id="Pyramide">{{ pyramide }}</canvas></mat-grid-tile>
-</mat-grid-list>
+<div style="display: flex; flex-wrap: wrap;">
+    <div style="flex: 0 0 calc(75% - 10px); margin-right: 10px;">
+        <mat-card>
+            <mat-card-content>
+                <div style="display: flex; margin-bottom: 10px;">
+                    <mat-form-field style="margin-right: 10px;">
+                        <input matInput type="date" placeholder="Start Date">
+                    </mat-form-field>
+                    <mat-form-field style="margin-right: 10px;">
+                        <input matInput type="date" placeholder="End Date">
+                    </mat-form-field>
+                    <button mat-flat-button color="primary">Voir</button>
+                </div>
+                <canvas id="Line">{{ line }}</canvas>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div style="flex: 0 0 calc(25% - 10px);">
+        <mat-card style="width: 100%;">
+            <mat-card-content>
+                <canvas id="Donus">{{ donut }}</canvas>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div style="flex: 0 0 100%; margin-top: 20px;">
+        <mat-card>
+            <mat-card-content>
+                <canvas id="Pyramide" style="height: 400px;">{{ line }}</canvas>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

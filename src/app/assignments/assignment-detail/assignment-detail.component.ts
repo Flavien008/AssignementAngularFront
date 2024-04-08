@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Assignment } from '../assignment.model';
@@ -17,6 +16,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -24,7 +24,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   selector: 'app-assignment-detail', 
   standalone: true,
   imports: [CommonModule, RouterLink,
-    MatButtonModule, MatCardModule, MatCheckboxModule,CdkVirtualScrollViewport,ScrollingModule,MatListModule,MatSelectModule,MatInputModule,MatFormFieldModule,MatIconModule,MatProgressSpinnerModule],
+    MatButtonModule, MatCardModule,CdkVirtualScrollViewport,ScrollingModule,MatListModule,MatSelectModule,MatInputModule,MatFormFieldModule,MatIconModule,MatProgressSpinnerModule,FormsModule],
   templateUrl: './assignment-detail.component.html',
   styleUrl: './assignment-detail.component.css'
 })
@@ -32,6 +32,10 @@ export class AssignmentDetailComponent implements OnInit {
   titre = 'Details de l\'assignment';
   assignmentTransmis: Assignment|undefined;
   isloading: boolean = false;
+  repositoryUrl: string = ''; 
+  description: string = ''; 
+  userData : any;
+  message = '';
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
@@ -45,7 +49,7 @@ export class AssignmentDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAssignmentsFromService();
-    console.log(this.assignmentTransmis);
+    this.userData = this.getUserData();
   }
 
   getAssignmentsFromService() {
@@ -59,6 +63,45 @@ export class AssignmentDetailComponent implements OnInit {
       console.log('Assignment récupéré:', this.assignmentTransmis);
       // Mettez ici le code qui utilise this.assignmentTransmis
     });
+  }
+
+  envoyerRendu(){
+    const url = this.route.snapshot.url;
+    const lastSegment = url[url.length - 1];
+    const id = lastSegment.path;
+    this.isloading = true;
+    const data = {
+      rendu: {
+        matricule: this.userData.matricule,
+        auteur: this.userData.name,
+        dateRendu: this.assignmentsService.getdateNow(),
+        file: this.repositoryUrl,
+        description: this.description
+      }
+    };
+
+    console.log(data);
+
+    this.assignmentsService.addRendu(data,id)
+    .subscribe(
+      () => {
+        this.isloading = false;
+        console.log('Rendu envoyé avec succes');
+       
+      },
+      error => {
+        console.error('Erreur lors de la connexion:', error);
+        // Afficher un message d'erreur approprié à l'utilisateur
+        this.isloading = false;
+      
+      }
+    );
+
+  }
+
+  getUserData(): any {
+    const userData = localStorage.getItem('user');
+    return userData ? JSON.parse(userData) : null;
   }
   
   

@@ -22,17 +22,17 @@
   <mat-card-content>
     <mat-form-field style="display: block;">
       <mat-label>URL du repository GitHub ou du dossier</mat-label>
-      <input matInput>
+      <input matInput [(ngModel)]="repositoryUrl">
     </mat-form-field>
     <mat-form-field style="display: block;">
-      <mat-label>Déscription</mat-label>
-      <textarea matInput></textarea>
-    </mat-form-field>    
+      <mat-label>Description</mat-label>
+      <textarea matInput [(ngModel)]="description"></textarea>
+    </mat-form-field> 
   </mat-card-content>
   <mat-card-actions>
     <div class="form-group form-button">
       @if(!isloading){
-        <button mat-flat-button color="primary">Envoyer</button>
+        <button mat-flat-button color="primary" (click)="envoyerRendu()">Envoyer</button>
       }
       @if(isloading){
               <mat-spinner diameter="40" mode="indeterminate"></mat-spinner>

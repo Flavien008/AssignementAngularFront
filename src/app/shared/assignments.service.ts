@@ -83,7 +83,7 @@ export class AssignmentsService {
 
   addRendu(data: any, idassignment : string):Observable<any> {
     this.logService.log(data.matricule, "ajouté dans rendu");
-    return this.http.post(this.uri+"/"+idassignment, data);
+    return this.http.post(this.urirendu+"/"+idassignment, data);
   }
 
   // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)

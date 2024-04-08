@@ -87,13 +87,13 @@ export class AssignmentDetailComponent implements OnInit {
       () => {
         this.isloading = false;
         console.log('Rendu envoyé avec succes');
-       
+        this.message = "Rendu envoyé avec succes !";
       },
       error => {
         console.error('Erreur lors de la connexion:', error);
         // Afficher un message d'erreur approprié à l'utilisateur
         this.isloading = false;
-      
+        this.message =  "Il y a eu un problème !";
       }
     );
 

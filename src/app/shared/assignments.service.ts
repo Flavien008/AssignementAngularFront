@@ -8,6 +8,7 @@ import { environment } from '../environments/environment';
 
 // importation des données de test
 import { bdInitialAssignments } from './data';
+import { Stat } from '../matiere/stat.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,10 @@ export class AssignmentsService {
   uri = environment.baseUrl+"/assignments";
   urirendu = environment.baseUrl+"/rendu";
 
+
+  getAssignmentsStat(date1:String,date2:String):Observable<Stat[]> {
+    return this.http.get<Stat[]>(this.uri+"/statistique?date1=" +date1+ "&date2="+date2);
+  }
   // retourne tous les assignments
   getAssignments():Observable<Assignment[]> {
     return this.http.get<Assignment[]>(this.uri);

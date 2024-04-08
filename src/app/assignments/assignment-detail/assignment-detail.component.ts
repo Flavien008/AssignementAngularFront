@@ -30,7 +30,7 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class AssignmentDetailComponent implements OnInit {
   titre = 'Details de l\'assignment';
-  assignmentTransmis!: Assignment|undefined;
+  assignmentTransmis: Assignment|undefined;
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
@@ -52,13 +52,14 @@ export class AssignmentDetailComponent implements OnInit {
     const lastSegment = url[url.length - 1];
     const id = lastSegment.path;
     console.log('ID de l\'assignment:', id);
+    
     this.assignmentsService.getAssignment(id).subscribe((data) => {
       this.assignmentTransmis = data;
-      console.log(this.assignmentTransmis);
-    })
-
-    console.log("Assignment ityyyyy",this.assignmentTransmis);
+      console.log('Assignment récupéré:', this.assignmentTransmis);
+      // Mettez ici le code qui utilise this.assignmentTransmis
+    });
   }
+  
   
 
   isAdmin() {

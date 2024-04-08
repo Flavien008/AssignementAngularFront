@@ -1,17 +1,16 @@
 <h2>{{ titre }}</h2>
+<div *ngIf="assignmentTransmis">
 <div class="container">
 <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title></mat-card-title>
-    <mat-card-subtitle>matiere</mat-card-subtitle>
-    <mat-card-subtitle>A rendre avant le : </mat-card-subtitle>
+    <mat-card-subtitle>Titre : {{assignmentTransmis.titre}}</mat-card-subtitle>
+    <mat-card-subtitle>A rendre avant le : {{assignmentTransmis.dateLimite | date:'dd/MM/yyyy'}}</mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image src="../../../assets/images/Taking notes-amico.png" alt="Photo of a Shiba Inu">
   <mat-card-content>
     <p>
-      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-      bred for hunting.
+      {{assignmentTransmis.description}}
     </p>
   </mat-card-content>
 </mat-card>
@@ -32,6 +31,13 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
+      <mat-label>Upload</mat-label>
+      <mat-select>
+        <mat-option value="one">First option</mat-option>
+        <mat-option value="two">Second option</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
       <mat-label>Déscription</mat-label>
       <textarea matInput></textarea>
     </mat-form-field>    
@@ -40,4 +46,8 @@
     <button mat-button>Envoyer</button>
   </mat-card-actions>
 </mat-card>
+</div>
+</div>
+<div *ngIf="!assignmentTransmis">
+  <p>Loading...</p>
 </div>

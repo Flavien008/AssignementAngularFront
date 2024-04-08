@@ -3,6 +3,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../shared/auth.service';
 
 
 export type MenuItem = {
@@ -19,6 +20,13 @@ export type MenuItem = {
   styleUrl: './custom-sidenav.component.css'
 })
 export class CustomSidenavComponent {
+
+    userData : any;
+
+
+    ngOnInit(): void {
+        this.userData = this.getUserData();
+      }
 
     sideNavCollapsed = signal(false);
     @Input() set collapsed(val:boolean){
@@ -42,4 +50,9 @@ export class CustomSidenavComponent {
     ]);
 
     profilePicSize = computed(() => this.sideNavCollapsed() ? '20':'100');
+
+    getUserData(): any {
+        const userData = localStorage.getItem('user');
+        return userData ? JSON.parse(userData) : null;
+      }
 }

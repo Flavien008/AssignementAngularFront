@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Matiere } from '../matiere/matiere.model';
 import { environment } from '../environments/environment';
 import { Observable } from 'rxjs';
+import { Donut } from '../matiere/donut.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ export class MatiereService {
 
   getMatiere():Observable<Matiere[]> {
     return this.http.get<Matiere[]>(this.uri);
+  }
+
+  getStatistiqueParMatiere():Observable<Donut[]> {
+    return this.http.get<Donut[]>(this.uri+"/statistique");
   }
 
 }

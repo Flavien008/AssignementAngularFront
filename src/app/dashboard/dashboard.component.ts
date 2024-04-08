@@ -26,7 +26,6 @@ export class DashboardComponent {
     ngOnInit(): void {
         this.createChartDonus();
         this.createChartLine();
-        this.createAgePyramide();
     }
 
     createChartDonus() {
@@ -97,61 +96,4 @@ export class DashboardComponent {
             }
         });
     }
-
-    createAgePyramide() {
-        this.pyramide = new Chart('Pyramide', {
-            type: 'bar',
-            data: {
-                labels: ["71+", "61-70", "51-60", "41-50", "31-40", "21-30", "0-20"],
-                datasets: [
-                    {
-                        label: "Femme",
-                        stack: "Stack 0",
-                        backgroundColor: "purple",
-                        data: [10, 15, 45, 60, 48, 22, 8].map((k: number) => -k), // Spécifiez le type de retour de map comme number
-                    },
-                    {
-                        label: "Homme",
-                        stack: "Stack 0",
-                        backgroundColor: "blue",
-                        data: [10, 20, 48, 55, 50, 30, 5],
-                    },
-                ],
-            },
-            options: {
-                indexAxis: 'y',
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Pyramide des âges',
-                        font: {
-                            size: 20
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: (c: any) => { // Spécifiez le type de c comme any ou comme un type approprié si disponible
-                                const value = Number(c.raw);
-                                const positiveOnly = value < 0 ? -value : value;
-                                return `${c.dataset.label}: ${positiveOnly.toString()}`;
-                            },
-                        },
-                    },
-                },
-                scales: {
-                    x: {
-                        min: -120,
-                        max: 120,
-                        ticks: {
-                            stepSize: 20,
-                            callback: (v: any) => v < 0 ? -v : v, // Spécifiez le type de v comme any ou comme un type approprié si disponible
-                        },
-                    },
-                },
-            },
-        });
-    }
-    
-    
-
 }

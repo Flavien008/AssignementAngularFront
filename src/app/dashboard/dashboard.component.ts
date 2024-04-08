@@ -5,11 +5,12 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { Chart } from 'chart.js/auto'
 import { MatInputModule } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'app-dahsboard',
     standalone: true,
-    imports: [MatInputModule,MatCardActions,MatLabel, MatDatepicker,MatDatepickerToggle,MatFormField,MatCardContent,MatGridTile, MatGridList,MatCard,MatCardHeader,MatCardTitle,MatCardSubtitle],
+    imports: [MatButton,MatInputModule,MatCardActions,MatLabel, MatDatepicker,MatDatepickerToggle,MatFormField,MatCardContent,MatGridTile, MatGridList,MatCard,MatCardHeader,MatCardTitle,MatCardSubtitle],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css'
 })
@@ -19,39 +20,10 @@ export class DashboardComponent {
     public line: any;
     public pyramide: any;
     ngOnInit(): void {
-        this.createChart();
         this.createChartDonus();
         this.createChartLine();
         this.createAgePyramide();
     }
-
-    createChart() {
-
-        this.chart = new Chart("MyChart", {
-            type: 'bar', //this denotes tha type of chart
-
-            data: {// values on X-Axis
-                labels: ['2022-05-10', '2022-05-11', '2022-05-12', '2022-05-13', '2022-05-14', '2022-05-15', '2022-05-16', '2022-05-17'],
-                datasets: [
-                    {
-                        label: "Sales",
-                        data: ['467', '576', '572', '79', '92', '574', '573', '576'],
-                        backgroundColor: 'blue'
-                    },
-                    {
-                        label: "Profit",
-                        data: ['542', '542', '536', '327', '17', '0.00', '538', '541'],
-                        backgroundColor: 'limegreen'
-                    }
-                ]
-            },
-            options: {
-                aspectRatio: 2.5
-            }
-
-        });
-    }
-
 
     createChartDonus() {
         this.donut = new Chart("Donus", {

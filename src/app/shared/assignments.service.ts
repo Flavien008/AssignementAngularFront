@@ -9,6 +9,7 @@ import { environment } from '../environments/environment';
 // importation des données de test
 import { bdInitialAssignments } from './data';
 import { Stat } from '../matiere/stat.model';
+import { Rendu } from '../assignments/rendu.model';
 
 @Injectable({
   providedIn: 'root'
@@ -86,9 +87,9 @@ export class AssignmentsService {
     return this.http.delete(this.uri + "/" + assignment._id);
   }
 
-  addRendu(data: any, idassignment : string):Observable<any> {
-    this.logService.log(data.matricule, "ajouté dans rendu");
-    return this.http.post(this.urirendu+"/"+idassignment, data);
+  addRendu(rendu: Rendu):Observable<any> {
+    this.logService.log(rendu.matricule, "ajouté dans rendu");
+    return this.http.post(this.urirendu, rendu);
   }
 
   // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)

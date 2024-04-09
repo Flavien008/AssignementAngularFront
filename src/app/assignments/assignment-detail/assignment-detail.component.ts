@@ -17,6 +17,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
+import {Rendu} from '../rendu.model';
 
 
 
@@ -70,19 +71,21 @@ export class AssignmentDetailComponent implements OnInit {
     const lastSegment = url[url.length - 1];
     const id = lastSegment.path;
     this.isloading = true;
-    const data = {
-      rendu: {
-        matricule: this.userData.matricule,
-        auteur: this.userData.name,
-        dateRendu: this.assignmentsService.getdateNow(),
-        file: this.repositoryUrl,
-        description: this.description
-      }
-    };
 
-    console.log(data);
+    let nouvelRendu = new Rendu();
+    nouvelRendu.auteur = this.userData.name ;
+    nouvelRendu.dateRendu = this.assignmentsService.getdateNow();
+    nouvelRendu.description = this.description;
+    nouvelRendu.file = this.repositoryUrl;
+    nouvelRendu.idAssignment = id;
+    nouvelRendu.idEtudiant = this.userData._id;
+    nouvelRendu.matricule = this.userData.matricule;
+    
 
-    this.assignmentsService.addRendu(data,id)
+
+    console.log(nouvelRendu);
+
+    this.assignmentsService.addRendu(nouvelRendu)
     .subscribe(
       () => {
         this.isloading = false;

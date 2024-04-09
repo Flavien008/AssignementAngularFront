@@ -13,8 +13,7 @@ import {
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import {  Router } from '@angular/router';
-
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-assignement-edit',
@@ -26,14 +25,16 @@ import {  Router } from '@angular/router';
 
 export class AssignementEditComponent {
   assignmentForm: FormGroup;
+  datePipe = new DatePipe('en-US');
   constructor(private dialogRef: MatDialogRef<AssignementEditComponent>,@Inject(MAT_DIALOG_DATA) public data: any,
-  private formBuilder: FormBuilder,private assignmentsService:AssignmentsService,private router: Router,)
+  private formBuilder: FormBuilder,private assignmentsService:AssignmentsService)
   {
+    const dateLimiteValue = data.assignement?.dateLimite ? this.datePipe.transform(new Date(data.assignement?.dateLimite), 'yyyy-MM-dd') : '';
     this.assignmentForm = this.formBuilder.group({
       _id : [data.assignement._id],
       titre: [data.assignement?.titre || ''],
       description: [data.assignement?.description || ''],
-      dateLimite: [data.assignement?.dateLimite || ''],
+      dateLimite: [ dateLimiteValue || ''],
       matiere: [data.assignement?.matiere || ''],
       lien: [data.assignement?.lien || '']
     });

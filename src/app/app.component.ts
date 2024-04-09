@@ -22,67 +22,64 @@ import { CustomSidenavComponent } from "./compoments/custom-sidenav/custom-siden
         AssignmentsComponent, MatToolbarModule, MatSidenavModule, CustomSidenavComponent]
 })
 export class AppComponent {
-  title = 'Application de gestion des assignments';
-  isLoginPage: boolean = false;
-  titrefiltre = '';
-  matierefiltre = '';
-  collapsed = signal(false);
-  sidenavWidth = computed(() => this.collapsed() ? '65px':'250px');
+    title = 'Application de gestion des assignments';
+    isLoginPage: boolean = false;
+    titrefiltre = '';
+    matierefiltre = '';
+    collapsed = signal(false);
+    sidenavWidth = computed(() => this.collapsed() ? '65px' : '250px');
 
-  constructor(private authService:AuthService,
-              private assignmentsService: AssignmentsService,
-              private router:Router,) {}
+    constructor(private authService: AuthService,
+        private assignmentsService: AssignmentsService,
+        private router: Router,) { }
 
-  ngOnInit() {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        if(event.url === '/login'){
-          this.isLoginPage = event.url === '/login';
-        }
-        if(event.url === '/'){
-          this.isLoginPage = event.url === '/';
-        }
-        if(event.url === '/inscription'){
-          this.isLoginPage = event.url === '/inscription';
-        }
-        
-      }
-      else{
-        this.isLoginPage = false;
-      }
-    });
-  }
+    ngOnInit() {
+        this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                if (event.url === '/login' || event.url === '/' || event.url === '/inscription') {
+                    this.isLoginPage = true;
+                } else {
+                    this.isLoginPage = false;
+                }
+            }
 
-  // login() {
-  //   // on utilise le service d'autentification
-  //   // pour se connecter ou se déconnecter
-  //   if(!this.authService.loggedIn) {
-  //     this.authService.logIn();
-  //   } else {
-  //     this.authService.logOut();
-  //     // on navigue vers la page d'accueil
-  //     this.router.navigate(['/home']);
-  //   }
-  // }
+            // Check user data and redirect if necessary
+            if (event instanceof NavigationEnd && this.authService.getUserData() === null) {
+                this.router.navigateByUrl('/login');
+            }
+        });
+    }
 
-  logout(){
-    this.authService.logOut();
-    this.router.navigate(['/']);
-  }
+    // login() {
+    //   // on utilise le service d'autentification
+    //   // pour se connecter ou se déconnecter
+    //   if(!this.authService.loggedIn) {
+    //     this.authService.logIn();
+    //   } else {
+    //     this.authService.logOut();
+    //     // on navigue vers la page d'accueil
+    //     this.router.navigate(['/home']);
+    //   }
+    // }
 
-  genererDonneesDeTest() {
-    // on utilise le service
-    /* VERSION NAIVE
-    this.assignmentsService.peuplerBD();
-    */
+    logout() {
+        this.authService.logOut();
+        this.router.navigate(['/']);
+    }
 
-    // VERSION AVEC Observable
-    this.assignmentsService.peuplerBDavecForkJoin()
-    .subscribe(() => {
-      console.log("Données générées, on rafraichit la page pour voir la liste à jour !");
-      window.location.reload();
-      // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
-      // this.router.navigate(['/home'], {replaceUrl:true});
-    });
-  }
+    genererDonneesDeTest() {
+        // on utilise le service
+        /* VERSION NAIVE
+        this.assignmentsService.peuplerBD();
+        */
+
+        // VERSION AVEC Observable
+        this.assignmentsService.peuplerBDavecForkJoin()
+            .subscribe(() => {
+                console.log("Données générées, on rafraichit la page pour voir la liste à jour !");
+                window.location.reload();
+                // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
+                // this.router.navigate(['/home'], {replaceUrl:true});
+            });
+    }
 }

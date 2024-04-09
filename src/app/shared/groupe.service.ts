@@ -20,4 +20,8 @@ export class GroupeService {
   getGroupesPagines(page:number, limit:number,nom:string):Observable<any> {
     return this.http.get<Groupe[]>(this.uri + "?page=" + page + "&limit=" + limit + "&nom="+nom);
   }
+
+  getGroupesPaginesStudents(page:number, limit:number,nom:string,idStudent:string):Observable<any> {
+    return this.http.get<Groupe[]>(this.uri+'/etudiant/'+ idStudent + "?page=" + page + "&limit=" + limit + "&nom="+nom);
+  }
 }

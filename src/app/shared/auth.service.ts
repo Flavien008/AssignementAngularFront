@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
+import { User } from '../login/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,7 @@ export class AuthService {
     console.log(localStorage)
   }
 
-  getUserData(): any {
+  getUserData(): User {
     const userData = localStorage.getItem('user');
     return userData ? JSON.parse(userData) : null;
   }

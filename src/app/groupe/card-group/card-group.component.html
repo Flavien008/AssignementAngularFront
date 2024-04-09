@@ -14,12 +14,12 @@
       </mat-list-item>
     <mat-divider></mat-divider>
     <div class="conteneur-cartes">
-        <ng-container *ngIf="groupes?.length === 0 && !isLoading">
+        <ng-container *ngIf="groupesStudents?.length === 0 && !isLoading">
             <mat-list-item>
-              <p style="text-align: center;">Aucun groupe trouvé</p>
+              <p style="text-align: center;">Vous n'avez pas encore de groupe.</p>
             </mat-list-item>
           </ng-container>
-        <ng-container *ngFor="let carte of groupes">
+        <ng-container *ngFor="let carte of groupesStudents">
             <mat-card class="carte" routerLink="/groups/{{ carte._id}}">
                 <mat-card-header style="display: flex; justify-content: center;">
                     <mat-card-title>{{ carte.nom }}</mat-card-title>
@@ -28,6 +28,16 @@
             </mat-card>
         </ng-container>
     </div>
+    <div class="pagination-container">
+      <button mat-flat-button [disabled]="page === 1" (click)="premierePage()">Première</button>
+      <button mat-flat-button [disabled]="page === 1" (click)="pagePrecedente()">Précédent</button>
+      <ng-container *ngFor="let pageNumber of getPageNumbers()">
+          <button mat-flat-button [disabled]="page === pageNumber" (click)="goToPage(pageNumber)">{{ pageNumber
+              }}</button>
+      </ng-container>
+      <button mat-flat-button [disabled]="page === totalPages" (click)="pageSuivante()">Suivante</button>
+      <button mat-flat-button [disabled]="page === totalPages" (click)="dernierePage()">Dernière</button>
+  </div>
     <mat-list-item>
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <h3>Tout les groupes</h3>
@@ -49,7 +59,7 @@
             </mat-list-item>
           </ng-container>
         <ng-container *ngFor="let carte of groupes">
-            <mat-card class="carte">
+          <mat-card class="carte" routerLink="/groups/{{ carte._id}}">
                 <mat-card-header style="display: flex; justify-content: center;">
                     <mat-card-title>{{ carte.nom }}</mat-card-title>
                     <mat-card-subtitle>{{ carte.utilisateurs?.length+" membre(s)" }}</mat-card-subtitle>
@@ -57,14 +67,14 @@
             </mat-card>
         </ng-container>
     </div>
+    <div class="pagination-container">
+      <button mat-flat-button [disabled]="page === 1" (click)="premierePage()">Première</button>
+      <button mat-flat-button [disabled]="page === 1" (click)="pagePrecedente()">Précédent</button>
+      <ng-container *ngFor="let pageNumber of getPageNumbers()">
+          <button mat-flat-button [disabled]="page === pageNumber" (click)="goToPage(pageNumber)">{{ pageNumber
+              }}</button>
+      </ng-container>
+      <button mat-flat-button [disabled]="page === totalPages" (click)="pageSuivante()">Suivante</button>
+      <button mat-flat-button [disabled]="page === totalPages" (click)="dernierePage()">Dernière</button>
+  </div>
 </mat-list>
-<div class="pagination-container">
-    <button mat-flat-button [disabled]="page === 1" (click)="premierePage()">Première</button>
-    <button mat-flat-button [disabled]="page === 1" (click)="pagePrecedente()">Précédent</button>
-    <ng-container *ngFor="let pageNumber of getPageNumbers()">
-        <button mat-flat-button [disabled]="page === pageNumber" (click)="goToPage(pageNumber)">{{ pageNumber
-            }}</button>
-    </ng-container>
-    <button mat-flat-button [disabled]="page === totalPages" (click)="pageSuivante()">Suivante</button>
-    <button mat-flat-button [disabled]="page === totalPages" (click)="dernierePage()">Dernière</button>
-</div>

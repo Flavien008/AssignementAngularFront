@@ -25,7 +25,7 @@ export class DashboardComponent {
     public donut: any;
     public date1 : String;
     public date2 : String;
-    public line: Chart | undefined;
+    public line: any;
 
     constructor(private matiereService: MatiereService, private assignmentsService: AssignmentsService) {
         const d1 = new Date();

@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatiereService } from '../shared/matiere.service';
 import { FormsModule } from '@angular/forms';
+import {DatePipe} from '@angular/common';
 // pour date picker
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
@@ -17,15 +18,16 @@ import {provideNativeDateAdapter} from '@angular/material/core';
     selector: 'app-dahsboard',
     standalone: true,
     providers: [provideNativeDateAdapter()],
-    imports: [MatDatepickerModule,FormsModule,MatButton,MatInputModule,MatCardActions,MatLabel, MatDatepicker,MatDatepickerToggle,MatFormField,MatCardContent,MatGridTile, MatGridList,MatCard,MatCardHeader,MatCardTitle,MatCardSubtitle],
+    imports: [DatePipe,MatDatepickerModule,FormsModule,MatButton,MatInputModule,MatCardActions,MatLabel, MatDatepicker,MatDatepickerToggle,MatFormField,MatCardContent,MatGridTile, MatGridList,MatCard,MatCardHeader,MatCardTitle,MatCardSubtitle],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
     public donut: any;
-    public date1 : String;
-    public date2 : String;
+    public date1 : string;
+    public date2 : string;
     public line: any;
+    datePipe = new DatePipe('en-US');
 
     constructor(private matiereService: MatiereService, private assignmentsService: AssignmentsService) {
         const d1 = new Date();
@@ -111,7 +113,7 @@ export class DashboardComponent {
               data: {
                 labels: labels,
                 datasets: [{
-                  label: 'Assignment Counts',
+                  label: 'Nombre d\'assignement',
                   data: counts, // Utiliser les données renvoyées par le service
                   borderColor: 'rgb(75, 192, 192)',
                 }],
@@ -121,7 +123,7 @@ export class DashboardComponent {
                 plugins: {
                   title: {
                     display: true,
-                    text: 'Chart line',
+                    text: 'Nombre d\'assignement du '+ this.datePipe.transform(new Date(this.date1), 'dd/MM/yyyy')+' au '+this.datePipe.transform(new Date(this.date2), 'dd/MM/yyyy'),
                     font: {
                       size: 20
                     }

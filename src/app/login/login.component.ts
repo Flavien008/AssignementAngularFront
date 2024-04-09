@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import { AuthService } from '../shared/auth.service';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
@@ -11,7 +11,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   imports: [
     MatIconModule,
     FormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -32,14 +33,20 @@ export class LoginComponent {
         () => {
           this.isloading = false;
           console.log('Connexion réussie');
-          this.router.navigate(['/home']); 
+          const userData = this.authService.getUserData();
+          if (userData.role === 'student') {
+            this.router.navigate(['/groups']);
+          } else if (userData.role === 'prof') {
+            this.router.navigate(['/dashboard']);
+          }
         },
         error => {
           console.error('Erreur lors de la connexion:', error);
           // Afficher un message d'erreur approprié à l'utilisateur
           this.isloading = false;
-          this.error =  "Mot de passe ou nom d'utilisateur incorrect !"
+          this.error = "Mot de passe ou nom d'utilisateur incorrect !"
         }
       );
   }
+  
 }

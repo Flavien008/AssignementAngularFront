@@ -1,0 +1,17 @@
+<h2 style="margin-left: 10px;">Ajouter des membres</h2>
+
+<mat-form-field appearance="fill" style="margin-left: 10px;">
+  <mat-label>Ajouter un membre par nom</mat-label>
+  <input matInput placeholder="Nom de membre">
+</mat-form-field>
+
+<mat-dialog-content>
+  <mat-checkbox color="primary" [(ngModel)]="selectAll" (change)="selectAllStudents($event)">Sélectionner tout</mat-checkbox>
+  <div *ngFor="let student of students">
+    <mat-checkbox color="primary" [(ngModel)]="selectedStudents[student._id]">{{ student.name }}</mat-checkbox>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="addMembers()">Ajouter</button>
+  <button mat-button (click)="dialogRef.close()">Annuler</button>
+</mat-dialog-actions>

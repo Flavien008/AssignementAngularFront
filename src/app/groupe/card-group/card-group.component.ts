@@ -19,6 +19,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../../login/user.model';
+import { MatDialog } from '@angular/material/dialog';
+import { AddMemberDialogComponent } from './addmemberDialog/add-member-dialog/add-member-dialog.component';
 @Component({
   selector: 'app-card-group',
   standalone: true,
@@ -43,7 +45,7 @@ export class CardGroupComponent {
   hasNextPage!: boolean;
   hasPrevPage!: boolean;
 
-  constructor(private groupeservice: GroupeService, private authService: AuthService) { }
+  constructor(private groupeservice: GroupeService, private authService: AuthService,private dialog: MatDialog) { }
   ngOnInit() {
     // this.getGroupeFromService();
     this.user = this.authService.getUserData();
@@ -52,6 +54,20 @@ export class CardGroupComponent {
     this.getGroupeFromServicePaginate();
     
   }
+
+  openAddMemberDialog(groupId: string) {
+    const dialogRef = this.dialog.open(AddMemberDialogComponent, {
+      width: '500px',
+      data: { groupId: groupId } // Passer l'identifiant du groupe
+    });
+  
+    dialogRef.afterClosed().subscribe((result: User[]) => {
+      if (result) {
+        console.log('Étudiants sélectionnés : ', result);
+      }
+    });
+  }
+
 
   onSearchTermChange() {
     this.page = 1;

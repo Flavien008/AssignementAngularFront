@@ -1,5 +1,5 @@
 export class Groupe {
-    _id?: string;
+    _id!: string;
     nom!: string;
     utilisateurs ?: [];
   }

@@ -58,14 +58,18 @@
               <p style="text-align: center;">Aucun groupe trouvé</p>
             </mat-list-item>
           </ng-container>
-        <ng-container *ngFor="let carte of groupes">
-          <mat-card class="carte" routerLink="/groups/{{ carte._id}}">
-                <mat-card-header style="display: flex; justify-content: center;">
-                    <mat-card-title>{{ carte.nom }}</mat-card-title>
-                    <mat-card-subtitle>{{ carte.utilisateurs?.length+" membre(s)" }}</mat-card-subtitle>
-                </mat-card-header>
+          <ng-container *ngFor="let carte of groupes">
+            <mat-card class="carte" >
+              <mat-card-header style="display: flex; justify-content: center;">
+                <mat-card-title>{{ carte.nom }}</mat-card-title>
+                <mat-card-subtitle>{{ carte.utilisateurs?.length+" membre(s)" }}</mat-card-subtitle>
+              </mat-card-header>
+              <!-- Bouton "Ajouter membre" -->
+              <button mat-button routerLink="/groups/{{ carte._id}}">Voir</button>
+              <button mat-button (click)="openAddMemberDialog(carte._id)">Ajouter membre</button>
             </mat-card>
-        </ng-container>
+          </ng-container>
+          
     </div>
     <div class="pagination-container">
       <button mat-flat-button [disabled]="page === 1" (click)="premierePage()">Première</button>

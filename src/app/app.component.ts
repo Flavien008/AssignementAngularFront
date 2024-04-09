@@ -41,12 +41,24 @@ export class AppComponent {
                 } else {
                     this.isLoginPage = false;
                 }
+                
             }
 
             // Check user data and redirect if necessary
-            if (event instanceof NavigationEnd && this.authService.getUserData() === null) {
+            if (event instanceof NavigationEnd && this.authService.getUserData() !== null) {
+                const userData = this.authService.getUserData();
+                if(userData.role !== null && event.url === '/login' || event.url === '/' || event.url === '/inscription'){
+                    if (userData.role === 'student') {
+                        this.router.navigateByUrl('/groups');
+                      } else if (userData.role === 'prof') {
+                        this.router.navigateByUrl('/dashboard');
+                      }
+                }
+              }
+            else  if (event instanceof NavigationEnd && this.authService.getUserData() === null && event.url !== '/inscription') {
                 this.router.navigateByUrl('/login');
             }
+          
         });
     }
 

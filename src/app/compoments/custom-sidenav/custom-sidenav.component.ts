@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
+import { User } from '../../login/user.model';
 
 
 export type MenuItem = {
@@ -21,7 +22,7 @@ export type MenuItem = {
 })
 export class CustomSidenavComponent {
 
-    userData : any;
+    userData : User | undefined;
 
 
     ngOnInit(): void {

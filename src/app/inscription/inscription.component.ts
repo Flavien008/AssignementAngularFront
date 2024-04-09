@@ -2,15 +2,14 @@ import { Component } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import { AuthService } from '../shared/auth.service';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
 @Component({
   selector: 'app-inscription',
   standalone: true,
   imports: [MatIconModule,
     FormsModule,
-    MatProgressSpinnerModule],
+    MatProgressSpinnerModule,RouterLink],
   templateUrl: './inscription.component.html',
   styleUrl: './inscription.component.css'
 })

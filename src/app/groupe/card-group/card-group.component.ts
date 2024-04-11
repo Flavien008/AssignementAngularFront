@@ -61,7 +61,7 @@ export class CardGroupComponent {
       data: { group } // Passer l'identifiant du groupe
     });
   
-    dialogRef.afterClosed().subscribe((result: User[]) => {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         console.log('Étudiants sélectionnés : ', result);
       }

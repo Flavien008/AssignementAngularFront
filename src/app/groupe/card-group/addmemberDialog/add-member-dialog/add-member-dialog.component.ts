@@ -85,8 +85,36 @@ export class AddMemberDialogComponent implements OnInit {
     }
 
     addMembers() {
-        // Vous pouvez implémenter ici la logique pour ajouter les étudiants sélectionnés au groupe
-        this.dialogRef.close(this.selectedStudents);
+        const selectedStudentIds = Object.keys(this.selectedStudents); // Obtenez les clés de l'objet selectedStudents
+    
+        if (selectedStudentIds.length === 0) {
+            console.log('Aucun étudiant sélectionné.');
+            return;
+        }
+
+        // Construisez votre payload pour l'API
+        const payload = {
+            groupId: this.data.group._id,
+            studentIds: selectedStudentIds
+        };
+
+        console.log(payload);
+        
+    
+        // Envoyez le POST à votre API
+        // this.http.post('votre_url_de_l_api', payload).subscribe(
+        //     (response) => {
+        //         console.log('Réponse de l\'API:', response);
+        //         // Traitez la réponse de l'API si nécessaire
+        //     },
+        //     (error) => {
+        //         console.error('Erreur lors de l\'envoi de la requête:', error);
+        //         // Traitez l'erreur si nécessaire
+        //     }
+        // );
+    
+        // Fermez la boîte de dialogue
+        this.dialogRef.close(true);
     }
 }
 

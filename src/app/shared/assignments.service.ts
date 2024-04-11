@@ -93,7 +93,7 @@ export class AssignmentsService {
   }
 
   getRenduPaginesListe(page:number, limit:number,idAssignment:string,filter:string,idEtudiant:string):Observable<any> {
-    return this.http.get<Assignment[]>(this.urirendu + "?page=" + page + "&limit=" + limit+ "&filter=" + filter+ "&idEtudiant=" + idEtudiant+ "&idAssignment=" + idAssignment);
+    return this.http.get<Rendu[]>(this.urirendu + "?page=" + page + "&limit=" + limit+ "&filter=" + filter+ "&idEtudiant=" +idEtudiant+ "&idAssignment=" + idAssignment);
   }
 
   // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)

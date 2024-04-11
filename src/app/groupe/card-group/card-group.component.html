@@ -72,9 +72,9 @@
                     <mat-card-title>{{ carte.nom }}</mat-card-title>
                     <mat-card-subtitle>{{ carte.utilisateurs?.length+" membre(s)" }}</mat-card-subtitle>
                 </mat-card-header>
-                <!-- Bouton "Ajouter membre" -->
-                <button mat-button routerLink="/groups/{{ carte._id}}">Voir</button>
-                <button mat-button (click)="openAddMemberDialog(carte)">Ajouter membre</button>
+                <br>
+                <button mat-raised-button style="background-color:#5483B3;color:white;margin-bottom:5px" routerLink="/groups/{{ carte._id}}">Voir</button>
+                <button mat-raised-button style="background-color:#083880;color:white" (click)="openAddMemberDialog(carte)">Ajouter membre</button>
             </mat-card>
         </ng-container>
 

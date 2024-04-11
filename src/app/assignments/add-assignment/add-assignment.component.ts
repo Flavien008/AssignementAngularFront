@@ -1,3 +1,4 @@
+import { MatSpinner } from '@angular/material/progress-spinner';
 import { MatiereService } from './../../shared/matiere.service';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +23,7 @@ import { GroupeService } from '../../shared/groupe.service';
   standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [
+    MatSpinner,
     CommonModule,
     FormsModule,
     MatInputModule,
@@ -48,6 +50,7 @@ export class AddAssignmentComponent {
   matieres:Matiere[] = [];
   selectedStudentGroups: string[] = [];
   studentGroups: Groupe[] = [];
+  isSaving: boolean = false;
 
   constructor(private assignmentsService: AssignmentsService,
     private matiereService: MatiereService,private groupeservice:GroupeService,
@@ -86,7 +89,7 @@ export class AddAssignmentComponent {
     console.log('groupes : '+this.groupes);
     console.log('matierechamp : '+this.matierechamp);
     console.log('lien : '+this.lien);
- 
+    this.isSaving = true;
     if((this.titre == '') || (this.dateLimite === undefined)) return;
     if (this.groupes && Array.isArray(this.groupes) && this.groupes.length > 0) {
         // on crée un nouvel assignment
@@ -108,6 +111,7 @@ export class AddAssignmentComponent {
             .addAssignment(nouvelAssignment)
             .subscribe((reponse) => {
             console.log(reponse);
+            this.isSaving = false;
             // On navigue pour afficher la liste des assignments
             // en utilisant le router de manière programmatique
             this.router.navigate(['/assignments']);

@@ -25,10 +25,10 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="closeDialog()">Annuler</button>
+  <button mat-raised-button (click)="closeDialog()">Annuler</button>
 
-  <button mat-button [disabled]="isSaving" (click)="saveChanges()">
-    <span *ngIf="!isSaving">Ajouter</span>
-    <mat-spinner *ngIf="isSaving" diameter="20" color="accent"></mat-spinner>
+  <button  mat-raised-button color="primary" [disabled]="isSaving" (click)="saveChanges()">
+    <span *ngIf="!isSaving">Enregistrer</span>
+    <mat-spinner *ngIf="isSaving" diameter="20" color="primary"></mat-spinner>
 </button>
 </mat-dialog-actions>

@@ -2,14 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../login/user.model';
+import { environment } from '../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class StudentService {
-  constructor(private http: HttpClient) {}
+    uri = environment.baseUrl;
+    constructor(private http: HttpClient) { }
 
-  getStudents(groupId: string): Observable<User> {
-    return this.http.get<User>(`/api/group/${groupId}/students`);
-  }
+    getStudentInGroups(page:number, limit:number,groupId: string,filtre:string): Observable<any> {
+        return this.http.get<User>(this.uri+`/etudiants/not-in-group?page=${page}&limit=${limit}&idgroupe=${groupId}&filtre=${filtre}`);
+    }
+
+    getStudentNotInGroups(page:number, limit:number,groupId: string,filtre:string): Observable<any> {
+        return this.http.get<User>(this.uri+`/etudiants/in-group?page=${page}&limit=${limit}&idgroupe=${groupId}&filtre=${filtre}`);
+    }
 }

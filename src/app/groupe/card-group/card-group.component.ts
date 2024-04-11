@@ -32,7 +32,6 @@ export class CardGroupComponent {
     value = 'Clear me';
     groupes: Groupe[] = [];
     groupesStudents: Groupe[] = [];
-    isLoading = true;
     user: User | undefined;
     iduser = ' ';
     searchTerm = '';
@@ -44,6 +43,8 @@ export class CardGroupComponent {
     prevPage!: number;
     hasNextPage!: boolean;
     hasPrevPage!: boolean;
+    isLoadingGroupes: boolean = false;
+    isLoadingGroupesStudents: boolean = false;
 
     constructor(private groupeservice: GroupeService, private authService: AuthService, private dialog: MatDialog) { }
     ngOnInit() {
@@ -78,6 +79,7 @@ export class CardGroupComponent {
     }
 
     getGroupeFromServicePaginate() {
+        this.isLoadingGroupes = true;
         this.groupeservice
             .getGroupesPagines(this.page, this.limit, this.searchTerm)
             .subscribe((data) => {
@@ -90,12 +92,13 @@ export class CardGroupComponent {
                 this.prevPage = data.prevPage;
                 this.hasNextPage = data.hasNextPage;
                 this.hasPrevPage = data.hasPrevPage;
-                this.isLoading = false;
+                this.isLoadingGroupes = false; 
             });
         console.log('Requête envoyée');
     }
 
     getGroupeFromServicePaginateStudent() {
+        this.isLoadingGroupesStudents = true;
         this.groupeservice
             .getGroupesPaginesStudents(this.page, this.limit, this.searchTerm, this.iduser)
             .subscribe((data) => {
@@ -108,7 +111,7 @@ export class CardGroupComponent {
                 this.prevPage = data.prevPage;
                 this.hasNextPage = data.hasNextPage;
                 this.hasPrevPage = data.hasPrevPage;
-                this.isLoading = false;
+                this.isLoadingGroupesStudents = false;
             });
         console.log('Requête envoyée');
     }
@@ -119,7 +122,6 @@ export class CardGroupComponent {
                 console.log('Données arrivées atoo');
                 console.log(grp);
                 this.groupes = grp;
-                this.isLoading = false;
             });
         console.log('Requête envoyée');
     }

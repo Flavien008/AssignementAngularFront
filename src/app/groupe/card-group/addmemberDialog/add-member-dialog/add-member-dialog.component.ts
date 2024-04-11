@@ -36,6 +36,7 @@ export class AddMemberDialogComponent implements OnInit {
     hasNextPage!: boolean;
     hasPrevPage!: boolean;
     loadingStudents: boolean = false;
+    addingMembers: boolean = false;
 
     constructor(
         public dialogRef: MatDialogRef<AddMemberDialogComponent>,
@@ -99,11 +100,12 @@ export class AddMemberDialogComponent implements OnInit {
         };
 
         console.log(payload);
+        this.addingMembers = true;
         this.groupeService.addUsertoGroup(payload).subscribe((reponse) => {
             console.log("result ajout :"+reponse.message);
+            this.addingMembers = false;
+            this.dialogRef.close(true);
         });
-        // Fermez la boîte de dialogue
-        this.dialogRef.close(true);
     }
 }
 

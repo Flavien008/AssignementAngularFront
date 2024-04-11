@@ -23,6 +23,9 @@
 </div>
 
 <mat-dialog-actions>
-    <button mat-button (click)="addMembers()">Ajouter</button>
-    <button mat-button (click)="dialogRef.close()">Annuler</button>
+    <button mat-button [disabled]="addingMembers" (click)="addMembers()">
+        <span *ngIf="!addingMembers">Ajouter</span>
+        <mat-spinner *ngIf="addingMembers" diameter="20" color="accent"></mat-spinner>
+    </button>
+    <button mat-button (click)="dialogRef.close(false)">Annuler</button>
 </mat-dialog-actions>

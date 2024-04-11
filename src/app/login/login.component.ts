@@ -4,6 +4,7 @@ import { AuthService } from '../shared/auth.service';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatIconModule,
     FormsModule,
     MatProgressSpinnerModule,
-    RouterLink
+    RouterLink,
+    CommonModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'

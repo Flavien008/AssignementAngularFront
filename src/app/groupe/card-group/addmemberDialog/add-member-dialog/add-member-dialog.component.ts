@@ -1,3 +1,4 @@
+import { GroupeService } from './../../../../shared/groupe.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { User } from '../../../../login/user.model';
@@ -17,7 +18,7 @@ import { Groupe } from '../../../goupe.model';
     selector: 'app-add-member-dialog',
     templateUrl: './add-member-dialog.component.html',
     standalone: true,
-    imports: [MatSpinner,MatPaginator,MatFormFieldModule, MatInputModule, MatFormField, MatLabel, MatButton, CommonModule, FormsModule, MatDialogContent, MatDialogActions, MatCheckbox],
+    imports: [MatSpinner, MatPaginator, MatFormFieldModule, MatInputModule, MatFormField, MatLabel, MatButton, CommonModule, FormsModule, MatDialogContent, MatDialogActions, MatCheckbox],
     styleUrls: ['./add-member-dialog.component.css']
 })
 export class AddMemberDialogComponent implements OnInit {
@@ -39,14 +40,14 @@ export class AddMemberDialogComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<AddMemberDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private studentService: StudentService) { 
-            console.log('groue'+this.data.group.nom);
-            
-            this.titre = this.data.group.nom;
-        }
+        private studentService: StudentService, private groupeService: GroupeService) {
+        console.log('groue' + this.data.group.nom);
+
+        this.titre = this.data.group.nom;
+    }
 
     ngOnInit() {
-        this.getStudentInGroupsFromService(this.page, this.limit,this.data.group._id,this.filtre);
+        this.getStudentInGroupsFromService(this.page, this.limit, this.data.group._id, this.filtre);
     }
 
     onPageChange(event: any) {
@@ -54,10 +55,10 @@ export class AddMemberDialogComponent implements OnInit {
         this.limit = event.pageSize;
         this.getStudentInGroupsFromService(this.page, this.limit, this.data.group._id, this.filtre);
     }
-    
+
 
     applyFilters(): void {
-        this.getStudentInGroupsFromService(this.page, this.limit,this.data.group._id,this.filtre);
+        this.getStudentInGroupsFromService(this.page, this.limit, this.data.group._id, this.filtre);
     }
 
     selectAllStudents(event: any) {
@@ -68,11 +69,11 @@ export class AddMemberDialogComponent implements OnInit {
     }
 
 
-    getStudentInGroupsFromService(page:number, limit:number,groupId: string,filtre:string) {
+    getStudentInGroupsFromService(page: number, limit: number, groupId: string, filtre: string) {
         this.loadingStudents = true;
-        this.studentService.getStudentInGroups(page,limit,groupId,filtre).subscribe((data) => {
+        this.studentService.getStudentInGroups(page, limit, groupId, filtre).subscribe((data) => {
             this.students = data.docs;
-            console.log('Données des étudiants'+this.students);
+            console.log('Données des étudiants' + this.students);
             this.totalDocs = data.totalDocs;
             this.totalPages = data.totalPages;
             this.nextPage = data.nextPage;
@@ -81,38 +82,26 @@ export class AddMemberDialogComponent implements OnInit {
             this.hasPrevPage = data.hasPrevPage;
             this.loadingStudents = false;
 
-          });
+        });
     }
 
     addMembers() {
         const selectedStudentIds = Object.keys(this.selectedStudents); // Obtenez les clés de l'objet selectedStudents
-    
+
         if (selectedStudentIds.length === 0) {
             console.log('Aucun étudiant sélectionné.');
             return;
         }
 
-        // Construisez votre payload pour l'API
         const payload = {
             groupId: this.data.group._id,
             studentIds: selectedStudentIds
         };
 
         console.log(payload);
-        
-    
-        // Envoyez le POST à votre API
-        // this.http.post('votre_url_de_l_api', payload).subscribe(
-        //     (response) => {
-        //         console.log('Réponse de l\'API:', response);
-        //         // Traitez la réponse de l'API si nécessaire
-        //     },
-        //     (error) => {
-        //         console.error('Erreur lors de l\'envoi de la requête:', error);
-        //         // Traitez l'erreur si nécessaire
-        //     }
-        // );
-    
+        this.groupeService.addUsertoGroup(payload).subscribe((reponse) => {
+            console.log("result ajout :"+reponse.message);
+        });
         // Fermez la boîte de dialogue
         this.dialogRef.close(true);
     }

@@ -24,4 +24,8 @@ export class GroupeService {
   getGroupesPaginesStudents(page:number, limit:number,nom:string,idStudent:string):Observable<any> {
     return this.http.get<Groupe[]>(this.uri+'/etudiant/'+ idStudent + "?page=" + page + "&limit=" + limit + "&nom="+nom);
   }
+
+  addUsertoGroup(data:any):Observable<any> {
+    return this.http.post<any>(this.uri+'/membre', data);
+  }
 }

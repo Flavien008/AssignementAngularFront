@@ -19,6 +19,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import {Rendu} from '../rendu.model';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
+import { NoterRenduComponent } from '../noter-rendu/noter-rendu.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -56,6 +58,7 @@ export class AssignmentDetailComponent implements OnInit {
               private authService:AuthService,
               private route:ActivatedRoute,
               private router:Router,private ngZone: NgZone,
+              public dialog: MatDialog
               ) { }
               
 
@@ -65,6 +68,19 @@ export class AssignmentDetailComponent implements OnInit {
     this.userData = this.getUserData();
     this.getRenduFromService();
   }
+
+  openDialog(assignement:Assignment) {
+    const dialogEditref =this.dialog.open(NoterRenduComponent, {
+        data: { assignement }
+    });
+
+    dialogEditref.afterClosed().subscribe(result => {
+      console.log("confirmation : "+result);
+      if (result) { 
+          this.getRenduFromService();
+      }
+    });
+}
 
   getAssignmentsFromService() {
     const url = this.route.snapshot.url;

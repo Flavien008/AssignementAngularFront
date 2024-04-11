@@ -1,3 +1,4 @@
+import { MatSpinner } from '@angular/material/progress-spinner';
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,7 +27,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 @Component({
   selector: 'app-assignment-list', 
   standalone: true,
-  imports: [MatDialogClose,MatOption,MatInputModule,MatFormFieldModule,FormsModule,MatIcon,MatFormField,CommonModule, RouterLink,
+  imports: [MatSpinner,MatDialogClose,MatOption,MatInputModule,MatFormFieldModule,FormsModule,MatIcon,MatFormField,CommonModule, RouterLink,
     MatButtonModule, MatCardModule, MatCheckboxModule,CdkVirtualScrollViewport,ScrollingModule,MatListModule],
   templateUrl: './assignment-list.component.html',
   styleUrl: './assignment-list.component.css'
@@ -44,6 +45,7 @@ export class AssignmentListComponent implements OnInit {
   prevPage!: number;
   hasNextPage!: boolean;
   hasPrevPage!: boolean;
+  isLoadingAssignments: boolean = false;
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
@@ -92,6 +94,7 @@ export class AssignmentListComponent implements OnInit {
 
   getAssignmentsFromService() {
     // on récupère les assignments depuis le service
+    this.isLoadingAssignments = true;
     this.assignmentsService
       .getAssignmentsPaginesListe(this.page, this.limit,this.titrefiltre,this.matierefiltre,this.groupeid)
       .subscribe((data) => {
@@ -104,6 +107,7 @@ export class AssignmentListComponent implements OnInit {
         this.prevPage = data.prevPage;
         this.hasNextPage = data.hasNextPage;
         this.hasPrevPage = data.hasPrevPage;
+        this.isLoadingAssignments = false;
       });
     console.log('Requête envoyée');
   }

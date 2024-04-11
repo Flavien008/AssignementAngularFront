@@ -1,31 +1,34 @@
 <!-- modification-assignement-dialog.component.html -->
 <h2 mat-dialog-title>Modification d'assignement</h2>
 <mat-dialog-content>
-    <div style="width: 720px;">
-      <form  [formGroup]="assignmentForm">
-        <div style="display: grid; grid-gap: 10px;">
-        
-          <mat-form-field>
-            <input matInput placeholder="Titre" formControlName="titre">
-          </mat-form-field>
-          <mat-form-field>
-            <textarea matInput placeholder="Description" formControlName="description"></textarea>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="date" placeholder="Date limite" formControlName="dateLimite">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Matière" formControlName="matiere">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Lien" formControlName="lien">
-          </mat-form-field>
-        </div>
-      </form>
-    </div>
-  </mat-dialog-content>
-  <mat-dialog-actions>
-    <button mat-button (click)="closeDialog()">Annuler</button>
-    <button mat-button color="primary" (click)="saveChanges()">Enregistrer</button>
-  </mat-dialog-actions>
-  
+  <div style="width: 720px;">
+    <form [formGroup]="assignmentForm">
+      <div style="display: grid; grid-gap: 10px;">
+
+        <mat-form-field>
+          <input matInput placeholder="Titre" formControlName="titre">
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput placeholder="Description" formControlName="description"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="date" placeholder="Date limite" formControlName="dateLimite">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Matière" formControlName="matiere">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Lien" formControlName="lien">
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Annuler</button>
+
+  <button mat-button [disabled]="isSaving" (click)="saveChanges()">
+    <span *ngIf="!isSaving">Ajouter</span>
+    <mat-spinner *ngIf="isSaving" diameter="20" color="accent"></mat-spinner>
+</button>
+</mat-dialog-actions>

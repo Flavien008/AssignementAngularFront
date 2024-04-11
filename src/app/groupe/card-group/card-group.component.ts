@@ -50,9 +50,12 @@ export class CardGroupComponent {
         // this.getGroupeFromService();
         this.user = this.authService.getUserData();
         this.iduser = this.user._id || '';
+        this.fetchData();
+    }
+
+    fetchData() : void{ //on ajoutera la condition lequel fetcher selon le role
         this.getGroupeFromServicePaginateStudent();
         this.getGroupeFromServicePaginate();
-
     }
 
     openAddMemberDialog(group: Groupe) {
@@ -71,8 +74,7 @@ export class CardGroupComponent {
 
     onSearchTermChange() {
         this.page = 1;
-        this.getGroupeFromServicePaginateStudent();
-        this.getGroupeFromServicePaginate();
+        this.fetchData();
     }
 
     getGroupeFromServicePaginate() {
@@ -125,42 +127,36 @@ export class CardGroupComponent {
     handlePageEvent(event: PageEvent) {
         this.page = event.pageIndex + 1;
         this.limit = event.pageSize;
-        this.getGroupeFromServicePaginateStudent();
-        this.getGroupeFromServicePaginate();
+        this.fetchData();
     }
 
     premierePage() {
         this.page = 1;
-        this.getGroupeFromServicePaginateStudent();
-        this.getGroupeFromServicePaginate();
+        this.fetchData();
     }
 
     dernierePage() {
         this.page = this.totalPages;
-        this.getGroupeFromServicePaginateStudent();
-        this.getGroupeFromServicePaginate();
+        this.fetchData();
     }
 
     pagePrecedente() {
         if (this.page > 1) {
             this.page--;
         }
-        this.getGroupeFromServicePaginateStudent();
-        this.getGroupeFromServicePaginate();
+        this.fetchData();
     }
 
     pageSuivante() {
         if (this.page < this.totalPages) {
             this.page++;
         }
-        this.getGroupeFromServicePaginateStudent();
-        this.getGroupeFromServicePaginate();
+        this.fetchData();
     }
 
     goToPage(pageNumber: number) {
         this.page = pageNumber;
-        this.getGroupeFromServicePaginateStudent();
-        this.getGroupeFromServicePaginate();
+        this.fetchData();
     }
 
     getPageNumbers(): number[] {

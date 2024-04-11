@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSpinner } from '@angular/material/progress-spinner';
+import { Groupe } from '../../../goupe.model';
 
 @Component({
     selector: 'app-add-member-dialog',
@@ -26,6 +27,7 @@ export class AddMemberDialogComponent implements OnInit {
     filtre = '';
     page = 1;
     limit = 10;
+    titre = '';
     totalDocs!: number;
     totalPages!: number;
     nextPage!: number;
@@ -36,22 +38,26 @@ export class AddMemberDialogComponent implements OnInit {
 
     constructor(
         public dialogRef: MatDialogRef<AddMemberDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { groupId: string },
-        private studentService: StudentService) { }
+        @Inject(MAT_DIALOG_DATA) public data: any,
+        private studentService: StudentService) { 
+            console.log('groue'+this.data.group.nom);
+            
+            this.titre = this.data.group.nom;
+        }
 
     ngOnInit() {
-        this.getStudentInGroupsFromService(this.page, this.limit,this.data.groupId,this.filtre);
+        this.getStudentInGroupsFromService(this.page, this.limit,this.data.group._id,this.filtre);
     }
 
     onPageChange(event: any) {
         this.page = event.pageIndex + 1; // pageIndex commence à 0, donc nous ajoutons 1
         this.limit = event.pageSize;
-        this.getStudentInGroupsFromService(this.page, this.limit, this.data.groupId, this.filtre);
+        this.getStudentInGroupsFromService(this.page, this.limit, this.data.group._id, this.filtre);
     }
     
 
     applyFilters(): void {
-        this.getStudentInGroupsFromService(this.page, this.limit,this.data.groupId,this.filtre);
+        this.getStudentInGroupsFromService(this.page, this.limit,this.data.group._id,this.filtre);
     }
 
     selectAllStudents(event: any) {

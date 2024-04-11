@@ -55,10 +55,10 @@ export class CardGroupComponent {
     
   }
 
-  openAddMemberDialog(groupId: string) {
+  openAddMemberDialog(group: Groupe) {
     const dialogRef = this.dialog.open(AddMemberDialogComponent, {
       width: '500px',
-      data: { groupId: groupId } // Passer l'identifiant du groupe
+      data: { group } // Passer l'identifiant du groupe
     });
   
     dialogRef.afterClosed().subscribe((result: User[]) => {

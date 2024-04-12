@@ -63,7 +63,7 @@ export class CardGroupComponent {
     onPageChange(event: any) {
         this.page = event.pageIndex + 1; // pageIndex commence à 0, donc nous ajoutons 1
         this.limit = event.pageSize;
-        this.getGroupeFromServicePaginate();
+        this.fetchData();
     }
 
     openAddMemberDialog(group: Groupe) {

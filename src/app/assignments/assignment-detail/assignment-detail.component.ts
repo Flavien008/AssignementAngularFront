@@ -69,24 +69,26 @@ export class AssignmentDetailComponent implements OnInit {
     this.getRenduFromService();
   }
 
-  openDialog(assignement:Assignment) {
-    const dialogEditref =this.dialog.open(NoterRenduComponent, {
-        data: { assignement }
+  openDialog(rendu: Rendu) {
+    console.log(rendu);
+    const dialogNoteref = this.dialog.open(NoterRenduComponent, {
+      data: {rendu}
     });
-
-    dialogEditref.afterClosed().subscribe(result => {
-      console.log("confirmation : "+result);
-      if (result) { 
-          this.getRenduFromService();
+  
+    dialogNoteref.afterClosed().subscribe(result => {
+      console.log("confirmation : " + result);
+      if (result) {
+        this.getRenduFromService();
       }
     });
-}
+  }
+  
 
   getAssignmentsFromService() {
     const url = this.route.snapshot.url;
     const lastSegment = url[url.length - 1];
     const id = lastSegment.path;
-    console.log('ID de l\'assignment:', id);
+    console.log('ID de l\'assignment:', id); 
     
     this.assignmentsService.getAssignment(id).subscribe((data) => {
       this.assignmentTransmis = data;

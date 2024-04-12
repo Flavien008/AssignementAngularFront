@@ -41,7 +41,6 @@ export class NoterRenduComponent {
         window.getSelection()?.addRange(range);
         document.execCommand('copy');
         window.getSelection()?.removeAllRanges();
-        alert('Lien copié dans le presse-papiers');
     }
 }
 

@@ -9,12 +9,17 @@ import { Observable } from 'rxjs';
 })
 export class GroupeService {
   uri = environment.baseUrl+"/groupes";
+  uriId = environment.baseUrl+"/groupe";
   url = environment.baseUrl+"/groupesAll";
 
   constructor(private http:HttpClient) { }
   
   getGroupe():Observable<Groupe[]> {
     return this.http.get<Groupe[]>(this.url);
+  }
+
+  getGroupeById(id:string):Observable<Groupe> {
+    return this.http.get<Groupe>(this.uriId+"/"+id);
   }
 
   getGroupesPagines(page:number, limit:number,nom:string):Observable<any> {

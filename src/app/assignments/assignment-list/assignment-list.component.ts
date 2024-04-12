@@ -1,3 +1,4 @@
+import { GroupeService } from './../../shared/groupe.service';
 import { MatSpinner } from '@angular/material/progress-spinner';
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -23,11 +24,12 @@ import { MatOption } from '@angular/material/core';
 import { MatDialog, MatDialogClose } from '@angular/material/dialog';
 import { AssignementEditComponent } from '../assignement-edit/assignement-edit.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-
+import {MatTabsModule} from '@angular/material/tabs';
+import { Groupe } from '../../groupe/goupe.model';
 @Component({
     selector: 'app-assignment-list',
     standalone: true,
-    imports: [MatSpinner, MatDialogClose, MatOption, MatInputModule, MatFormFieldModule, FormsModule, MatIcon, MatFormField, CommonModule, RouterLink,
+    imports: [MatTabsModule,MatSpinner, MatDialogClose, MatOption, MatInputModule, MatFormFieldModule, FormsModule, MatIcon, MatFormField, CommonModule, RouterLink,
         MatButtonModule, MatCardModule, MatCheckboxModule, CdkVirtualScrollViewport, ScrollingModule, MatListModule],
     templateUrl: './assignment-list.component.html',
     styleUrl: './assignment-list.component.css'
@@ -37,6 +39,7 @@ export class AssignmentListComponent implements OnInit {
     titrefiltre = '';
     matierefiltre = '';
     groupeid = '';
+    groupe!: Groupe | undefined;
     page = 1;
     limit = 10;
     totalDocs!: number;
@@ -50,6 +53,7 @@ export class AssignmentListComponent implements OnInit {
     @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
     constructor(private assignmentsService: AssignmentsService,
+        private groupeService:GroupeService,
         private authService: AuthService,
         private route: ActivatedRoute,
         private router: Router, private ngZone: NgZone,
@@ -86,6 +90,14 @@ export class AssignmentListComponent implements OnInit {
             .subscribe(assignment => {
                 this.assignmentTransmis = assignment;
             });
+        this.getGoupeByIdFromService();
+    }
+
+    getGoupeByIdFromService(){
+        this.groupeService.getGroupeById(this.groupeid)
+        .subscribe((data:Groupe) => {
+            this.groupe = data;
+        });
     }
 
     applyFilters(): void {

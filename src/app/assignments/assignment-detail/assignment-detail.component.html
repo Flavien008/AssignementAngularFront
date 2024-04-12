@@ -1,22 +1,22 @@
 <h2>{{ titre }}</h2>
 <div *ngIf="assignmentTransmis">
-<div class="container">
-<mat-card class="example-card">
-  <mat-card-header>
-    <mat-card-title></mat-card-title>
-    <mat-card-title>Matiere: {{assignmentTransmis.matiere}}</mat-card-title>
-    <mat-card-subtitle>Titre : {{assignmentTransmis.titre}}</mat-card-subtitle>
-    <mat-card-subtitle>A rendre avant le : {{assignmentTransmis.dateLimite | date:'dd/MM/yyyy'}}</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image src="../../../assets/images/Taking notes-amico.png" alt="Photo of a Shiba Inu">
-  <mat-card-content>
-    <p>
-      {{assignmentTransmis.description}}
-    </p>
-  </mat-card-content>
-</mat-card>
-<mat-card class="formulaire-card">
-  <!-- <mat-card-header>
+  <div class="container">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title></mat-card-title>
+        <mat-card-title>Matiere: {{assignmentTransmis.matiere}}</mat-card-title>
+        <mat-card-subtitle>Titre : {{assignmentTransmis.titre}}</mat-card-subtitle>
+        <mat-card-subtitle>A rendre avant le : {{assignmentTransmis.dateLimite | date:'dd/MM/yyyy'}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="../../../assets/images/Taking notes-amico.png" alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <p>
+          {{assignmentTransmis.description}}
+        </p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="formulaire-card">
+      <!-- <mat-card-header>
     <mat-card-title>Rendre l'assignement</mat-card-title>
   </mat-card-header>
   <mat-card-content>
@@ -47,33 +47,34 @@
   </div>
   </mat-card-actions> -->
 
-  <div style="display: flex; justify-content: space-between; align-items: center;">
-    <h3>Liste des rendus</h3>
-    <div style="display: flex; gap: 10px;"> <!-- Utilisez flexbox avec un espace entre les éléments -->
-      <mat-select [(value)]="filtre" (selectionChange)="applyFilters()">
-        <mat-option value="all">Tous les rendus</mat-option>
-        <mat-option value="withNotes">Déjà noté</mat-option>
-        <mat-option value="withoutNotes">Pas noté</mat-option>
-      </mat-select>
-    </div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3>Liste des rendus</h3>
+        <div style="display: flex; gap: 10px;"> <!-- Utilisez flexbox avec un espace entre les éléments -->
+          <mat-select [(value)]="filtre" (selectionChange)="applyFilters()">
+            <mat-option value="all">Tous les rendus</mat-option>
+            <mat-option value="withNotes">Déjà noté</mat-option>
+            <mat-option value="withoutNotes">Pas noté</mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
+        <mat-list *cdkVirtualFor="let a of rendus" class="example-item">
+          <h3 mat-subheader>
+            Rendu de : {{ a.auteur}}
+          </h3>
+          <mat-list-item>
+            <p>Date de rendu: {{ a.dateRendu | date : "dd/MM/yyyy" }}</p>
+          </mat-list-item>
+          <button mat-raised-button color="primary" (click)="openDialog(a)" style="margin-right: 25px;">Voir
+            details</button>
+          <br><br>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </cdk-virtual-scroll-viewport>
+    </mat-card>
+
   </div>
-
-  <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
-    <mat-list *cdkVirtualFor="let a of rendus" class="example-item">
-        <h3 mat-subheader>
-          Rendu de : {{ a.auteur}}
-        </h3>
-      <mat-list-item>
-        <p>Date de rendu: {{ a.dateRendu | date : "dd/MM/yyyy" }}</p>
-      </mat-list-item>
-      <button mat-raised-button color="primary" (click)="openDialog(a)"  style="margin-right: 25px;">Voir details</button>
-      <br><br> 
-      <mat-divider></mat-divider>
-    </mat-list>
-  </cdk-virtual-scroll-viewport>
-</mat-card>
-
-</div>
 </div>
 <div *ngIf="!assignmentTransmis">
   <p>Loading...</p>

@@ -8,10 +8,13 @@
         <mat-card-content>
             <p>Date du rendu : {{ rendu.dateRendu }}</p>
             <p>Description : {{ rendu.description }}</p>
-            <p>Lien du dossier ou Git : <a href="{{ rendu.file }}" target="_blank" id="gitLink">{{ rendu.file }}</a> <button
-                    mat-icon-button (click)="copyLinkToClipboard()">
+            <p>Lien du dossier ou Git : <a href="{{ rendu.file }}" target="_blank" id="gitLink">{{ rendu.file }}</a>
+                <button mat-icon-button (click)="copyLinkToClipboard()">
                     <mat-icon>content_copy</mat-icon>
                 </button></p>
+            @if(rendu.note){
+            <p>Note : {{ rendu.note }} / 20</p>
+            }
             @if(!rendu.note){
             <mat-form-field appearance="fill" style="width: 100%">
                 <mat-label>Note</mat-label>
@@ -23,7 +26,7 @@
             </mat-form-field>
             <button mat-raised-button color="primary">Ajouter</button>
             <mat-divider></mat-divider>
-        }
+            }
         </mat-card-content>
         <mat-card-footer>
 

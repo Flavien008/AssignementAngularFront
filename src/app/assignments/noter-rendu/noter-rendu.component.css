@@ -1,15 +1,16 @@
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .example-card {
-  max-width: 600px;
-  width: 100%;
-  margin: 20px;
+    max-width: 600px;
+    width: 100%;
+    margin: 20px;
 }
 
 .mat-card-header {
-  background-color: #2196f3; /* couleur de fond de l'en-tête */
+    background-color: #2196f3;
+    /* couleur de fond de l'en-tête */
 }

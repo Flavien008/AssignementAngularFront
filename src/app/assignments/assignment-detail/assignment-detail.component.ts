@@ -6,18 +6,18 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Assignment } from '../assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
-import  {RouterLink} from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
-import {CdkVirtualScrollViewport,ScrollingModule} from '@angular/cdk/scrolling';
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { MatListModule } from '@angular/material/list';
 import { ViewChild, NgZone } from '@angular/core';
-import {MatSelectModule} from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
-import {Rendu} from '../rendu.model';
+import { Rendu } from '../rendu.model';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
 import { NoterRenduComponent } from '../noter-rendu/noter-rendu.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,20 +25,20 @@ import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
-  selector: 'app-assignment-detail', 
+  selector: 'app-assignment-detail',
   standalone: true,
   imports: [CommonModule, RouterLink,
-    MatButtonModule, MatCardModule,CdkVirtualScrollViewport,ScrollingModule,MatListModule,MatSelectModule,MatInputModule,MatFormFieldModule,MatIconModule,MatProgressSpinnerModule,FormsModule],
+    MatButtonModule, MatCardModule, CdkVirtualScrollViewport, ScrollingModule, MatListModule, MatSelectModule, MatInputModule, MatFormFieldModule, MatIconModule, MatProgressSpinnerModule, FormsModule],
   templateUrl: './assignment-detail.component.html',
   styleUrl: './assignment-detail.component.css'
 })
 export class AssignmentDetailComponent implements OnInit {
   titre = 'Details de l\'assignment';
-  assignmentTransmis: Assignment|undefined;
+  assignmentTransmis: Assignment | undefined;
   isloading: boolean = false;
-  repositoryUrl: string = ''; 
-  description: string = ''; 
-  userData : any;
+  repositoryUrl: string = '';
+  description: string = '';
+  userData: any;
   message = '';
   filtre: string = 'all';
   page = 1;
@@ -50,17 +50,17 @@ export class AssignmentDetailComponent implements OnInit {
   hasNextPage!: boolean;
   hasPrevPage!: boolean;
   rendus: Rendu[] = [];
-  
+
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
-  constructor(private assignmentsService:AssignmentsService,
-              private authService:AuthService,
-              private route:ActivatedRoute,
-              private router:Router,private ngZone: NgZone,
-              public dialog: MatDialog
-              ) { }
-              
+  constructor(private assignmentsService: AssignmentsService,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router, private ngZone: NgZone,
+    public dialog: MatDialog
+  ) { }
+
 
 
   ngOnInit(): void {
@@ -72,9 +72,9 @@ export class AssignmentDetailComponent implements OnInit {
   openDialog(rendu: Rendu) {
     console.log(rendu);
     const dialogNoteref = this.dialog.open(NoterRenduComponent, {
-      data: {rendu}
+      data: { rendu }
     });
-  
+
     dialogNoteref.afterClosed().subscribe(result => {
       console.log("confirmation : " + result);
       if (result) {
@@ -82,14 +82,14 @@ export class AssignmentDetailComponent implements OnInit {
       }
     });
   }
-  
+
 
   getAssignmentsFromService() {
     const url = this.route.snapshot.url;
     const lastSegment = url[url.length - 1];
     const id = lastSegment.path;
-    console.log('ID de l\'assignment:', id); 
-    
+    console.log('ID de l\'assignment:', id);
+
     this.assignmentsService.getAssignment(id).subscribe((data) => {
       this.assignmentTransmis = data;
       console.log('Assignment récupéré:', this.assignmentTransmis);
@@ -97,39 +97,39 @@ export class AssignmentDetailComponent implements OnInit {
     });
   }
 
-  envoyerRendu(){
+  envoyerRendu() {
     const url = this.route.snapshot.url;
     const lastSegment = url[url.length - 1];
     const id = lastSegment.path;
     this.isloading = true;
 
     let nouvelRendu = new Rendu();
-    nouvelRendu.auteur = this.userData.name ;
+    nouvelRendu.auteur = this.userData.name;
     nouvelRendu.dateRendu = this.assignmentsService.getdateNow();
     nouvelRendu.description = this.description;
     nouvelRendu.file = this.repositoryUrl;
     nouvelRendu.idAssignment = id;
     nouvelRendu.idEtudiant = this.userData._id;
     nouvelRendu.matricule = this.userData.matricule;
-    
+
 
 
     console.log(nouvelRendu);
 
     this.assignmentsService.addRendu(nouvelRendu)
-    .subscribe(
-      () => {
-        this.isloading = false;
-        console.log('Rendu envoyé avec succes');
-        this.message = "Rendu envoyé avec succes !";
-      },
-      error => {
-        console.error('Erreur lors de la connexion:', error);
-        // Afficher un message d'erreur approprié à l'utilisateur
-        this.isloading = false;
-        this.message =  "Il y a eu un problème !";
-      }
-    );
+      .subscribe(
+        () => {
+          this.isloading = false;
+          console.log('Rendu envoyé avec succes');
+          this.message = "Rendu envoyé avec succes !";
+        },
+        error => {
+          console.error('Erreur lors de la connexion:', error);
+          // Afficher un message d'erreur approprié à l'utilisateur
+          this.isloading = false;
+          this.message = "Il y a eu un problème !";
+        }
+      );
 
   }
 
@@ -140,7 +140,7 @@ export class AssignmentDetailComponent implements OnInit {
 
   applyFilters(): void {
     this.getRenduFromService();
-}
+  }
 
   getRenduFromService() {
     const url = this.route.snapshot.url;
@@ -148,7 +148,7 @@ export class AssignmentDetailComponent implements OnInit {
     const id = lastSegment.path;
     // on récupère les rendus depuis le service
     this.assignmentsService
-      .getRenduPaginesListe(this.page, this.limit,id,this.filtre,this.userData._id)
+      .getRenduPaginesListe(this.page, this.limit, id, this.filtre, this.userData._id)
       .subscribe((data) => {
         // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées rendu');
@@ -159,10 +159,10 @@ export class AssignmentDetailComponent implements OnInit {
         this.prevPage = data.prevPage;
         this.hasNextPage = data.hasNextPage;
         this.hasPrevPage = data.hasPrevPage;
-        console.log("Donnnééééé  : 65e61be77722f153d4da1717"+this.userData._id ,data);
+        console.log("Donnnééééé  : 65e61be77722f153d4da1717" + this.userData._id, data);
       });
     console.log('Requête envoyée');
-    
+
   }
 
   getRenduFromServicePourScrollInfini() {
@@ -171,7 +171,7 @@ export class AssignmentDetailComponent implements OnInit {
     const id = lastSegment.path;
     // on récupère les assignments depuis le service
     this.assignmentsService
-      .getRenduPaginesListe(this.page, this.limit,id,this.filtre,this.userData._id)
+      .getRenduPaginesListe(this.page, this.limit, id, this.filtre, this.userData._id)
       .subscribe((data) => {
         // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées scroll');
@@ -215,21 +215,21 @@ export class AssignmentDetailComponent implements OnInit {
         // On ne rentre que si on scrolle vers le bas, que si
         // la distance de la scrollbar est < 100 pixels et que
         // toutes les 200 ms
-          console.log('On demande de nouveaux rendu');
-          // on va faire une requête pour demander les assignments suivants
-          // et on va concatener le resultat au tableau des assignments courants
-          console.log('je CHARGE DE NOUVELLES DONNEES page = ' + this.page);
-          this.ngZone.run(() => {
-            if (!this.hasNextPage) return;
-            console.log("next page"+this.nextPage);
-            this.page = this.nextPage;
-            this.getRenduFromServicePourScrollInfini();
-          });
+        console.log('On demande de nouveaux rendu');
+        // on va faire une requête pour demander les assignments suivants
+        // et on va concatener le resultat au tableau des assignments courants
+        console.log('je CHARGE DE NOUVELLES DONNEES page = ' + this.page);
+        this.ngZone.run(() => {
+          if (!this.hasNextPage) return;
+          console.log("next page" + this.nextPage);
+          this.page = this.nextPage;
+          this.getRenduFromServicePourScrollInfini();
+        });
       });
   }
 
-  
-  
+
+
 
   isAdmin() {
     return this.authService.loggedIn;

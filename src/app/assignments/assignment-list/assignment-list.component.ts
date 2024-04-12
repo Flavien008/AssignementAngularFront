@@ -25,13 +25,15 @@ import { MatOption } from '@angular/material/core';
 import { MatDialog, MatDialogClose } from '@angular/material/dialog';
 import { AssignementEditComponent } from '../assignement-edit/assignement-edit.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { Groupe } from '../../groupe/goupe.model';
 import { StudentService } from '../../shared/user.service';
+import { MatPaginator } from '@angular/material/paginator';
+
 @Component({
     selector: 'app-assignment-list',
     standalone: true,
-    imports: [MatTabsModule,MatSpinner, MatDialogClose, MatOption, MatInputModule, MatFormFieldModule, FormsModule, MatIcon, MatFormField, CommonModule, RouterLink,
+    imports: [MatPaginator,MatTabsModule, MatSpinner, MatDialogClose, MatOption, MatInputModule, MatFormFieldModule, FormsModule, MatIcon, MatFormField, CommonModule, RouterLink,
         MatButtonModule, MatCardModule, MatCheckboxModule, CdkVirtualScrollViewport, ScrollingModule, MatListModule],
     templateUrl: './assignment-list.component.html',
     styleUrl: './assignment-list.component.css'
@@ -53,14 +55,24 @@ export class AssignmentListComponent implements OnInit {
     prevPage!: number;
     hasNextPage!: boolean;
     hasPrevPage!: boolean;
+    // etudiants
+    pageEtudiant = 1;
+    limitEtudiant = 10;
+    totalDocsEtudiant!: number;
+    totalPagesEtudiant!: number;
+    nextPageEtudiant!: number;
+    prevPageEtudiant!: number;
+    hasNextPageEtudiant!: boolean;
+    hasPrevPageEtudiant!: boolean;
+
     isLoadingAssignments: boolean = false;
-    isLoadingStudents : boolean = false;
+    isLoadingStudents: boolean = false;
 
     @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
     constructor(private assignmentsService: AssignmentsService,
-        private groupeService:GroupeService,
-        private userService : StudentService,
+        private groupeService: GroupeService,
+        private userService: StudentService,
         private authService: AuthService,
         private route: ActivatedRoute,
         private router: Router, private ngZone: NgZone,
@@ -79,8 +91,11 @@ export class AssignmentListComponent implements OnInit {
         });
     }
 
-
-
+    onPageChange(event: any) {
+        this.pageEtudiant = event.pageIndex + 1; // pageIndex commence à 0, donc nous ajoutons 1
+        this.limitEtudiant = event.pageSize;
+        this.getStudentsFromService(this.groupeid);
+    }
 
     ngOnInit() {
         // Recuperation des query params (ce qui suit le ? dans l'url)
@@ -101,20 +116,26 @@ export class AssignmentListComponent implements OnInit {
         this.getStudentsFromService(id);
     }
 
-    getGoupeByIdFromService(id:string){
-        this.isLoadingStudents = true;
+    getGoupeByIdFromService(id: string) {
         this.groupeService.getGroupeById(id)
-        .subscribe((data:Groupe) => {
-            this.groupe = data;
-            this.isLoadingStudents = false;
-        });
+            .subscribe((data: Groupe) => {
+                this.groupe = data;
+            });
     }
 
-    getStudentsFromService(id:string){
-        this.userService.getStudentInGroups(1,10,id,this.filtreEdudiant)
-        .subscribe((data:any) => {
-            this.students = data.docs;
-        });
+    getStudentsFromService(id: string) {
+        this.isLoadingStudents = true;
+        this.userService.getStudentInGroups(this.pageEtudiant, this.limitEtudiant, id, this.filtreEdudiant)
+            .subscribe((data: any) => {
+                this.students = data.docs;
+                this.totalDocsEtudiant = data.totalDocs;
+                this.totalPagesEtudiant = data.totalPages;
+                this.nextPageEtudiant = data.nextPage;
+                this.prevPageEtudiant = data.prevPage;
+                this.hasNextPageEtudiant = data.hasNextPage;
+                this.hasPrevPageEtudiant = data.hasPrevPage;
+                this.isLoadingStudents = false;
+            });
     }
 
     applyFilters(): void {
@@ -134,7 +155,6 @@ export class AssignmentListComponent implements OnInit {
             .subscribe((data) => {
                 // les données arrivent ici au bout d'un certain temps
                 this.assignments = data.docs;
-                console.log('Données arrivées' + this.assignments);
                 this.totalDocs = data.totalDocs;
                 this.totalPages = data.totalPages;
                 this.nextPage = data.nextPage;

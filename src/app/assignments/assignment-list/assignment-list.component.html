@@ -72,8 +72,8 @@
                         <div style="display: flex; gap: 10px;">
                             <!-- Utilisez flexbox avec un espace entre les éléments -->
                             <mat-form-field appearance="fill" class="search-container">
-                                <input matInput type="text" [(ngModel)]="titrefiltre" placeholder="Rechercher..."
-                                    (ngModelChange)="applyFilters()">
+                                <input matInput type="text" [(ngModel)]="filtreEdudiant" placeholder="Nom ou email..."
+                                    (ngModelChange)="applyFiltersStudents()">
                                 <button matSuffix mat-icon-button aria-label="Clear"
                                     (click)="filtreEdudiant='';applyFiltersStudents()">
                                     <mat-icon>close</mat-icon>
@@ -83,9 +83,13 @@
                     </div>
 
                     <mat-divider></mat-divider>
-                    <div *ngIf="isLoadingAssignments"
+                    <div *ngIf="isLoadingStudents"
                         style="display: flex; justify-content: center; align-items: center;height:75vh">
                         <mat-spinner diameter="30" color="accent"></mat-spinner>
+                    </div>
+                    <div *ngIf="!isLoadingStudents && students.length == 0"
+                        style="display: flex; justify-content: center; align-items: center;height:75vh">
+                        <p>Aucun resultat.</p>
                     </div>
                     <mat-list *ngFor="let s of students" class="example-item"
                         style="display: flex; flex-direction: column;">
@@ -104,7 +108,9 @@
                         <mat-divider style="margin-top: 10px;"></mat-divider>
                     </mat-list>
                 </div>
-
+                <mat-paginator *ngIf="!isLoadingStudents" [length]="totalDocsEtudiant" [pageSize]="limitEtudiant" [pageSizeOptions]="[5, 10, 25, 100]"
+                (page)="onPageChange($event)" aria-label="Select page" itemsPerPageLabel="Éléments par page">
+            </mat-paginator>
             </div>
         </mat-tab>
     </mat-tab-group>

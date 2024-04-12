@@ -22,6 +22,11 @@ export class GroupeService {
     return this.http.get<Groupe>(this.uriId+"/"+id);
   }
 
+  addGroupe(groupe : Groupe):Observable<any> {
+    console.log(groupe.nom, " groupe ajouté");
+    return this.http.post<Groupe>(this.uri, groupe);
+  }
+
   getGroupesPagines(page:number, limit:number,nom:string):Observable<any> {
     return this.http.get<Groupe[]>(this.uri + "?page=" + page + "&limit=" + limit + "&nom="+nom);
   }

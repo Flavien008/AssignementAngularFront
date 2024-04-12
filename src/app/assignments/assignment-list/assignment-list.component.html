@@ -104,8 +104,7 @@
                             <p>{{ s.name }}</p>
                         </mat-list-item>
                         <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
-                            <button mat-raised-button color="primary"
-                                style="margin-right: 10px;">Modifier</button>
+                            <button mat-raised-button color="primary" style="margin-right: 10px;" (click)="confirmRemoveStudent(s)">Retirer</button>
                         </div>
                         <mat-divider style="margin-top: 10px;"></mat-divider>
                     </mat-list>
@@ -168,8 +167,8 @@
             </mat-list>
         </ng-container>
         <ng-template #emptyList>
-            <p>Aucune assignement n'a été trouvée.</p>
+            <p>Aucun assignement n'a été trouvée.</p>
         </ng-template>
     </cdk-virtual-scroll-viewport>
-    
+
 </div>

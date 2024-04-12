@@ -33,7 +33,7 @@ import { MatPaginator } from '@angular/material/paginator';
 @Component({
     selector: 'app-assignment-list',
     standalone: true,
-    imports: [MatPaginator,MatTabsModule, MatSpinner, MatDialogClose, MatOption, MatInputModule, MatFormFieldModule, FormsModule, MatIcon, MatFormField, CommonModule, RouterLink,
+    imports: [MatPaginator, MatTabsModule, MatSpinner, MatDialogClose, MatOption, MatInputModule, MatFormFieldModule, FormsModule, MatIcon, MatFormField, CommonModule, RouterLink,
         MatButtonModule, MatCardModule, MatCheckboxModule, CdkVirtualScrollViewport, ScrollingModule, MatListModule],
     templateUrl: './assignment-list.component.html',
     styleUrl: './assignment-list.component.css'
@@ -270,6 +270,29 @@ export class AssignmentListComponent implements OnInit {
             }
         });
     }
+
+    confirmRemoveStudent(user: any): void {
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            width: '500px',
+            data: { user: user, groupe: this.groupe }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result && result.confirmed) { // Vérifiez si la confirmation est vraie
+                console.log(result.groupe); // Ceci vous donne accès à l'assignment sélectionné
+                this.isLoadingStudents = true;
+                this.groupeService.removeStudent(result.groupe, result.user).subscribe(message => {
+                    console.log(message);
+                    this.getStudentsFromService(this.groupeid);
+                    this.getGoupeByIdFromService(this.groupeid);
+                    
+
+                });
+            }
+        });
+    }
+
+
 
     isAdmin() {
         return this.authService.loggedIn;

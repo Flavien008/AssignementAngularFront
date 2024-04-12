@@ -54,6 +54,7 @@ export class AuthService {
       "username" : username,
       "password" : password,
       "name" : name,
+      "role" : "student",
       "matricule" : matricule
     }
     return this.http.post(this.uri+"/signup", data).pipe(

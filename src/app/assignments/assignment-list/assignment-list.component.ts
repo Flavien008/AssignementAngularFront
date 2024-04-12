@@ -259,6 +259,7 @@ export class AssignmentListComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result && result.confirmed) { // Vérifiez si la confirmation est vraie
+                this.isLoadingAssignments = true;
                 console.log(result.assignment); // Ceci vous donne accès à l'assignment sélectionné
                 this.assignmentsService.deleteAssignment(result.assignment).subscribe(message => {
                     console.log(message);

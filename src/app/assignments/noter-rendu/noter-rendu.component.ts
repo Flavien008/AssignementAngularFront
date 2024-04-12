@@ -10,6 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { AssignmentDetailComponent } from '../assignment-detail/assignment-detail.component';
+import { AssignmentsService } from '../../shared/assignments.service';
 
 @Component({
   selector: 'app-noter-rendu',
@@ -26,10 +27,11 @@ import { AssignmentDetailComponent } from '../assignment-detail/assignment-detai
   styleUrl: './noter-rendu.component.css'
 })
 export class NoterRenduComponent {
-  @Input() rendu: Rendu | undefined;
+  @Input() rendu: Rendu;
   newnote : undefined;
+  newremarque : undefined;
 
-  constructor(private dialogRef: MatDialogRef<AssignmentDetailComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private assignmentsService: AssignmentsService,private dialogRef: MatDialogRef<AssignmentDetailComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
     this.rendu = data.rendu;
     console.log(this.rendu);
   }
@@ -49,5 +51,15 @@ closeDialog() {
   this.dialogRef.close(false);
 }
 
+AddNote(){
+ if (this.newnote !== undefined && this.newremarque !== undefined) {
+  this.rendu.note = this.newnote;
+  this.rendu.remarque = this.newremarque;
+} else {
+
+}
+ this.assignmentsService.updateRendu(this.rendu);
+  
+}
 
 }

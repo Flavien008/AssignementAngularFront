@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Assignment } from '../assignments/assignment.model';
-import { Observable, forkJoin, of } from 'rxjs';
+import { Observable, forkJoin, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
@@ -92,10 +92,17 @@ export class AssignmentsService {
     return this.http.post(this.urirendu, rendu);
   }
 
-  updateRendu(rendu: Rendu):Observable<any> {
-    this.logService.log(rendu._id, "modifié");
-    return this.http.put(this.urirendu, rendu);
-  }
+ 
+updateRendu(rendu: Rendu) {
+  return this.http.put(this.urirendu, { rendu }).pipe(
+    catchError((error) => {
+      // Gérer l'erreur ici, par exemple afficher un message d'erreur
+      console.error('Erreur lors de la mise à jour du rendu :', error);
+      // Renvoyer une observable avec l'erreur pour que le composant puisse la gérer
+      return throwError(error);
+    })
+  );
+}
 
   getRenduPaginesListe(page:number, limit:number,idAssignment:string,filter:string,idEtudiant:string):Observable<any> {
     return this.http.get<Rendu[]>(this.urirendu + "?page=" + page + "&limit=" + limit+ "&filter=" + filter+ "&idEtudiant=" + "&idAssignment=" + idAssignment);

@@ -16,6 +16,9 @@
             @if(rendu.note){
             <p>Note : {{ rendu.note }} / 20</p>
             }
+            @if(rendu.remarque){
+                <p>Remarque : {{ rendu.remarque }}</p>
+                }
             @if(!rendu.note){
             <mat-form-field appearance="fill" style="width: 100%">
                 <mat-label>Note</mat-label>
@@ -23,10 +26,10 @@
             </mat-form-field>
             <mat-form-field appearance="fill" style="width: 100%">
                 <mat-label>Remarque</mat-label>
-                <textarea matInput [(ngModel)]="rendu.remarque" name="remarque" rows="4"></textarea>
+                <textarea matInput [(ngModel)]="newremarque" name="remarque" rows="4"></textarea>
             </mat-form-field>
             <button mat-raised-button (click)="closeDialog()">Annuler</button>
-            <button mat-raised-button color="primary">Ajouter</button>
+            <button mat-raised-button color="primary" (click)="AddNote()" >Ajouter</button>
             }
 
         </mat-card-content>

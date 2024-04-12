@@ -11,26 +11,25 @@
             <p>Lien du dossier ou Git : <a href="{{ rendu.file }}" target="_blank" id="gitLink">{{ rendu.file }}</a>
                 <button mat-icon-button (click)="copyLinkToClipboard()">
                     <mat-icon>content_copy</mat-icon>
-                </button></p>
+                </button>
+            </p>
             @if(rendu.note){
             <p>Note : {{ rendu.note }} / 20</p>
             }
             @if(!rendu.note){
             <mat-form-field appearance="fill" style="width: 100%">
                 <mat-label>Note</mat-label>
-                <input matInput type="number" [(ngModel)]="rendu.note" name="note">
+                <input matInput type="number" [(ngModel)]="newnote" name="note" max="20">
             </mat-form-field>
             <mat-form-field appearance="fill" style="width: 100%">
                 <mat-label>Remarque</mat-label>
                 <textarea matInput [(ngModel)]="rendu.remarque" name="remarque" rows="4"></textarea>
             </mat-form-field>
+            <button mat-raised-button (click)="closeDialog()">Annuler</button>
             <button mat-raised-button color="primary">Ajouter</button>
-            <mat-divider></mat-divider>
             }
-        </mat-card-content>
-        <mat-card-footer>
 
-        </mat-card-footer>
+        </mat-card-content>
     </mat-card>
 </div>
 

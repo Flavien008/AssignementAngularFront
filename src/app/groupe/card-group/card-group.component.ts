@@ -55,8 +55,14 @@ export class CardGroupComponent {
         this.fetchData();
     }
 
-    fetchData() : void{ //on ajoutera la condition lequel fetcher selon le role
-        this.getGroupeFromServicePaginateStudent();
+    fetchData(): void { //on ajoutera la condition lequel fetcher selon le role
+        if(this.isProf()) this.getGroupeFromServicePaginate();
+        if(this.isStudent()) this.getGroupeFromServicePaginateStudent();
+    }
+
+    onPageChange(event: any) {
+        this.page = event.pageIndex + 1; // pageIndex commence à 0, donc nous ajoutons 1
+        this.limit = event.pageSize;
         this.getGroupeFromServicePaginate();
     }
 
@@ -73,7 +79,7 @@ export class CardGroupComponent {
         });
     }
 
-    openAddGroupDialog(){
+    openAddGroupDialog() {
         const dialogRef = this.dialog.open(AddGroupDialogComponent, {
             width: '500px',
         });
@@ -105,7 +111,7 @@ export class CardGroupComponent {
                 this.prevPage = data.prevPage;
                 this.hasNextPage = data.hasNextPage;
                 this.hasPrevPage = data.hasPrevPage;
-                this.isLoadingGroupes = false; 
+                this.isLoadingGroupes = false;
             });
         console.log('Requête envoyée');
     }
@@ -139,48 +145,12 @@ export class CardGroupComponent {
         console.log('Requête envoyée');
     }
 
-    handlePageEvent(event: PageEvent) {
-        this.page = event.pageIndex + 1;
-        this.limit = event.pageSize;
-        this.fetchData();
+    isProf() {
+        return this.authService.isProf();
     }
 
-    premierePage() {
-        this.page = 1;
-        this.fetchData();
+    isStudent() {
+        return this.authService.isEtudiant();
     }
-
-    dernierePage() {
-        this.page = this.totalPages;
-        this.fetchData();
-    }
-
-    pagePrecedente() {
-        if (this.page > 1) {
-            this.page--;
-        }
-        this.fetchData();
-    }
-
-    pageSuivante() {
-        if (this.page < this.totalPages) {
-            this.page++;
-        }
-        this.fetchData();
-    }
-
-    goToPage(pageNumber: number) {
-        this.page = pageNumber;
-        this.fetchData();
-    }
-
-    getPageNumbers(): number[] {
-        const pageNumbers = [];
-        for (let i = 1; i <= this.totalPages; i++) {
-            pageNumbers.push(i);
-        }
-        return pageNumbers;
-    }
-
 
 }

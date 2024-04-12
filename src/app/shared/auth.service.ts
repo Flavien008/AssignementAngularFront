@@ -68,7 +68,17 @@ export class AuthService {
   
   // propriété pour savoir si l'utilisateur est connecté
 
+  isEtudiant(){
+    const userData = this.getUserData();
+    if(userData.role === 'student') return true;
+    else return false;
+  }
 
+  isProf(){
+    const userData = this.getUserData();
+    if(userData.role === 'prof') return true;
+    else return false;
+  }
 
   
   isAdmin() {

@@ -12,10 +12,10 @@ export class StudentService {
     constructor(private http: HttpClient) { }
 
     getStudentInGroups(page:number, limit:number,groupId: string,filtre:string): Observable<any> {
-        return this.http.get<User>(this.uri+`/etudiants/not-in-group?page=${page}&limit=${limit}&idgroupe=${groupId}&filtre=${filtre}`);
+        return this.http.get<User>(this.uri+`/etudiants/in-group?page=${page}&limit=${limit}&idgroupe=${groupId}&filtre=${filtre}`);
     }
 
     getStudentNotInGroups(page:number, limit:number,groupId: string,filtre:string): Observable<any> {
-        return this.http.get<User>(this.uri+`/etudiants/in-group?page=${page}&limit=${limit}&idgroupe=${groupId}&filtre=${filtre}`);
+        return this.http.get<User>(this.uri+`/etudiants/not-in-group?page=${page}&limit=${limit}&idgroupe=${groupId}&filtre=${filtre}`);
     }
 }

@@ -48,18 +48,18 @@ export class AddMemberDialogComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getStudentInGroupsFromService(this.page, this.limit, this.data.group._id, this.filtre);
+        this.getStudentNotInGroupsFromService(this.page, this.limit, this.data.group._id, this.filtre);
     }
 
     onPageChange(event: any) {
         this.page = event.pageIndex + 1; // pageIndex commence à 0, donc nous ajoutons 1
         this.limit = event.pageSize;
-        this.getStudentInGroupsFromService(this.page, this.limit, this.data.group._id, this.filtre);
+        this.getStudentNotInGroupsFromService(this.page, this.limit, this.data.group._id, this.filtre);
     }
 
 
     applyFilters(): void {
-        this.getStudentInGroupsFromService(this.page, this.limit, this.data.group._id, this.filtre);
+        this.getStudentNotInGroupsFromService(this.page, this.limit, this.data.group._id, this.filtre);
     }
 
     selectAllStudents(event: any) {
@@ -70,9 +70,9 @@ export class AddMemberDialogComponent implements OnInit {
     }
 
 
-    getStudentInGroupsFromService(page: number, limit: number, groupId: string, filtre: string) {
+    getStudentNotInGroupsFromService(page: number, limit: number, groupId: string, filtre: string) {
         this.loadingStudents = true;
-        this.studentService.getStudentInGroups(page, limit, groupId, filtre).subscribe((data) => {
+        this.studentService.getStudentNotInGroups(page, limit, groupId, filtre).subscribe((data) => {
             this.students = data.docs;
             console.log('Données des étudiants' + this.students);
             this.totalDocs = data.totalDocs;

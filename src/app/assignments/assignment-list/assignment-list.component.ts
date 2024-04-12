@@ -1,3 +1,4 @@
+import { User } from './../../login/user.model';
 import { GroupeService } from './../../shared/groupe.service';
 import { MatSpinner } from '@angular/material/progress-spinner';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -26,6 +27,7 @@ import { AssignementEditComponent } from '../assignement-edit/assignement-edit.c
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { Groupe } from '../../groupe/goupe.model';
+import { StudentService } from '../../shared/user.service';
 @Component({
     selector: 'app-assignment-list',
     standalone: true,
@@ -35,6 +37,9 @@ import { Groupe } from '../../groupe/goupe.model';
     styleUrl: './assignment-list.component.css'
 })
 export class AssignmentListComponent implements OnInit {
+    assignments: Assignment[] = [];
+    filtreEdudiant = '';
+    students: User[] = [];
     assignmentTransmis!: Assignment | undefined;
     titrefiltre = '';
     matierefiltre = '';
@@ -49,11 +54,13 @@ export class AssignmentListComponent implements OnInit {
     hasNextPage!: boolean;
     hasPrevPage!: boolean;
     isLoadingAssignments: boolean = false;
+    isLoadingStudents : boolean = false;
 
     @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
     constructor(private assignmentsService: AssignmentsService,
         private groupeService:GroupeService,
+        private userService : StudentService,
         private authService: AuthService,
         private route: ActivatedRoute,
         private router: Router, private ngZone: NgZone,
@@ -72,7 +79,7 @@ export class AssignmentListComponent implements OnInit {
         });
     }
 
-    assignments: Assignment[] = [];
+
 
 
     ngOnInit() {
@@ -90,19 +97,34 @@ export class AssignmentListComponent implements OnInit {
             .subscribe(assignment => {
                 this.assignmentTransmis = assignment;
             });
-        this.getGoupeByIdFromService();
+        this.getGoupeByIdFromService(id);
+        this.getStudentsFromService(id);
     }
 
-    getGoupeByIdFromService(){
-        this.groupeService.getGroupeById(this.groupeid)
+    getGoupeByIdFromService(id:string){
+        this.isLoadingStudents = true;
+        this.groupeService.getGroupeById(id)
         .subscribe((data:Groupe) => {
             this.groupe = data;
+            this.isLoadingStudents = false;
+        });
+    }
+
+    getStudentsFromService(id:string){
+        this.userService.getStudentInGroups(1,10,id,this.filtreEdudiant)
+        .subscribe((data:any) => {
+            this.students = data.docs;
         });
     }
 
     applyFilters(): void {
         this.getAssignmentsFromService();
     }
+
+    applyFiltersStudents(): void {
+        this.getStudentsFromService(this.groupeid);
+    }
+
 
     getAssignmentsFromService() {
         // on récupère les assignments depuis le service

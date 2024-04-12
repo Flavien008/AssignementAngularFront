@@ -35,10 +35,9 @@ export class AddGroupDialogComponent implements OnInit {
         
     }
 
-
     addGroupe() {
-        this.addingGroupe = true;
         if(this.nom == '') return;
+        this.addingGroupe = true;
         let nouveauGrp = new Groupe();
         nouveauGrp.nom = this.nom;
         this.groupeService.addGroupe(nouveauGrp).subscribe((reponse) => {

@@ -107,13 +107,10 @@ export class AssignmentListComponent implements OnInit {
         const id = this.route.snapshot.params['id'];
         this.groupeid = id ? id : '';
         this.getAssignmentsFromService();
-        // On utilise le service pour récupérer l'assignment avec cet id
-        this.assignmentsService.getAssignment(id)
-            .subscribe(assignment => {
-                this.assignmentTransmis = assignment;
-            });
-        this.getGoupeByIdFromService(id);
-        this.getStudentsFromService(id);
+        if (id) {
+            this.getGoupeByIdFromService(id);
+            this.getStudentsFromService(id);
+        }
     }
 
     getGoupeByIdFromService(id: string) {

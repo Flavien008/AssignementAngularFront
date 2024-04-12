@@ -12,6 +12,7 @@
                     mat-icon-button (click)="copyLinkToClipboard()">
                     <mat-icon>content_copy</mat-icon>
                 </button></p>
+            @if(!rendu.note){
             <mat-form-field appearance="fill" style="width: 100%">
                 <mat-label>Note</mat-label>
                 <input matInput type="number" [(ngModel)]="rendu.note" name="note">
@@ -22,6 +23,7 @@
             </mat-form-field>
             <button mat-raised-button color="primary">Ajouter</button>
             <mat-divider></mat-divider>
+        }
         </mat-card-content>
         <mat-card-footer>
 

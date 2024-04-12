@@ -20,7 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../../login/user.model';
 import { MatDialog } from '@angular/material/dialog';
-import { AddMemberDialogComponent } from './addmemberDialog/add-member-dialog/add-member-dialog.component';
+import { AddMemberDialogComponent } from './addmemberDialog/add-member-dialog.component';
+import { AddGroupDialogComponent } from './addgroupDialog/add-group-dialog.component';
 @Component({
     selector: 'app-card-group',
     standalone: true,
@@ -63,6 +64,18 @@ export class CardGroupComponent {
         const dialogRef = this.dialog.open(AddMemberDialogComponent, {
             width: '500px',
             data: { group } // Passer l'identifiant du groupe
+        });
+
+        dialogRef.afterClosed().subscribe((result: boolean) => {
+            if (result) {
+                this.getGroupeFromServicePaginate();
+            }
+        });
+    }
+
+    openAddGroupDialog(){
+        const dialogRef = this.dialog.open(AddGroupDialogComponent, {
+            width: '500px',
         });
 
         dialogRef.afterClosed().subscribe((result: boolean) => {

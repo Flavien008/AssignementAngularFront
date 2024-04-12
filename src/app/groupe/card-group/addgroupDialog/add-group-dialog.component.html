@@ -1,0 +1,14 @@
+<h3 style="margin-left: 10px;">Création nouveau groupe</h3>
+
+<mat-form-field appearance="fill" style="margin-left: 25px;width:450px">
+    <mat-label>Nom du groupe</mat-label>
+    <input matInput placeholder="Nom de du groupe" [(ngModel)]="nom" required>
+</mat-form-field>
+
+<mat-dialog-actions>
+    <button mat-raised-button style="background-color:rgb(194, 14, 53);color:white" (click)="dialogRef.close(false)">Annuler</button>
+    <button mat-raised-button style="background-color:#083880;color:white" [disabled]="addingGroupe" (click)="addGroupe()">
+        <span *ngIf="!addingGroupe">Ajouter</span>
+        <mat-spinner *ngIf="addingGroupe" diameter="20" color="accent"></mat-spinner>
+    </button>
+</mat-dialog-actions>

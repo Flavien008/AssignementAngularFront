@@ -1,8 +1,8 @@
-import { GroupeService } from './../../../../shared/groupe.service';
+import { GroupeService } from '../../../shared/groupe.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { User } from '../../../../login/user.model';
-import { StudentService } from '../../../../shared/user.service';
+import { User } from '../../../login/user.model';
+import { StudentService } from '../../../shared/user.service';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSpinner } from '@angular/material/progress-spinner';
-import { Groupe } from '../../../goupe.model';
+import { Groupe } from '../../goupe.model';
 
 @Component({
     selector: 'app-add-member-dialog',

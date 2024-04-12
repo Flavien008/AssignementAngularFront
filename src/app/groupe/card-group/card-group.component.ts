@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../../login/user.model';
 import { MatDialog } from '@angular/material/dialog';
-import { AddMemberDialogComponent } from './addmemberDialog/add-member-dialog/add-member-dialog.component';
+import { AddMemberDialogComponent } from './addmemberDialog/add-member-dialog.component';
 @Component({
     selector: 'app-card-group',
     standalone: true,

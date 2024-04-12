@@ -92,6 +92,11 @@ export class AssignmentsService {
     return this.http.post(this.urirendu, rendu);
   }
 
+  updateRendu(rendu: Rendu):Observable<any> {
+    this.logService.log(rendu._id, "modifié");
+    return this.http.put(this.urirendu, rendu);
+  }
+
   getRenduPaginesListe(page:number, limit:number,idAssignment:string,filter:string,idEtudiant:string):Observable<any> {
     return this.http.get<Rendu[]>(this.urirendu + "?page=" + page + "&limit=" + limit+ "&filter=" + filter+ "&idEtudiant=" + "&idAssignment=" + idAssignment);
   }

@@ -1,1 +1,32 @@
-<p>noter-rendu works!</p>
+@if(rendu) {
+<div class="container">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-subtitle>Details du rendu de {{rendu.matricule}}</mat-card-subtitle>
+            <mat-card-title>{{rendu.auteur}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>Date du rendu : {{ rendu.dateRendu }}</p>
+            <p>Description : {{ rendu.description }}</p>
+            <p>Lien du dossier ou Git : <a href="{{ rendu.file }}" target="_blank" id="gitLink">{{ rendu.file }}</a> <button
+                    mat-icon-button (click)="copyLinkToClipboard()">
+                    <mat-icon>content_copy</mat-icon>
+                </button></p>
+            <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label>Note</mat-label>
+                <input matInput type="number" [(ngModel)]="rendu.note" name="note">
+            </mat-form-field>
+            <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label>Remarque</mat-label>
+                <textarea matInput [(ngModel)]="rendu.remarque" name="remarque" rows="4"></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary">Ajouter</button>
+            <mat-divider></mat-divider>
+        </mat-card-content>
+        <mat-card-footer>
+
+        </mat-card-footer>
+    </mat-card>
+</div>
+
+}

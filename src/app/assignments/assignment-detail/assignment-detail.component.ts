@@ -234,4 +234,12 @@ export class AssignmentDetailComponent implements OnInit {
   isAdmin() {
     return this.authService.loggedIn;
   }
+
+  isProf() {
+    return this.authService.isProf();
+  }
+
+  isStudent() {
+    return this.authService.isEtudiant();
+  }
 }

@@ -17,63 +17,63 @@
     </mat-card>
     <mat-card class="formulaire-card">
       <div *ngIf="isStudent()">
-      <mat-card-header>
-    <mat-card-title>Rendre l'assignement</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-form-field style="display: block;">
-      <mat-label>URL du repository GitHub ou du dossier</mat-label>
-      <input matInput [(ngModel)]="repositoryUrl">
-    </mat-form-field>
-    <mat-form-field style="display: block;">
-      <mat-label>Description</mat-label>
-      <textarea matInput [(ngModel)]="description"></textarea>
-    </mat-form-field> 
-  </mat-card-content>
-<mat-card-actions>
-  <div class="form-group">
-    <p class="error-message">{{ message }} </p>
-  </div>
-</mat-card-actions>
-  <mat-card-actions>
-    <div class="form-group form-button">
-      @if(!isloading){
-        <button mat-flat-button color="primary" (click)="envoyerRendu()">Envoyer</button>
-      }
-      @if(isloading){
-              <mat-spinner diameter="40" mode="indeterminate"></mat-spinner>
-          
-      }
-     
-  </div>
-  </mat-card-actions>
+        <mat-card-header>
+          <mat-card-title>Rendre l'assignement</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field style="display: block;">
+            <mat-label>URL du repository GitHub ou du dossier</mat-label>
+            <input matInput [(ngModel)]="repositoryUrl">
+          </mat-form-field>
+          <mat-form-field style="display: block;">
+            <mat-label>Description</mat-label>
+            <textarea matInput [(ngModel)]="description"></textarea>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="form-group">
+            <p class="error-message">{{ message }} </p>
+          </div>
+        </mat-card-actions>
+        <mat-card-actions>
+          <div class="form-group form-button">
+            @if(!isloading){
+            <button mat-flat-button color="primary" (click)="envoyerRendu()">Envoyer</button>
+            }
+            @if(isloading){
+            <mat-spinner diameter="40" mode="indeterminate"></mat-spinner>
+
+            }
+
+          </div>
+        </mat-card-actions>
       </div>
-  <div *ngIf="isProf()">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h3>Liste des rendus</h3>
-        <div style="display: flex; gap: 10px;"> <!-- Utilisez flexbox avec un espace entre les éléments -->
-          <mat-select [(value)]="filtre" (selectionChange)="applyFilters()">
-            <mat-option value="all">Tous les rendus</mat-option>
-            <mat-option value="withNotes">Déjà noté</mat-option>
-            <mat-option value="withoutNotes">Pas noté</mat-option>
-          </mat-select>
+      <div *ngIf="isProf()">
+        <div class="pour-prof">
+          <h3>Liste des rendus</h3>
+          <div class="selectio"> 
+            <mat-select [(value)]="filtre" (selectionChange)="applyFilters()">
+              <mat-option value="all">Tous les rendus</mat-option>
+              <mat-option value="withNotes">Déjà noté</mat-option>
+              <mat-option value="withoutNotes">Pas noté</mat-option>
+            </mat-select>
+          </div>
         </div>
+        <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
+          <mat-list *cdkVirtualFor="let a of rendus" class="example-item">
+            <h3 mat-subheader>
+              Rendu de : {{ a.auteur}}
+            </h3>
+            <mat-list-item>
+              <p>Date de rendu: {{ a.dateRendu | date : "dd/MM/yyyy" }}</p>
+            </mat-list-item>
+            <button mat-raised-button color="primary" (click)="openDialog(a)">Voir
+              details</button>
+            <br><br>
+            <mat-divider></mat-divider>
+          </mat-list>
+        </cdk-virtual-scroll-viewport>
       </div>
-      <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
-        <mat-list *cdkVirtualFor="let a of rendus" class="example-item">
-          <h3 mat-subheader>
-            Rendu de : {{ a.auteur}}
-          </h3>
-          <mat-list-item>
-            <p>Date de rendu: {{ a.dateRendu | date : "dd/MM/yyyy" }}</p>
-          </mat-list-item>
-          <button mat-raised-button color="primary" (click)="openDialog(a)" style="margin-right: 25px;">Voir
-            details</button>
-          <br><br>
-          <mat-divider></mat-divider>
-        </mat-list>
-      </cdk-virtual-scroll-viewport>
-  </div>
     </mat-card>
 
   </div>

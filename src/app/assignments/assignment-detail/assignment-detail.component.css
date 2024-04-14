@@ -1,6 +1,7 @@
 .container {
   display: flex;
   justify-content: space-between;
+  margin: 20px;
 }
 
 .example-card {
@@ -15,83 +16,138 @@
 }
 
 .example-viewport {
-  width: 100%; /* Adjust as needed */
+  width: 100%;
+  /* Adjust as needed */
   border: none;
   margin: 0;
-  height: 100vh; /* 100vh for full viewport height */
+  height: 100vh;
+  /* 100vh for full viewport height */
 }
 
 
 .formulaire-card {
   width: 600px;
+  margin: 20px;
 }
 
 .mat-form-field {
-  width: 100px; 
-  margin-bottom: 100px; 
+  width: 100px;
+  margin-bottom: 100px;
 }
 
 .mat-label {
-  font-size: 20px; 
+  font-size: 20px;
 }
 
-.mat-input-element, .mat-select-value, .mat-select-arrow {
-  font-size: 20px; 
-  min-height: 100px; 
+.mat-input-element,
+.mat-select-value,
+.mat-select-arrow {
+  font-size: 20px;
+  min-height: 100px;
 }
 
 .mat-select-panel {
-  font-size: 18px; 
+  font-size: 18px;
 }
 
 .mat-card-actions {
   display: flex;
-  justify-content: flex-end; 
+  justify-content: flex-end;
+  margin: 20px;
 }
 
 .mat-button {
-  font-size: 20px; 
+  font-size: 20px;
 }
 
 .form-button {
-  text-align: center; }
+  text-align: center;
+}
 
 
-  .form-group {
-    position: relative;
-    margin-bottom: 25px;
-    overflow: hidden; }
+.form-group {
+  position: relative;
+  margin-bottom: 25px;
+  overflow: hidden;
+}
 
 
-    section {
-      display: table;
-    }
-    
-    .example-label {
-      display: table-cell;
-      font-size: 14px;
-      margin-left: 8px;
-      min-width: 120px;
-    }
-    
-    .example-button-row {
-      display: table-cell;
-      max-width: 600px;
-    }
-    
-    .example-button-row .mat-mdc-button-base {
-      margin: 8px 8px 8px 0;
-    }
-    
-    .example-flex-container {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    
-    .example-button-container {
-      display: flex;
-      justify-content: center;
-      width: 120px;
-    }
-    
+section {
+  display: table;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
+
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter {
+  display: flex;
+  gap: 10px;
+  width: 150px;
+}
+
+.viewport {
+  margin: 20px;
+}
+
+.item {
+  margin-bottom: 20px;
+}
+
+.example-viewport {
+  margin: 20px;
+}
+
+.pour-prof {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+
+.button {
+  margin-right: 25px;
+}
+
+.mat-divider {
+  margin: 20px;
+}
+
+.selectio {
+  display: flex;
+  gap: 10px;
+  margin: 20px;
+  width: 150px;
+}

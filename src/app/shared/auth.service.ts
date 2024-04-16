@@ -38,6 +38,11 @@ export class AuthService {
     console.log(localStorage)
   }
 
+  getToken(): string {
+    const token = localStorage.getItem('token');
+    return token ||'';
+  }
+
   getUserData(): User {
     const userData = localStorage.getItem('user');
     return userData ? JSON.parse(userData) : null;

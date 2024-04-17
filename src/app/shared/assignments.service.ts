@@ -10,40 +10,41 @@ import { environment } from '../environments/environment';
 import { bdInitialAssignments } from './data';
 import { Stat } from '../matiere/stat.model';
 import { Rendu } from '../assignments/rendu.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssignmentsService {
-
+  headers : any;
   constructor(private logService:LoggingService,
-              private http:HttpClient) { }
-
-  //uri = 'http://localhost:8010/api/assignments';
+              private http:HttpClient, private auth: AuthService) {
+                this.headers = this.auth.createAuthorizationHeader();
+              }
+             
   uri = environment.baseUrl+"/assignments";
   urirendu = environment.baseUrl+"/rendu";
 
 
   getAssignmentsStat(date1:String,date2:String):Observable<Stat[]> {
-    return this.http.get<Stat[]>(this.uri+"/statistique?date1=" +date1+ "&date2="+date2);
+    return this.http.get<Stat[]>(this.uri+"/statistique?date1=" +date1+ "&date2="+date2, { headers: this.headers });
   }
   // retourne tous les assignments
   getAssignments():Observable<Assignment[]> {
-    return this.http.get<Assignment[]>(this.uri);
+    return this.http.get<Assignment[]>(this.uri, { headers: this.headers });
   }
 
   getAssignmentsPagines(page:number, limit:number,titre:string,matiere:string):Observable<any> {
-    return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit+ "&titre=" + titre+ "&matiere=" + matiere);
+    return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit+ "&titre=" + titre+ "&matiere=" + matiere, { headers: this.headers });
   }
 
   getAssignmentsPaginesListe(page:number, limit:number,titre:string,matiere:string,groupe:string):Observable<any> {
-    return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit+ "&titre=" + titre+ "&matiere=" + matiere+ "&groupe=" + groupe);
+    return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit+ "&titre=" + titre+ "&matiere=" + matiere+ "&groupe=" + groupe,{ headers: this.headers });
   }
-
 
   // renvoie un assignment par son id, renvoie undefined si pas trouvé
   getAssignment(id:string):Observable<Assignment> { 
-    return this.http.get<Assignment>(this.uri + "/" + id)
+    return this.http.get<Assignment>(this.uri + "/" + id,{ headers: this.headers })
     .pipe(
            catchError(this.handleError<any>('### catchError: getAssignments by id avec id=' + id))
     );
@@ -66,7 +67,7 @@ export class AssignmentsService {
     //this.assignments.push(assignment);
     this.logService.log(assignment.titre, "ajouté");
     //return of("Assignment ajouté avec succès");
-    return this.http.post<Assignment>(this.uri, assignment);
+    return this.http.post<Assignment>(this.uri, assignment,{ headers: this.headers });
   }
 
   updateAssignment(assignment:Assignment):Observable<any> {
@@ -75,7 +76,7 @@ export class AssignmentsService {
    // il faudra faire une requête HTTP pour envoyer l'objet modifié
     this.logService.log(assignment._id, "modifié");
     //return of("Assignment modifié avec succès");
-    return this.http.put<Assignment>(this.uri, assignment);
+    return this.http.put<Assignment>(this.uri, assignment,{ headers: this.headers });
   }
 
   deleteAssignment(assignment:Assignment):Observable<any> {
@@ -84,17 +85,17 @@ export class AssignmentsService {
     //this.assignments.splice(pos, 1);
     this.logService.log(assignment.titre, "supprimé");
     //return of("Assignment supprimé avec succès");
-    return this.http.delete(this.uri + "/" + assignment._id);
+    return this.http.delete(this.uri + "/" + assignment._id,{ headers: this.headers });
   }
 
   addRendu(rendu: Rendu):Observable<any> {
     this.logService.log(rendu.matricule, "ajouté dans rendu");
-    return this.http.post(this.urirendu, rendu);
+    return this.http.post(this.urirendu, rendu,{ headers: this.headers });
   }
 
  
 updateRendu(rendu: Rendu) {
-  return this.http.put(this.urirendu, { rendu }).pipe(
+  return this.http.put(this.urirendu, { rendu },{ headers: this.headers }).pipe(
     catchError((error) => {
       // Gérer l'erreur ici, par exemple afficher un message d'erreur
       console.error('Erreur lors de la mise à jour du rendu :', error);
@@ -105,7 +106,7 @@ updateRendu(rendu: Rendu) {
 }
 
   getRenduPaginesListe(page:number, limit:number,idAssignment:string,filter:string,idEtudiant:string):Observable<any> {
-    return this.http.get<Rendu[]>(this.urirendu + "?page=" + page + "&limit=" + limit+ "&filter=" + filter+ "&idEtudiant=" + "&idAssignment=" + idAssignment);
+    return this.http.get<Rendu[]>(this.urirendu + "?page=" + page + "&limit=" + limit+ "&filter=" + filter+ "&idEtudiant=" + "&idAssignment=" + idAssignment,{ headers: this.headers });
   }
 
   // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)

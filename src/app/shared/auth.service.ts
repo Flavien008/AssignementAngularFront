@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
 import { User } from '../login/user.model';
 
@@ -41,6 +41,12 @@ export class AuthService {
   getToken(): string {
     const token = localStorage.getItem('token');
     return token ||'';
+  }
+
+  createAuthorizationHeader(): HttpHeaders {
+    const token = localStorage.getItem("token");
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + (token ? token : ''));
+    return headers;
   }
 
   getUserData(): User {

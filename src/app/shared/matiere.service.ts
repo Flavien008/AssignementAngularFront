@@ -4,21 +4,24 @@ import { Matiere } from '../matiere/matiere.model';
 import { environment } from '../environments/environment';
 import { Observable } from 'rxjs';
 import { Donut } from '../matiere/donut.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MatiereService {
   uri = environment.baseUrl+"/matiere";
-
-  constructor(private http:HttpClient) { }
+  headers : any;
+  constructor(private http:HttpClient, private auth: AuthService) {
+    this.headers = this.auth.createAuthorizationHeader();
+  }
 
   getMatiere():Observable<Matiere[]> {
-    return this.http.get<Matiere[]>(this.uri);
+    return this.http.get<Matiere[]>(this.uri,{ headers: this.headers });
   }
 
   getStatistiqueParMatiere():Observable<Donut[]> {
-    return this.http.get<Donut[]>(this.uri+"/statistique");
+    return this.http.get<Donut[]>(this.uri+"/statistique",{ headers: this.headers });
   }
 
 }

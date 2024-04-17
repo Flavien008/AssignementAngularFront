@@ -10,6 +10,7 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { AssignmentListComponent } from './assignments/assignment-list/assignment-list.component';
 import { ListeRenduComponent } from './assignments/liste-rendu/liste-rendu.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatiereComponent } from './matiere/matiere.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -23,6 +24,8 @@ export const routes: Routes = [
   {path: "rendu/assignment/:id",component: ListeRenduComponent},
   {path: "assignments",component: AssignmentListComponent},
   { path: "dashboard", component: DashboardComponent },
+  { path: "matiere", component: MatiereComponent },
+
 
   {
     path: "assignment/:id/edit",

@@ -51,7 +51,7 @@ export class CustomSidenavComponent {
         {
             icon: 'book',
             label: 'Matiere',
-            route: '',
+            route: 'matiere',
         }
     ]);
 

@@ -60,8 +60,8 @@ export class CardGroupComponent {
         if(this.isStudent()) this.getGroupeFromServicePaginateStudent();
     }
 
-    onPageChange(event: any) {
-        this.page = event.pageIndex + 1; // pageIndex commence à 0, donc nous ajoutons 1
+    onPageChange(event: PageEvent) {
+        this.page = event.pageIndex + 1; // pageIndex commence à 0, donc nous ajoutons 
         this.limit = event.pageSize;
         this.fetchData();
     }

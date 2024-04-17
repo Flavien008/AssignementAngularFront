@@ -108,6 +108,7 @@
         </div>
         <mat-paginator *ngIf="!isLoadingStudents" [length]="totalDocsEtudiant" [pageSize]="limitEtudiant"
           [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChange($event)" aria-label="Select page"
+          [pageIndex]="pageEtudiant - 1"
           itemsPerPageLabel="Éléments par page">
         </mat-paginator>
       </div>

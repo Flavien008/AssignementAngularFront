@@ -41,6 +41,7 @@
 
         <mat-paginator *ngIf="!isLoadingGroupes" [length]="totalDocs" [pageSize]="limit"
             [pageSizeOptions]="[6, 9, 12, 30]" (page)="onPageChange($event)" aria-label="Select page"
+            [pageIndex]="page - 1"
             itemsPerPageLabel="Éléments par page">
         </mat-paginator>
     </div>
@@ -96,6 +97,7 @@
         </div>
         <mat-paginator *ngIf="!isLoadingGroupes" [length]="totalDocs" [pageSize]="limit"
             [pageSizeOptions]="[6, 9, 12, 30]" (page)="onPageChange($event)" aria-label="Select page"
+            [pageIndex]="page - 1"
             itemsPerPageLabel="Éléments par page">
         </mat-paginator>
     </div>

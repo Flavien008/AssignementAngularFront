@@ -11,13 +11,14 @@ import { AssignmentsService } from './shared/assignments.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CustomSidenavComponent } from "./compoments/custom-sidenav/custom-sidenav.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, RouterLink, MatButtonModule, MatDividerModule,
+    imports: [CommonModule,RouterOutlet, RouterLink, MatButtonModule, MatDividerModule,
         MatIconModule, MatSlideToggleModule,
         AssignmentsComponent, MatToolbarModule, MatSidenavModule, CustomSidenavComponent]
 })

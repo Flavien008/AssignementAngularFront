@@ -23,10 +23,11 @@ export type MenuItem = {
 export class CustomSidenavComponent {
 
     userData: User | undefined;
-
+    constructor(private authService: AuthService) { }
 
     ngOnInit(): void {
         this.userData = this.getUserData();
+        this.updateMenuItems();
     }
 
     sideNavCollapsed = signal(false);
@@ -60,5 +61,21 @@ export class CustomSidenavComponent {
     getUserData(): any {
         const userData = localStorage.getItem('user');
         return userData ? JSON.parse(userData) : null;
+    }
+
+    updateMenuItems() {
+        if (this.isStudent()) {
+            this.MenuItems.set([
+                {
+                    icon: 'groups',
+                    label: 'Groups',
+                    route: 'groups',
+                }
+            ]);
+        }
+    }
+
+    isStudent() {
+        return this.authService.isEtudiant();
     }
 }

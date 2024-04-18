@@ -16,10 +16,12 @@ export class StudentService {
       }
 
     getStudentInGroups(page:number, limit:number,groupId: string,filtre:string): Observable<any> {
+        this.headers = this.auth.createAuthorizationHeader();
         return this.http.get<User>(this.uri+`/etudiants/in-group?page=${page}&limit=${limit}&idgroupe=${groupId}&filtre=${filtre}`,{ headers: this.headers });
     }
 
     getStudentNotInGroups(page:number, limit:number,groupId: string,filtre:string): Observable<any> {
+        this.headers = this.auth.createAuthorizationHeader();
         return this.http.get<User>(this.uri+`/etudiants/not-in-group?page=${page}&limit=${limit}&idgroupe=${groupId}&filtre=${filtre}`,{ headers: this.headers });
     }
 }

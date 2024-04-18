@@ -17,10 +17,12 @@ export class MatiereService {
   }
 
   getMatiere():Observable<Matiere[]> {
+    this.headers = this.auth.createAuthorizationHeader();
     return this.http.get<Matiere[]>(this.uri,{ headers: this.headers });
   }
 
   getStatistiqueParMatiere():Observable<Donut[]> {
+    this.headers = this.auth.createAuthorizationHeader();
     return this.http.get<Donut[]>(this.uri+"/statistique",{ headers: this.headers });
   }
 

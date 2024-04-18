@@ -16,38 +16,43 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AssignmentsService {
-  headers : any;
-  constructor(private logService:LoggingService,
-              private http:HttpClient, private auth: AuthService) {
-                this.headers = this.auth.createAuthorizationHeader();
-              }
-             
-  uri = environment.baseUrl+"/assignments";
-  urirendu = environment.baseUrl+"/rendu";
+  headers: any;
+  constructor(private logService: LoggingService,
+    private http: HttpClient, private auth: AuthService) {
+    this.headers = this.auth.createAuthorizationHeader();
+  }
+
+  uri = environment.baseUrl + "/assignments";
+  urirendu = environment.baseUrl + "/rendu";
 
 
-  getAssignmentsStat(date1:String,date2:String):Observable<Stat[]> {
-    return this.http.get<Stat[]>(this.uri+"/statistique?date1=" +date1+ "&date2="+date2, { headers: this.headers });
+  getAssignmentsStat(date1: String, date2: String): Observable<Stat[]> {
+    this.headers = this.auth.createAuthorizationHeader();
+    return this.http.get<Stat[]>(this.uri + "/statistique?date1=" + date1 + "&date2=" + date2, { headers: this.headers });
   }
   // retourne tous les assignments
-  getAssignments():Observable<Assignment[]> {
+  getAssignments(): Observable<Assignment[]> {
+    this.headers = this.auth.createAuthorizationHeader();
     return this.http.get<Assignment[]>(this.uri, { headers: this.headers });
   }
 
-  getAssignmentsPagines(page:number, limit:number,titre:string,matiere:string):Observable<any> {
-    return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit+ "&titre=" + titre+ "&matiere=" + matiere, { headers: this.headers });
+  getAssignmentsPagines(page: number, limit: number, titre: string, matiere: string): Observable<any> {
+    this.headers = this.auth.createAuthorizationHeader();
+    return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit + "&titre=" + titre + "&matiere=" + matiere, { headers: this.headers });
   }
 
-  getAssignmentsPaginesListe(page:number, limit:number,titre:string,matiere:string,groupe:string):Observable<any> {
-    return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit+ "&titre=" + titre+ "&matiere=" + matiere+ "&groupe=" + groupe,{ headers: this.headers });
+  getAssignmentsPaginesListe(page: number, limit: number, titre: string, matiere: string, groupe: string): Observable<any> {
+    this.headers = this.auth.createAuthorizationHeader();
+    return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit + "&titre=" + titre + "&matiere=" + matiere + "&groupe=" + groupe, { headers: this.headers });
   }
 
   // renvoie un assignment par son id, renvoie undefined si pas trouvé
-  getAssignment(id:string):Observable<Assignment> { 
-    return this.http.get<Assignment>(this.uri + "/" + id,{ headers: this.headers })
-    .pipe(
-           catchError(this.handleError<any>('### catchError: getAssignments by id avec id=' + id))
-    );
+  getAssignment(id: string): Observable<Assignment> {
+    this.headers = this.auth.createAuthorizationHeader();
+    return this.http.get<Assignment>(this.uri + "/" + id, { headers: this.headers })
+      .pipe(
+        catchError(this.handleError<any>('### catchError: getAssignments by id avec id=' + id))
+      );
   }
 
   // Methode appelée par catchError, elle doit renvoyer
@@ -60,53 +65,61 @@ export class AssignmentsService {
 
       return of(result as T);
     }
- };
+  };
 
   // ajoute un assignment et retourne une confirmation
-  addAssignment(assignment:Assignment):Observable<any> {
+  addAssignment(assignment: Assignment): Observable<any> {
+    this.headers = this.auth.createAuthorizationHeader();
+
     //this.assignments.push(assignment);
     this.logService.log(assignment.titre, "ajouté");
     //return of("Assignment ajouté avec succès");
-    return this.http.post<Assignment>(this.uri, assignment,{ headers: this.headers });
+    return this.http.post<Assignment>(this.uri, assignment, { headers: this.headers });
   }
 
-  updateAssignment(assignment:Assignment):Observable<any> {
-   // l'assignment passé en paramètre est le même objet que dans le tableau
-   // plus tard on verra comment faire avec une base de données
-   // il faudra faire une requête HTTP pour envoyer l'objet modifié
+  updateAssignment(assignment: Assignment): Observable<any> {
+    this.headers = this.auth.createAuthorizationHeader();
+
+    // l'assignment passé en paramètre est le même objet que dans le tableau
+    // plus tard on verra comment faire avec une base de données
+    // il faudra faire une requête HTTP pour envoyer l'objet modifié
     this.logService.log(assignment._id, "modifié");
     //return of("Assignment modifié avec succès");
-    return this.http.put<Assignment>(this.uri, assignment,{ headers: this.headers });
+    return this.http.put<Assignment>(this.uri, assignment, { headers: this.headers });
   }
 
-  deleteAssignment(assignment:Assignment):Observable<any> {
+  deleteAssignment(assignment: Assignment): Observable<any> {
+    this.headers = this.auth.createAuthorizationHeader();
     // on va supprimer l'assignment dans le tableau
     //let pos = this.assignments.indexOf(assignment);
     //this.assignments.splice(pos, 1);
     this.logService.log(assignment.titre, "supprimé");
     //return of("Assignment supprimé avec succès");
-    return this.http.delete(this.uri + "/" + assignment._id,{ headers: this.headers });
+    return this.http.delete(this.uri + "/" + assignment._id, { headers: this.headers });
   }
 
-  addRendu(rendu: Rendu):Observable<any> {
+  addRendu(rendu: Rendu): Observable<any> {
+    this.headers = this.auth.createAuthorizationHeader();
     this.logService.log(rendu.matricule, "ajouté dans rendu");
-    return this.http.post(this.urirendu, rendu,{ headers: this.headers });
+    return this.http.post(this.urirendu, rendu, { headers: this.headers });
   }
 
- 
-updateRendu(rendu: Rendu) {
-  return this.http.put(this.urirendu, { rendu },{ headers: this.headers }).pipe(
-    catchError((error) => {
-      // Gérer l'erreur ici, par exemple afficher un message d'erreur
-      console.error('Erreur lors de la mise à jour du rendu :', error);
-      // Renvoyer une observable avec l'erreur pour que le composant puisse la gérer
-      return throwError(error);
-    })
-  );
-}
 
-  getRenduPaginesListe(page:number, limit:number,idAssignment:string,filter:string,idEtudiant:string):Observable<any> {
-    return this.http.get<Rendu[]>(this.urirendu + "?page=" + page + "&limit=" + limit+ "&filter=" + filter+ "&idEtudiant=" + "&idAssignment=" + idAssignment,{ headers: this.headers });
+  updateRendu(rendu: Rendu) {
+    this.headers = this.auth.createAuthorizationHeader();
+    return this.http.put(this.urirendu, { rendu }, { headers: this.headers }).pipe(
+      catchError((error) => {
+        // Gérer l'erreur ici, par exemple afficher un message d'erreur
+        console.error('Erreur lors de la mise à jour du rendu :', error);
+        // Renvoyer une observable avec l'erreur pour que le composant puisse la gérer
+        return throwError(error);
+      })
+    );
+  }
+
+  getRenduPaginesListe(page: number, limit: number, idAssignment: string, filter: string, idEtudiant: string): Observable<any> {
+    this.headers = this.auth.createAuthorizationHeader();
+    return this.http.get<Rendu[]>(this.urirendu + "?page=" + page + "&limit=" + limit + "&filter=" + filter + "&idEtudiant=" + "&idAssignment=" + idAssignment, { headers: this.headers });
   }
 
   // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)
@@ -120,14 +133,14 @@ updateRendu(rendu: Rendu) {
       nouvelAssignment.description = a.description;
 
       this.addAssignment(nouvelAssignment)
-      .subscribe(() => {
-        console.log("Assignment " + a.titre + " ajouté");
-      });
+        .subscribe(() => {
+          console.log("Assignment " + a.titre + " ajouté");
+        });
     });
   }
 
-  peuplerBDavecForkJoin():Observable<any> {
-    let appelsVersAddAssignment:Observable<any>[] = [];
+  peuplerBDavecForkJoin(): Observable<any> {
+    let appelsVersAddAssignment: Observable<any>[] = [];
 
     bdInitialAssignments.forEach(a => {
       const nouvelAssignment = new Assignment();
@@ -141,7 +154,7 @@ updateRendu(rendu: Rendu) {
     return forkJoin(appelsVersAddAssignment);
   }
 
-  getdateNow(){
+  getdateNow() {
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth() + 1;

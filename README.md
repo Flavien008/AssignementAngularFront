@@ -42,11 +42,16 @@ https://assignementangularfront.onrender.com
 
 ## Connexion
 Login Professeur:
-    Identifiant: prof
-    Mot de passe: 1234
-Login Étudiant:
-    Identifiant: tendry
-    Mot de passe: 1234
+```
+    Identifiant: "prof"
+    Mot de passe: "1234"
+```
+    
+Login Etudiant:
+```
+    Identifiant: "tendry"
+    Mot de passe: "1234"
+```
 
 ## Prérequis techniques
 Version node : v18.17.1

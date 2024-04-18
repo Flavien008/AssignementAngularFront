@@ -4,10 +4,26 @@
     <mat-label>Nom du matiere</mat-label>
     <input matInput placeholder="Nom de du matiere" [(ngModel)]="nom" required>
 </mat-form-field>
+<div class="col-md-6" style="margin-left: 25px;width:450px" >
+    <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)"
+        (change)="onFileChange($event)">
+        <ngx-dropzone-label>
+            <div>
+                <h2>Drag and drop Image pour matiere</h2>
+            </div>
+        </ngx-dropzone-label>
+        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+            [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-image-preview>
+    </div>
+</div>
 
 <mat-dialog-actions>
-    <button mat-raised-button style="background-color:rgb(194, 14, 53);color:white" (click)="dialogRef.close(false)">Annuler</button>
-    <button mat-raised-button style="background-color:#083880;color:white" [disabled]="addingGroupe" (click)="addMatiere()">
+    <button mat-raised-button style="background-color:rgb(194, 14, 53);color:white"
+        (click)="dialogRef.close(false)">Annuler</button>
+    <button mat-raised-button style="background-color:#083880;color:white" [disabled]="addingGroupe"
+        (click)="addMatiere()">
         <span *ngIf="!addingGroupe">Ajouter</span>
         <mat-spinner *ngIf="addingGroupe" diameter="20" color="accent"></mat-spinner>
     </button>

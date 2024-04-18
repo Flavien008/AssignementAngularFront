@@ -14,6 +14,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
 import { MatDialog } from '@angular/material/dialog';
+import { AddMatiereDialogComponent } from './addmatiereDialog/add-matiere-dialog.component';
+
 
 @Component({
   selector: 'app-matiere',
@@ -29,12 +31,26 @@ export class MatiereComponent {
 
   onSearchTermChange() {
 
-}
+  }
 
-isProf() {
-  return this.authService.isProf();
-}
+  isProf() {
+    return this.authService.isProf();
+  }
 
+  openDialogAdd() {
+    }
+
+    openAddMatiereDialog() {
+      const dialogRef = this.dialog.open(AddMatiereDialogComponent, {
+          width: '500px',
+      });
+
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+          if (result) {
+             
+          }
+      });
+  }
 
 
 }

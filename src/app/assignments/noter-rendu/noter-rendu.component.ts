@@ -28,10 +28,10 @@ import { AssignmentsService } from '../../shared/assignments.service';
 })
 export class NoterRenduComponent {
   @Input() rendu: Rendu;
-  newnote : undefined;
-  newremarque : undefined;
+  newnote: undefined;
+  newremarque: undefined;
 
-  constructor(private assignmentsService: AssignmentsService,private dialogRef: MatDialogRef<AssignmentDetailComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private assignmentsService: AssignmentsService, private dialogRef: MatDialogRef<AssignmentDetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.rendu = data.rendu;
     console.log(this.rendu);
   }
@@ -39,27 +39,27 @@ export class NoterRenduComponent {
   copyLinkToClipboard() {
     const linkElement = document.getElementById('gitLink');
     if (linkElement) {
-        const range = document.createRange();
-        range.selectNode(linkElement);
-        window.getSelection()?.removeAllRanges();
-        window.getSelection()?.addRange(range);
-        document.execCommand('copy');
-        window.getSelection()?.removeAllRanges();
+      const range = document.createRange();
+      range.selectNode(linkElement);
+      window.getSelection()?.removeAllRanges();
+      window.getSelection()?.addRange(range);
+      document.execCommand('copy');
+      window.getSelection()?.removeAllRanges();
     }
-}
-closeDialog() {
-  this.dialogRef.close(false);
-}
+  }
+  closeDialog() {
+    this.dialogRef.close(false);
+  }
 
-AddNote(){
- if (this.newnote !== undefined && this.newremarque !== undefined) {
-  this.rendu.note = this.newnote;
-  this.rendu.remarque = this.newremarque;
-} else {
+  AddNote() {
+    if (this.newnote !== undefined && this.newremarque !== undefined) {
+      this.rendu.note = this.newnote;
+      this.rendu.remarque = this.newremarque;
+    } else {
 
-}
- this.assignmentsService.updateRendu(this.rendu);
-  
-}
+    }
+    this.assignmentsService.updateRendu(this.rendu);
+
+  }
 
 }

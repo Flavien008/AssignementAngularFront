@@ -1,1 +1,27 @@
-<p>matiere works!</p>
+<mat-list>
+    <div *ngIf="isProf()">
+        <mat-list-item>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>Tous les matieres</h3>
+                <div style="display: flex; align-items: center;">
+                    <button mat-raised-button color="primary" class="add-button">
+                        <mat-icon>add</mat-icon> Nouveau
+                    </button>
+                    <mat-form-field appearance="fill" class="search-container" style="margin-left: 10px;">
+                        <input matInput type="text" [(ngModel)]="searchTerm" placeholder="Rechercher..."
+                            (ngModelChange)="onSearchTermChange()">
+                        <button matSuffix mat-icon-button aria-label="Clear"
+                            (click)="searchTerm='';onSearchTermChange()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div class="conteneur-cartes">
+           
+        </div>
+    </div>
+</mat-list>

@@ -1,94 +1,91 @@
 <h1>Ajout d'un assignment</h1>
-<form
-  ngForm
-  #assignmentForm
-  class="form"
->
-<mat-vertical-stepper style="text-align: center;" linear #formStepper>
-    <mat-step class="teste">
-        <ng-template matStepLabel>Titre</ng-template>
-        <mat-form-field class="custom-form-field" appearance="fill">
-            <mat-label>Titre</mat-label>
-            <input type="text" matInput placeholder="Titre" [(ngModel)]="titre" name="titre" required />
-        </mat-form-field>
-        <div>
-            <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
-        </div>
-    </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>Description</ng-template>
-        <mat-form-field class="custom-form-field" appearance="fill">
-            <mat-label>Description</mat-label>
-            <textarea matInput [(ngModel)]="description" name="description" required ></textarea>
-        </mat-form-field>
-        <div>
-            <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
-            <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
-        </div>
-    </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>Date limite</ng-template>
-        <mat-form-field class="custom-form-field" appearance="fill">
-            <mat-label>Date limite</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="dateLimite" name="date" required >
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <div>
-            <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
-            <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
-        </div>
-    </mat-step>
+<form ngForm #assignmentForm class="form">
+    <mat-vertical-stepper style="text-align: center;" linear #formStepper>
+        <mat-step class="teste">
+            <ng-template matStepLabel>Titre</ng-template>
+            <mat-form-field class="custom-form-field" appearance="fill">
+                <mat-label>Titre</mat-label>
+                <input type="text" matInput placeholder="Titre" [(ngModel)]="titre" name="titre" required />
+            </mat-form-field>
+            <div>
+                <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Description</ng-template>
+            <mat-form-field class="custom-form-field" appearance="fill">
+                <mat-label>Description</mat-label>
+                <textarea matInput [(ngModel)]="description" name="description" required></textarea>
+            </mat-form-field>
+            <div>
+                <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
+                <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Date limite</ng-template>
+            <mat-form-field class="custom-form-field" appearance="fill">
+                <mat-label>Date limite</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="dateLimite" name="date" required>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <div>
+                <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
+                <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
+            </div>
+        </mat-step>
 
-    <mat-step>
-        <ng-template matStepLabel>Groupe étudiants</ng-template>
-        <mat-form-field class="custom-form-field" appearance="fill">
-            <mat-label>Sélectionnez les groupes d'étudiants</mat-label>
-            <mat-select [(value)]="selectedStudentGroups" multiple [(ngModel)]="groupes" name="groupes" required >
-                <mat-option *ngFor="let group of studentGroups" [value]="group._id">
-                    {{ group.nom }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        
-        <div>
-            <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
-            <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
-        </div>
-    </mat-step>
-    
-    
-    <mat-step>
-        <ng-template matStepLabel>Matiere</ng-template>
-        <mat-form-field class="custom-form-field">
-            <mat-label>Matiere</mat-label>
-            <mat-select [(ngModel)]="matierechamp" name="matierechamp" required >
-                @for(mat of matieres; track mat.nom) {
+        <mat-step>
+            <ng-template matStepLabel>Groupe étudiants</ng-template>
+            <mat-form-field class="custom-form-field" appearance="fill">
+                <mat-label>Sélectionnez les groupes d'étudiants</mat-label>
+                <mat-select [(value)]="selectedStudentGroups" multiple [(ngModel)]="groupes" name="groupes" required>
+                    <mat-option *ngFor="let group of studentGroups" [value]="group._id">
+                        {{ group.nom }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div>
+                <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
+                <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
+            </div>
+        </mat-step>
+
+
+        <mat-step>
+            <ng-template matStepLabel>Matiere</ng-template>
+            <mat-form-field class="custom-form-field">
+                <mat-label>Matiere</mat-label>
+                <mat-select [(ngModel)]="matierechamp" name="matierechamp" required>
+                    @for(mat of matieres; track mat.nom) {
                     <mat-option value="{{ mat.nom }}">{{ mat.nom }}</mat-option>
-                }
-            </mat-select>
-          </mat-form-field>
-          <div>
-            <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
-            <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
-          </div>
-    </mat-step>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
+                <button mat-button mat-raised-button class="suivantbtn" matStepperNext>Suivant</button>
+            </div>
+        </mat-step>
 
-    <mat-step>
-        <ng-template matStepLabel>Lien</ng-template>
-        <mat-form-field class="custom-form-field" appearance="fill">
-            <mat-label>Lien</mat-label>
-            <input type="text" matInput placeholder="Lien" [(ngModel)]="lien" name="lien" required />
-        </mat-form-field>
-     
-        <div>
-            <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
-            <button mat-button mat-raised-button class="reinitialiseBtn" style="margin-right: 10px;" (click)="formStepper.reset()">Réinitialiser</button>
-            <button mat-stroked-button mat-button class="saveBtn" [disabled]="isSaving" (click)="submitForm()">
-                <span *ngIf="!isSaving">Ajouter</span>
-                <mat-spinner *ngIf="isSaving" diameter="20"></mat-spinner>
-            </button>
-        </div>
-    </mat-step>
-</mat-vertical-stepper>
+        <mat-step>
+            <ng-template matStepLabel>Lien</ng-template>
+            <mat-form-field class="custom-form-field" appearance="fill">
+                <mat-label>Lien</mat-label>
+                <input type="text" matInput placeholder="Lien" [(ngModel)]="lien" name="lien" required />
+            </mat-form-field>
+
+            <div>
+                <button mat-button mat-raised-button matStepperPrevious style="margin-right: 10px;">Retour</button>
+                <button mat-button mat-raised-button class="reinitialiseBtn" style="margin-right: 10px;"
+                    (click)="formStepper.reset()">Réinitialiser</button>
+                <button mat-stroked-button mat-button class="saveBtn" [disabled]="isSaving" (click)="submitForm()">
+                    <span *ngIf="!isSaving">Ajouter</span>
+                    <mat-spinner *ngIf="isSaving" diameter="20"></mat-spinner>
+                </button>
+            </div>
+        </mat-step>
+    </mat-vertical-stepper>
 </form>

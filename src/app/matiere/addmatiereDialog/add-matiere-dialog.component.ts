@@ -13,12 +13,14 @@ import { MatSpinner } from '@angular/material/progress-spinner';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { Router } from '@angular/router';
+import { User } from '../../login/user.model';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
     selector: 'app-add-group-dialog',
     templateUrl: './add-matiere-dialog.component.html',
     standalone: true,
-    imports: [MatSpinner, MatPaginator, MatFormFieldModule, MatInputModule, MatFormField, MatLabel, MatButton, CommonModule, FormsModule, MatDialogContent, MatDialogActions, MatCheckbox, NgxDropzoneModule],
+    imports: [MatSpinner, MatPaginator, MatFormFieldModule, MatInputModule, MatFormField, MatLabel, MatButton, CommonModule, FormsModule, MatDialogContent, MatDialogActions, MatCheckbox, NgxDropzoneModule, MatSelectModule],
     styleUrls: ['./add-matiere-dialog.component.css']
 })
 export class AddMatiereDialogComponent implements OnInit {
@@ -28,6 +30,8 @@ export class AddMatiereDialogComponent implements OnInit {
     loading = false;
     error = false;
     base64textString: string = "";
+    profs:User[] = [];
+    profchamp ='';
 
     constructor(
         public dialogRef: MatDialogRef<AddMatiereDialogComponent>,
@@ -41,31 +45,31 @@ export class AddMatiereDialogComponent implements OnInit {
     addMatiere() {
     }
 
-    onSelect(event:any) {
-		console.log(event);
-		this.files.push(...event.addedFiles);
-	}
-
-  onFileChange(event: any) {
-    const files = event.addedFiles;
-    console.log("miov a eto");
-    if (files.length > 0) {
-        const file = files[0];
-        const reader = new FileReader();
-        reader.onload = this._handleReaderLoaded.bind(this);
-        reader.readAsDataURL(file);
+    onSelect(event: any) {
+        console.log(event);
+        this.files.push(...event.addedFiles);
     }
-}
-  _handleReaderLoaded(e : any) {
-    const reader = e.target;
-    this.base64textString = reader.result;
-    console.log(this.base64textString);
-  }
 
-	onRemove(event : any) {
-		console.log(event);
-		this.files.splice(this.files.indexOf(event), 1);
-	}
+    onFileChange(event: any) {
+        const files = event.addedFiles;
+        console.log("miov a eto");
+        if (files.length > 0) {
+            const file = files[0];
+            const reader = new FileReader();
+            reader.onload = this._handleReaderLoaded.bind(this);
+            reader.readAsDataURL(file);
+        }
+    }
+    _handleReaderLoaded(e: any) {
+        const reader = e.target;
+        this.base64textString = reader.result;
+        console.log(this.base64textString);
+    }
+
+    onRemove(event: any) {
+        console.log(event);
+        this.files.splice(this.files.indexOf(event), 1);
+    }
 
 }
 

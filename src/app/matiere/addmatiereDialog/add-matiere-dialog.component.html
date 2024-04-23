@@ -22,8 +22,8 @@
 <mat-form-field class="custom-form-field" style="margin-left: 25px;width:450px">
     <mat-label>Professeur</mat-label>
     <mat-select [(ngModel)]="profchamp" name="profchamp" required>
-        @for(mat of profs; track mat.name) {
-        <mat-option value="{{ mat.name }}">{{ mat.name }}</mat-option>
+        @for(prof of profs; track prof.name) {
+        <mat-option value="{{ prof.name}},{{ prof._id}}">{{ prof.name }}</mat-option>
         }
     </mat-select>
 </mat-form-field>

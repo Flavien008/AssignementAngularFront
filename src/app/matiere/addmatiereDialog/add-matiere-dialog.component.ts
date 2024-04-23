@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { User } from '../../login/user.model';
 import { MatSelectModule } from '@angular/material/select';
 import { MatiereService } from '../../shared/matiere.service';
+import { Matiere } from '../matiere.model';
 
 @Component({
     selector: 'app-add-group-dialog',
@@ -45,6 +46,20 @@ export class AddMatiereDialogComponent implements OnInit {
     }
 
     addMatiere() {
+        if(this.nom == '') return;
+        if(this.profchamp=='')return;
+        this.addingGroupe = true;
+        let nouveauMtr = new Matiere();
+        nouveauMtr.nom = this.nom;
+        nouveauMtr.nomprof = this.profchamp.split(",")[0];
+        nouveauMtr.idprof = this.profchamp.split(",")[1];
+        nouveauMtr.photo = this.base64textString;
+        this.matiereService.addMatiere(nouveauMtr).subscribe((reponse) => {
+            console.log(reponse);
+            this.addingGroupe = false;
+            this.dialogRef.close(true);
+        });
+        console.log(nouveauMtr);
     }
 
     onSelect(event: any) {

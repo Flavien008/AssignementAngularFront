@@ -37,5 +37,10 @@ export class MatiereService {
     this.headers = this.auth.createAuthorizationHeader();
     return this.http.get<User[]>(this.uriprof,{ headers: this.headers });
   }
+  addMatiere(matiere: Matiere): Observable<any> {
+    this.headers = this.auth.createAuthorizationHeader();
+    console.log(matiere.nom, " groupe ajouté");
+    return this.http.post<Matiere>(this.uri, matiere,{ headers: this.headers });
+  }
 
 }

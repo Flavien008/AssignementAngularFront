@@ -12,7 +12,7 @@ import { User } from '../login/user.model';
 })
 export class MatiereService {
   uri = environment.baseUrl+"/matiere";
-  uriprof = environment.baseUrl+"/profs";
+  uriprof = environment.baseUrl+"/allprofs";
   headers : any;
   constructor(private http:HttpClient, private auth: AuthService) {
     this.headers = this.auth.createAuthorizationHeader();
@@ -31,6 +31,11 @@ export class MatiereService {
   getProfsPagines(page: number, limit: number, nom: string): Observable<any> {
     this.headers = this.auth.createAuthorizationHeader();
     return this.http.get<User[]>(this.uriprof+ "?page=" + page + "&limit=" + limit + "&nom=" + nom, { headers: this.headers });
+  }
+
+  getProfs(): Observable<User[]> {
+    this.headers = this.auth.createAuthorizationHeader();
+    return this.http.get<User[]>(this.uriprof,{ headers: this.headers });
   }
 
 }

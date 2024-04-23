@@ -15,6 +15,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Router } from '@angular/router';
 import { User } from '../../login/user.model';
 import { MatSelectModule } from '@angular/material/select';
+import { MatiereService } from '../../shared/matiere.service';
 
 @Component({
     selector: 'app-add-group-dialog',
@@ -30,16 +31,17 @@ export class AddMatiereDialogComponent implements OnInit {
     loading = false;
     error = false;
     base64textString: string = "";
-    profs:User[] = [];
-    profchamp ='';
+    profs: User[] = [];
+    profchamp = '';
 
     constructor(
         public dialogRef: MatDialogRef<AddMatiereDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private router: Router) {
+        private router: Router,
+        private matiereService: MatiereService) {
     }
     ngOnInit(): void {
-
+        this.getProfsFromService();
     }
 
     addMatiere() {
@@ -69,6 +71,17 @@ export class AddMatiereDialogComponent implements OnInit {
     onRemove(event: any) {
         console.log(event);
         this.files.splice(this.files.indexOf(event), 1);
+    }
+
+
+    getProfsFromService() {
+        this.matiereService.getProfs()
+            .subscribe((data) => {
+                console.log('Données arrivées atoo');
+                console.log(data);
+                this.profs = data;
+            });
+        console.log('Requête envoyée');
     }
 
 }

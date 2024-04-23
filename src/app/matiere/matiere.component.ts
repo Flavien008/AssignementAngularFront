@@ -9,12 +9,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatList, MatListItem } from '@angular/material/list';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddMatiereDialogComponent } from './addmatiereDialog/add-matiere-dialog.component';
+import { Matiere } from './matiere.model';
 
 
 @Component({
@@ -26,6 +27,16 @@ import { AddMatiereDialogComponent } from './addmatiereDialog/add-matiere-dialog
 })
 export class MatiereComponent {
   searchTerm = '';
+  matieres: Matiere[] = [];
+  page = 1;
+  limit = 9;
+  totalDocs!: number;
+  totalPages!: number;
+  nextPage!: number;
+  prevPage!: number;
+  hasNextPage!: boolean;
+  hasPrevPage!: boolean;
+  isLoadingMatieres: boolean = false;
 
   constructor(private authService: AuthService, private dialog: MatDialog) { }
 
@@ -38,18 +49,24 @@ export class MatiereComponent {
   }
 
   openDialogAdd() {
-    }
+  }
 
-    openAddMatiereDialog() {
-      const dialogRef = this.dialog.open(AddMatiereDialogComponent, {
-          width: '500px',
-      });
+  onPageChange(event: PageEvent) {
+    this.page = event.pageIndex + 1; // pageIndex commence à 0, donc nous ajoutons 
+    this.limit = event.pageSize;
+    // this.fetchData();
+}
 
-      dialogRef.afterClosed().subscribe((result: boolean) => {
-          if (result) {
-             
-          }
-      });
+  openAddMatiereDialog() {
+    const dialogRef = this.dialog.open(AddMatiereDialogComponent, {
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+
+      }
+    });
   }
 
 

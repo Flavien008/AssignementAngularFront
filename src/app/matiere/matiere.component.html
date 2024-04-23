@@ -4,7 +4,7 @@
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <h3>Tous les matieres</h3>
                 <div style="display: flex; align-items: center;">
-                    <button mat-raised-button color="primary" class="add-button" (click)="openAddMatiereDialog()" >
+                    <button mat-raised-button color="primary" class="add-button" (click)="openAddMatiereDialog()">
                         <mat-icon>add</mat-icon> Nouveau
                     </button>
                     <mat-form-field appearance="fill" class="search-container" style="margin-left: 10px;">
@@ -21,7 +21,31 @@
         </mat-list-item>
         <mat-divider></mat-divider>
         <div class="conteneur-cartes">
-           
+            <ng-container *ngIf="matieres.length === 0 && !isLoadingMatieres">
+                <mat-list-item>
+                    <p style="text-align: center;">Aucun matiere trouvé</p>
+                </mat-list-item>
+            </ng-container>
+            <ng-container *ngFor="let carte of matieres">
+                <mat-card class="carte">
+                    <mat-card-header style="display: flex; justify-content: center;">
+                        <mat-card-title>{{ carte.nom }}</mat-card-title>
+                        <mat-card-subtitle>
+                            Prof: {{ carte.nomprof }}
+                        </mat-card-subtitle>
+
+                    </mat-card-header>
+                    <br>
+                    <button mat-raised-button style="background-color:#083880;color:white"
+                        >Modifier</button>
+                </mat-card>
+            </ng-container>
+
         </div>
+        <mat-paginator *ngIf="!isLoadingMatieres" [length]="totalDocs" [pageSize]="limit"
+            [pageSizeOptions]="[6, 9, 12, 30]" (page)="onPageChange($event)" aria-label="Select page"
+            [pageIndex]="page - 1"
+            itemsPerPageLabel="Éléments par page">
+        </mat-paginator>
     </div>
 </mat-list>

@@ -16,6 +16,7 @@ import { AuthService } from '../shared/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddMatiereDialogComponent } from './addmatiereDialog/add-matiere-dialog.component';
 import { Matiere } from './matiere.model';
+import { MatiereService } from '../shared/matiere.service';
 
 
 @Component({
@@ -38,10 +39,14 @@ export class MatiereComponent {
   hasPrevPage!: boolean;
   isLoadingMatieres: boolean = false;
 
-  constructor(private authService: AuthService, private dialog: MatDialog) { }
+  constructor(private authService: AuthService, private dialog: MatDialog, private matiereService: MatiereService) { }
+
+  ngOnInit() {
+    this.getMatiereFromServicePaginate();
+}
 
   onSearchTermChange() {
-
+    this.getMatiereFromServicePaginate();
   }
 
   isProf() {
@@ -54,7 +59,26 @@ export class MatiereComponent {
   onPageChange(event: PageEvent) {
     this.page = event.pageIndex + 1; // pageIndex commence à 0, donc nous ajoutons 
     this.limit = event.pageSize;
-    // this.fetchData();
+    this.getMatiereFromServicePaginate();
+  }
+
+  getMatiereFromServicePaginate() {
+    this.isLoadingMatieres = true;
+    this.matiereService
+        .getMatierePagines(this.page, this.limit, this.searchTerm)
+        .subscribe((data) => {
+            // les données arrivent ici au bout d'un certain temps
+            console.log('Données arrivées');
+            this.matieres = data.docs;
+            this.totalDocs = data.totalDocs;
+            this.totalPages = data.totalPages;
+            this.nextPage = data.nextPage;
+            this.prevPage = data.prevPage;
+            this.hasNextPage = data.hasNextPage;
+            this.hasPrevPage = data.hasPrevPage;
+            this.isLoadingMatieres = false;
+        });
+    console.log('Requête envoyée');
 }
 
   openAddMatiereDialog() {

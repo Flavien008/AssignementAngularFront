@@ -20,7 +20,7 @@ export class MatiereService {
 
   getMatiere():Observable<Matiere[]> {
     this.headers = this.auth.createAuthorizationHeader();
-    return this.http.get<Matiere[]>(this.uri,{ headers: this.headers });
+    return this.http.get<Matiere[]>(this.uri+"s",{ headers: this.headers }); 
   }
 
   getStatistiqueParMatiere():Observable<Donut[]> {
@@ -41,6 +41,11 @@ export class MatiereService {
     this.headers = this.auth.createAuthorizationHeader();
     console.log(matiere.nom, " groupe ajouté");
     return this.http.post<Matiere>(this.uri, matiere,{ headers: this.headers });
+  }
+
+  getMatierePagines(page: number, limit: number, nom: string): Observable<any> {
+    this.headers = this.auth.createAuthorizationHeader();
+    return this.http.get<Matiere[]>(this.uri+ "?page=" + page + "&limit=" + limit + "&nom=" + nom, { headers: this.headers });
   }
 
 }

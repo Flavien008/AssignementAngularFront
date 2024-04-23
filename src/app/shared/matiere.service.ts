@@ -5,12 +5,14 @@ import { environment } from '../environments/environment';
 import { Observable } from 'rxjs';
 import { Donut } from '../matiere/donut.model';
 import { AuthService } from './auth.service';
+import { User } from '../login/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MatiereService {
   uri = environment.baseUrl+"/matiere";
+  uriprof = environment.baseUrl+"/profs";
   headers : any;
   constructor(private http:HttpClient, private auth: AuthService) {
     this.headers = this.auth.createAuthorizationHeader();
@@ -24,6 +26,11 @@ export class MatiereService {
   getStatistiqueParMatiere():Observable<Donut[]> {
     this.headers = this.auth.createAuthorizationHeader();
     return this.http.get<Donut[]>(this.uri+"/statistique",{ headers: this.headers });
+  }
+
+  getProfsPagines(page: number, limit: number, nom: string): Observable<any> {
+    this.headers = this.auth.createAuthorizationHeader();
+    return this.http.get<User[]>(this.uriprof+ "?page=" + page + "&limit=" + limit + "&nom=" + nom, { headers: this.headers });
   }
 
 }

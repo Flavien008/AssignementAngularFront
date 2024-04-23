@@ -43,7 +43,7 @@ export class MatiereComponent {
 
   ngOnInit() {
     this.getMatiereFromServicePaginate();
-}
+  }
 
   onSearchTermChange() {
     this.getMatiereFromServicePaginate();
@@ -65,21 +65,21 @@ export class MatiereComponent {
   getMatiereFromServicePaginate() {
     this.isLoadingMatieres = true;
     this.matiereService
-        .getMatierePagines(this.page, this.limit, this.searchTerm)
-        .subscribe((data) => {
-            // les données arrivent ici au bout d'un certain temps
-            console.log('Données arrivées');
-            this.matieres = data.docs;
-            this.totalDocs = data.totalDocs;
-            this.totalPages = data.totalPages;
-            this.nextPage = data.nextPage;
-            this.prevPage = data.prevPage;
-            this.hasNextPage = data.hasNextPage;
-            this.hasPrevPage = data.hasPrevPage;
-            this.isLoadingMatieres = false;
-        });
+      .getMatierePagines(this.page, this.limit, this.searchTerm)
+      .subscribe((data) => {
+        // les données arrivent ici au bout d'un certain temps
+        console.log('Données arrivées');
+        this.matieres = data.docs;
+        this.totalDocs = data.totalDocs;
+        this.totalPages = data.totalPages;
+        this.nextPage = data.nextPage;
+        this.prevPage = data.prevPage;
+        this.hasNextPage = data.hasNextPage;
+        this.hasPrevPage = data.hasPrevPage;
+        this.isLoadingMatieres = false;
+      });
     console.log('Requête envoyée');
-}
+  }
 
   openAddMatiereDialog() {
     const dialogRef = this.dialog.open(AddMatiereDialogComponent, {
@@ -88,7 +88,7 @@ export class MatiereComponent {
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
-
+        this.getMatiereFromServicePaginate();
       }
     });
   }

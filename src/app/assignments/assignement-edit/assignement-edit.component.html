@@ -1,8 +1,7 @@
-<!-- modification-assignement-dialog.component.html -->
 <h2 mat-dialog-title>Modification d'assignement</h2>
 <mat-dialog-content>
   <div style="width: 720px;">
-    <form [formGroup]="assignmentForm">
+    <form [formGroup]="assignmentForm" *ngIf="!isLoading">
       <div style="display: grid; grid-gap: 10px;">
 
         <mat-form-field>
@@ -15,20 +14,27 @@
           <input matInput type="date" placeholder="Date limite" formControlName="dateLimite">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Matière" formControlName="matiere">
+          <mat-label>Matière</mat-label>
+          <mat-select formControlName="matiere">
+            <mat-option *ngFor="let m of matieres" [value]="m.nom">{{ m.nom }}</mat-option>
+          </mat-select>
         </mat-form-field>
+        
         <mat-form-field>
           <input matInput placeholder="Lien" formControlName="lien">
         </mat-form-field>
       </div>
     </form>
+    <div class="spinner-container" *ngIf="isLoading">
+      <mat-spinner diameter="20" color="primary"></mat-spinner>
+    </div>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button (click)="closeDialog()">Annuler</button>
 
-  <button  mat-raised-button color="primary" [disabled]="isSaving" (click)="saveChanges()">
+  <button  mat-raised-button color="primary" [disabled]="isSaving || isLoading" (click)="saveChanges()">
     <span *ngIf="!isSaving">Enregistrer</span>
     <mat-spinner *ngIf="isSaving" diameter="20" color="primary"></mat-spinner>
-</button>
+  </button>
 </mat-dialog-actions>

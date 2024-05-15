@@ -9,7 +9,7 @@
     <mat-checkbox color="primary" [(ngModel)]="selectAll" (change)="selectAllStudents($event)">Sélectionner
         tout</mat-checkbox>
     <div *ngFor="let student of students" style="flex-grow: 1; margin-left: 10px;">
-        <mat-checkbox color="primary" [(ngModel)]="selectedStudents[student._id]">{{ student.name }}</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="selectedStudents[student._id]"  [(ngModel)]="selectedStudentsMail[student.username]">{{ student.name }}</mat-checkbox>
     </div>
 </mat-dialog-content>
 

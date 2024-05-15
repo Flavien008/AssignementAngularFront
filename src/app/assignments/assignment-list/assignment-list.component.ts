@@ -97,6 +97,10 @@ export class AssignmentListComponent implements OnInit {
     this.getStudentsFromService(this.groupeid);
   }
 
+  isProf() {
+    return this.authService.isProf();
+  }
+
   ngOnInit() {
     // Recuperation des query params (ce qui suit le ? dans l'url)
     console.log(this.route.snapshot.queryParams);

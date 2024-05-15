@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { User } from '../../../login/user.model';
 import { StudentService } from '../../../shared/user.service';
+import { MailService } from '../../../shared/mail.service';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -24,6 +25,7 @@ import { Groupe } from '../../goupe.model';
 export class AddMemberDialogComponent implements OnInit {
     students: User[] = [];
     selectedStudents: { [key: string]: boolean } = {};
+    selectedStudentsMail: { [key: string]: boolean } = {};
     selectAll: boolean = false;
     filtre = '';
     page = 1;
@@ -41,7 +43,7 @@ export class AddMemberDialogComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<AddMemberDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private studentService: StudentService, private groupeService: GroupeService) {
+        private studentService: StudentService, private groupeService: GroupeService, private mailService: MailService) {
         console.log('groue' + this.data.group.nom);
 
         this.titre = this.data.group.nom;
@@ -88,6 +90,7 @@ export class AddMemberDialogComponent implements OnInit {
 
     addMembers() {
         const selectedStudentIds = Object.keys(this.selectedStudents); // Obtenez les clés de l'objet selectedStudents
+        const selectesStudentMails = Object.keys(this.selectedStudentsMail);
 
         if (selectedStudentIds.length === 0) {
             console.log('Aucun étudiant sélectionné.');
@@ -100,11 +103,31 @@ export class AddMemberDialogComponent implements OnInit {
         };
 
         console.log(payload);
-        this.addingMembers = true;
+        console.log(selectesStudentMails)
+        var pourmails = "";
+        for (var i = 0; i < selectedStudentIds.length; i++) {
+            pourmails = pourmails + "," + selectesStudentMails[i]
+        }
+
+        const emailData = {
+            from: "Assignment App",
+            to: pourmails,
+            subject: "Ajout dans un groupe sur Assignment App",
+            text: "Bonjour,vous avez été ajouté dans le groupe " + this.data.group.nom + " dans Assignment App"
+        };
+
+
+        console.log(emailData)
+
         this.groupeService.addUsertoGroup(payload).subscribe((reponse) => {
-            console.log("result ajout :"+reponse.message);
+            console.log("result ajout :" + reponse.message);
             this.addingMembers = false;
+            this.mailService.sendMail(emailData).subscribe((error) => {
+                console.log(error)
+            });
             this.dialogRef.close(true);
+            this.addingMembers = true;
+
         });
     }
 }

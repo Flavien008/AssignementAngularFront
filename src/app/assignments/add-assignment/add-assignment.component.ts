@@ -107,15 +107,17 @@ export class AddAssignmentComponent {
 
         // on utilise le service pour directement ajouter
         // le nouvel assignment dans le tableau
-        this.assignmentsService
-            .addAssignment(nouvelAssignment)
-            .subscribe((reponse) => {
-            console.log(reponse);
-            this.isSaving = false;
-            // On navigue pour afficher la liste des assignments
-            // en utilisant le router de manière programmatique
-            this.router.navigate(['/assignments']);
-        });
+
+        console.log(nouvelAssignment.groupe);
+        // this.assignmentsService
+        //     .addAssignment(nouvelAssignment)
+        //     .subscribe((reponse) => {
+        //     console.log(reponse);
+        //     this.isSaving = false;
+        //     // On navigue pour afficher la liste des assignments
+        //     // en utilisant le router de manière programmatique
+        //     this.router.navigate(['/assignments']);
+        // });
     }
   }
   

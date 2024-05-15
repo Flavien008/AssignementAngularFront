@@ -23,13 +23,13 @@
                   <mat-icon>close</mat-icon>
                 </button>
               </mat-form-field>
-              <mat-form-field appearance="fill" class="search-container">
+              <!-- <mat-form-field appearance="fill" class="search-container">
                 <input matInput type="text" [(ngModel)]="matierefiltre" placeholder="Matiere"
                   (ngModelChange)="applyFilters()">
                 <button matSuffix mat-icon-button aria-label="Clear" (click)="matierefiltre='';applyFilters()">
                   <mat-icon>close</mat-icon>
                 </button>
-              </mat-form-field>
+              </mat-form-field> -->
             </div>
           </div>
 
@@ -50,7 +50,7 @@
                 <mat-list-item>
                   <p>{{ a.titre }} , description : {{ a.description }}</p>
                 </mat-list-item>
-                <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                <div style="display: flex; justify-content: flex-end; margin-top: 10px;" *ngIf="isProf()">
                   <button mat-raised-button color="primary" (click)="openDialog(a)"
                     style="margin-right: 10px;">Modifier</button>
                   <button mat-raised-button style="background-color:rgb(194, 14, 53); color:white;"
@@ -99,7 +99,7 @@
             <mat-list-item>
               <p>{{ s.name }}</p>
             </mat-list-item>
-            <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+            <div style="display: flex; justify-content: flex-end; margin-top: 10px;" *ngIf="isProf()">
               <button mat-raised-button color="primary" style="margin-right: 10px;"
                 (click)="confirmRemoveStudent(s)">Retirer</button>
             </div>
@@ -127,12 +127,12 @@
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-      <mat-form-field appearance="fill" class="search-container">
+      <!-- <mat-form-field appearance="fill" class="search-container">
         <input matInput type="text" [(ngModel)]="matierefiltre" placeholder="Matiere" (ngModelChange)="applyFilters()">
         <button matSuffix mat-icon-button aria-label="Clear" (click)="matierefiltre='';applyFilters()">
           <mat-icon>close</mat-icon>
         </button>
-      </mat-form-field>
+      </mat-form-field> -->
       <button mat-raised-button color="primary" class="add-button" routerLink="/add"><mat-icon>add</mat-icon>
         Ajouter</button>
     </div>

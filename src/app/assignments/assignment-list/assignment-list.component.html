@@ -50,7 +50,7 @@
                 <mat-list-item>
                   <p>{{ a.titre }} , description : {{ a.description }}</p>
                 </mat-list-item>
-                <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                <div style="display: flex; justify-content: flex-end; margin-top: 10px;" *ngIf="isProf()">
                   <button mat-raised-button color="primary" (click)="openDialog(a)"
                     style="margin-right: 10px;">Modifier</button>
                   <button mat-raised-button style="background-color:rgb(194, 14, 53); color:white;"
@@ -99,7 +99,7 @@
             <mat-list-item>
               <p>{{ s.name }}</p>
             </mat-list-item>
-            <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+            <div style="display: flex; justify-content: flex-end; margin-top: 10px;" *ngIf="isProf()">
               <button mat-raised-button color="primary" style="margin-right: 10px;"
                 (click)="confirmRemoveStudent(s)">Retirer</button>
             </div>

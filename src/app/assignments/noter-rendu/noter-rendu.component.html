@@ -1,4 +1,4 @@
-@if(rendu) {
+@if(rendu && !isStudent()) {
 <div class="container">
     <mat-card class="example-card">
         <mat-card-header>
@@ -37,3 +37,37 @@
 </div>
 
 }
+
+@if(rendu && isStudent()) {
+    <div class="container">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-subtitle>Details du rendu de {{rendu.matricule}}</mat-card-subtitle>
+                <mat-card-title>{{rendu.auteur}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Date du rendu : {{ rendu.dateRendu }}</p>
+                <p>Description : {{ rendu.description }}</p>
+                <p>Lien du dossier ou Git : <a href="{{ rendu.file }}" target="_blank" id="gitLink">{{ rendu.file }}</a>
+                    <button mat-icon-button (click)="copyLinkToClipboard()">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>
+                </p>
+                
+                @if(rendu.note){
+                <p>Note : {{ rendu.note }} / 20</p>
+                }
+                @if(rendu.remarque){
+                    <p>Remarque : {{ rendu.remarque }}</p>
+                    <button mat-raised-button (click)="closeDialog()">Fermer</button>
+                    }
+                @if(!rendu.note){
+                    <p>C'est pas encore noté!</p>
+                <button mat-raised-button (click)="closeDialog()">Fermer</button>
+                }
+    
+            </mat-card-content>
+        </mat-card>
+    </div>
+    
+    }

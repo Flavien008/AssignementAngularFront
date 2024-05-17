@@ -5,10 +5,13 @@
       <mat-card-header>
         <mat-card-title></mat-card-title>
         <mat-card-title>Matiere: {{assignmentTransmis.matiere}}</mat-card-title>
-        <mat-card-subtitle>Titre : {{assignmentTransmis.titre}}</mat-card-subtitle>
-        <mat-card-subtitle>A rendre avant le : {{assignmentTransmis.dateLimite | date:'dd/MM/yyyy'}}</mat-card-subtitle>
+        <mat-card-subtitle>Titre :
+          {{assignmentTransmis.titre}}</mat-card-subtitle>
+        <mat-card-subtitle>A rendre avant le : {{assignmentTransmis.dateLimite |
+          date:'dd/MM/yyyy'}}</mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image src="../../../assets/images/Taking notes-amico.png" alt="Photo of a Shiba Inu">
+      <img mat-card-image src="../../../assets/images/Taking notes-amico.png"
+        alt="Photo of a Shiba Inu">
       <mat-card-content>
         <p>
           {{assignmentTransmis.description}}
@@ -16,7 +19,7 @@
       </mat-card-content>
     </mat-card>
     <mat-card class="formulaire-card">
-      <div *ngIf="isStudent()">
+      <div *ngIf="isStudent() && !dejarendu">
         <mat-card-header>
           <mat-card-title>Rendre l'assignement</mat-card-title>
         </mat-card-header>
@@ -38,7 +41,8 @@
         <mat-card-actions>
           <div class="form-group form-button">
             @if(!isloading){
-            <button mat-flat-button color="primary" (click)="envoyerRendu()">Envoyer</button>
+            <button mat-flat-button color="primary"
+              (click)="envoyerRendu()">Envoyer</button>
             }
             @if(isloading){
             <mat-spinner diameter="40" mode="indeterminate"></mat-spinner>
@@ -51,7 +55,7 @@
       <div *ngIf="isProf()">
         <div class="pour-prof">
           <h3>Liste des rendus</h3>
-          <div class="selectio"> 
+          <div class="selectio">
             <mat-select [(value)]="filtre" (selectionChange)="applyFilters()">
               <mat-option value="all">Tous les rendus</mat-option>
               <mat-option value="withNotes">Déjà noté</mat-option>
@@ -59,7 +63,8 @@
             </mat-select>
           </div>
         </div>
-        <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
+        <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport"
+          #scroller>
           <mat-list *cdkVirtualFor="let a of rendus" class="example-item">
             <h3 mat-subheader>
               Rendu de : {{ a.auteur}}
@@ -67,15 +72,45 @@
             <mat-list-item>
               <p>Date de rendu: {{ a.dateRendu | date : "dd/MM/yyyy" }}</p>
             </mat-list-item>
-            <button mat-raised-button color="primary" (click)="openDialog(a)">Voir
+            <button mat-raised-button color="primary"
+              (click)="openDialog(a)">Voir
               details</button>
             <br><br>
             <mat-divider></mat-divider>
           </mat-list>
         </cdk-virtual-scroll-viewport>
       </div>
+      <div *ngIf="isStudent() && dejarendu">
+        <div class="pour-prof">
+          <h3>Mon rendu</h3>
+        </div>
+        <ng-container *ngIf="rendusetu.length === 0">
+          <mat-list-item>
+            <p style="text-align: center;">Aucun document trouvé</p>
+          </mat-list-item>
+        </ng-container>
+        <ng-container *ngFor="let doc of rendusetu">
+          <mat-card class="carte">
+            <mat-card-subtitle>Date de rendu: {{ doc.dateRendu | date:
+              'longDate' }}</mat-card-subtitle>
+            <mat-card-content>
+              <p><strong>Description:</strong> {{ doc.description }}</p>
+              <p><strong>Lien du dossier ou Git : </strong><a
+                  href="{{ doc.file }}" target="_blank" id="gitLink">{{ doc.file
+                  }}</a>
+                <button mat-icon-button (click)="copyLinkToClipboard()">
+                  <mat-icon>content_copy</mat-icon>
+                </button>
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button color="primary"
+                (click)="openDialog(doc)">Voir détails</button>
+            </mat-card-actions>
+          </mat-card>
+        </ng-container>
+      </div>
     </mat-card>
-
   </div>
 </div>
 <div *ngIf="!assignmentTransmis">

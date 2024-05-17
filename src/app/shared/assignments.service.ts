@@ -107,7 +107,7 @@ export class AssignmentsService {
 
   updateRendu(rendu: Rendu) {
     this.headers = this.auth.createAuthorizationHeader();
-    return this.http.put(this.urirendu, { rendu }, { headers: this.headers }).pipe(
+    return this.http.put(this.urirendu,  rendu , { headers: this.headers }).pipe(
       catchError((error) => {
         // Gérer l'erreur ici, par exemple afficher un message d'erreur
         console.error('Erreur lors de la mise à jour du rendu :', error);
@@ -120,6 +120,11 @@ export class AssignmentsService {
   getRenduPaginesListe(page: number, limit: number, idAssignment: string, filter: string, idEtudiant: string): Observable<any> {
     this.headers = this.auth.createAuthorizationHeader();
     return this.http.get<Rendu[]>(this.urirendu + "?page=" + page + "&limit=" + limit + "&filter=" + filter + "&idEtudiant=" + "&idAssignment=" + idAssignment, { headers: this.headers });
+  }
+
+  getRenduPaginesListeByStudent(page: number, limit: number, idAssignment: string, filter: string, idEtudiant: string): Observable<any> {
+    this.headers = this.auth.createAuthorizationHeader();
+    return this.http.get<Rendu[]>(this.urirendu + "?page=" + page + "&limit=" + limit + "&filter=" + filter + "&idEtudiant=" + idEtudiant + "&idAssignment=" + idAssignment, { headers: this.headers });
   }
 
   // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)

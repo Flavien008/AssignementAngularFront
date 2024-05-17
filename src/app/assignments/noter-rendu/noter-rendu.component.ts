@@ -32,10 +32,10 @@ export class NoterRenduComponent {
   newnote: undefined;
   newremarque: undefined;
 
-  constructor(private assignmentsService: AssignmentsService, private dialogRef: MatDialogRef<AssignmentDetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any,private authService: AuthService,) {
+  constructor(private assignmentsService: AssignmentsService, private dialogRef: MatDialogRef<AssignmentDetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private authService: AuthService,) {
     this.rendu = data.rendu;
     console.log(this.rendu);
-    
+
   }
 
   copyLinkToClipboard() {
@@ -64,7 +64,7 @@ export class NoterRenduComponent {
     console.log(this.rendu);
     this.assignmentsService.updateRendu(this.rendu).subscribe(
       () => {
-        console.log("lasaa");
+        console.log("Note envoyé");
       },
       error => {
         console.error('Erreur lors de la connexion:', error);

@@ -10,8 +10,8 @@ describe('CustomSidenavComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CustomSidenavComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(CustomSidenavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

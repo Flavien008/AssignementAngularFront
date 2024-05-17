@@ -3,7 +3,7 @@
     <a routerLink="/add">
       <button mat-raised-button color="primary" (click)="peupler()">
         peupler
-    </button>
+      </button>
       <button mat-flat-button color="accent">Ajouter Assignment</button>
     </a>
   </div>
@@ -18,8 +18,7 @@
       <input
         matSliderThumb
         [(ngModel)]="limit"
-        (change)="getAssignmentsFromService()"
-      />
+        (change)="getAssignmentsFromService()" />
     </mat-slider>
   </p>
 
@@ -46,8 +45,7 @@
       color="primary"
       [disabled]="!hasPrevPage"
       [disabled]="!hasPrevPage"
-      (click)="premierePage()"
-    >
+      (click)="premierePage()">
       Première
     </button>
     &nbsp;&nbsp;&nbsp;
@@ -55,8 +53,7 @@
       mat-raised-button
       color="primary"
       [disabled]="!hasPrevPage"
-      (click)="pagePrecedente()"
-    >
+      (click)="pagePrecedente()">
       Précédent
     </button>
     &nbsp;&nbsp;&nbsp;
@@ -64,8 +61,7 @@
       mat-raised-button
       color="primary"
       [disabled]="!hasNextPage"
-      (click)="pageSuivante()"
-    >
+      (click)="pageSuivante()">
       Suivante
     </button>
     &nbsp;&nbsp;&nbsp;
@@ -73,8 +69,7 @@
       mat-raised-button
       color="primary"
       [disabled]="!hasNextPage"
-      (click)="dernierePage()"
-    >
+      (click)="dernierePage()">
       Dernière
     </button>
   </div>
@@ -88,15 +83,13 @@
     [showFirstLastButtons]="true"
     [pageSizeOptions]="[5, 10, 25]"
     [pageIndex]="page"
-    aria-label="Select page"
-  >
+    aria-label="Select page">
   </mat-paginator>
 
   <table
     mat-table
     [dataSource]="assignments"
-    class="mat-elevation-z8 demo-table"
-  >
+    class="mat-elevation-z8 demo-table">
     <!-- Nom Column -->
     <ng-container matColumnDef="nom">
       <th mat-header-cell *matHeaderCellDef>Nom</th>
@@ -119,7 +112,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
-
   <h1>Version avec ul / li et for</h1>
   <mat-divider></mat-divider>
   <mat-list>
@@ -129,8 +121,7 @@
         <a routerLink="/assignment/groupe/{{ a._id }}">
           <div>
             <h3
-              matListItemTitle
-            >
+              matListItemTitle>
               {{ a.titre }}
             </h3>
             <p matListItemLine>{{ a.dateLimite | date }}</p>

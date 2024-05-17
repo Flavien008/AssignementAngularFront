@@ -2,30 +2,43 @@
 
 <mat-form-field appearance="fill" style="margin-left: 10px;">
     <mat-label>Ajouter un membre par nom</mat-label>
-    <input matInput placeholder="Nom de membre" [(ngModel)]="filtre" (ngModelChange)="applyFilters()">
+    <input matInput placeholder="Nom de membre" [(ngModel)]="filtre"
+        (ngModelChange)="applyFilters()">
 </mat-form-field>
 
 <mat-dialog-content>
-    <mat-checkbox color="primary" [(ngModel)]="selectAll" (change)="selectAllStudents($event)">Sélectionner
+    <mat-checkbox color="primary" [(ngModel)]="selectAll"
+        (change)="selectAllStudents($event)">Sélectionner
         tout</mat-checkbox>
-    <div *ngFor="let student of students" style="flex-grow: 1; margin-left: 10px;">
-        <mat-checkbox color="primary" [(ngModel)]="selectedStudents[student._id]"  [(ngModel)]="selectedStudentsMail[student.username]">{{ student.name }}</mat-checkbox>
+    <div *ngFor="let student of students"
+        style="flex-grow: 1; margin-left: 10px;">
+        <mat-checkbox color="primary"
+            [(ngModel)]="selectedStudents[student._id]"
+            [(ngModel)]="selectedStudentsMail[student.username]">{{ student.name
+            }}</mat-checkbox>
     </div>
 </mat-dialog-content>
 
 <div style="margin-left: 10px;">
-    <div *ngIf="loadingStudents" style="display: flex; justify-content: center; align-items: center">
-        <mat-spinner  diameter="30" color="accent"></mat-spinner>
+    <div *ngIf="loadingStudents"
+        style="display: flex; justify-content: center; align-items: center">
+        <mat-spinner diameter="30" color="accent"></mat-spinner>
     </div>
-    <mat-paginator *ngIf="!loadingStudents" [length]="totalDocs" [pageSize]="limit" [pageSizeOptions]="[5, 10, 25, 100]"
-        (page)="onPageChange($event)" aria-label="Select page" [pageIndex]="page - 1" itemsPerPageLabel="Éléments par page">
+    <mat-paginator *ngIf="!loadingStudents" [length]="totalDocs"
+        [pageSize]="limit" [pageSizeOptions]="[5, 10, 25, 100]"
+        (page)="onPageChange($event)" aria-label="Select page"
+        [pageIndex]="page - 1" itemsPerPageLabel="Éléments par page">
     </mat-paginator>
 </div>
 
 <mat-dialog-actions>
-    <button mat-raised-button style="background-color:rgb(194, 14, 53);color:white" (click)="dialogRef.close(false)">Annuler</button>
-    <button mat-raised-button style="background-color:#083880;color:white" [disabled]="addingMembers" (click)="addMembers()">
+    <button mat-raised-button
+        style="background-color:rgb(194, 14, 53);color:white"
+        (click)="dialogRef.close(false)">Annuler</button>
+    <button mat-raised-button style="background-color:#083880;color:white"
+        [disabled]="addingMembers" (click)="addMembers()">
         <span *ngIf="!addingMembers">Ajouter</span>
-        <mat-spinner *ngIf="addingMembers" diameter="20" color="accent"></mat-spinner>
+        <mat-spinner *ngIf="addingMembers" diameter="20"
+            color="accent"></mat-spinner>
     </button>
 </mat-dialog-actions>

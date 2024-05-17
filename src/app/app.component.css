@@ -1,21 +1,22 @@
-.content{
+.content {
     padding: 24px;
 }
 
 mat-toolbar {
     position: relative;
-    z-index: 5 ;
+    z-index: 5;
 }
 
-mat-sidenav-container{
+mat-sidenav-container {
     height: calc(100vh - 64px);
 }
 
 .spacer {
-    flex: 1; /* Pour occuper tout l'espace disponible */
+    flex: 1;
+    /* Pour occuper tout l'espace disponible */
 }
 
 .logout-button {
-    margin-left: auto; /* Pour pousser le bouton à droite */
+    margin-left: auto;
+    /* Pour pousser le bouton à droite */
 }
-

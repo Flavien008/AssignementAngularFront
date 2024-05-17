@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../shared/auth.service';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -21,11 +21,11 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginComponent {
   username = '';
-  password = ''; 
+  password = '';
   isloading: boolean = false;
   error = '';
 
-  constructor(private authService: AuthService,private router:Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   login(): void {
     console.log(this.username, this.password)
@@ -50,5 +50,5 @@ export class LoginComponent {
         }
       );
   }
-  
+
 }

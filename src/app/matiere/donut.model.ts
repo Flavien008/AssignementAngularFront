@@ -1,5 +1,4 @@
 export class Donut {
-    matiere: any;
-    pourcentage: any;
-  }
-  
+  matiere: any;
+  pourcentage: any;
+}

@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-confirmation-dialog',
   standalone: true,
-  imports: [MatDialogClose,MatButton,MatDialogContent,MatDialogActions,CommonModule],
+  imports: [MatDialogClose, MatButton, MatDialogContent, MatDialogActions, CommonModule],
   templateUrl: './confirmation-dialog.component.html',
   styleUrl: './confirmation-dialog.component.css'
 })
@@ -14,7 +14,7 @@ export class ConfirmationDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();

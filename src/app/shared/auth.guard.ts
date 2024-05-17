@@ -19,15 +19,15 @@ export const authGuard: CanActivateFn = (route, state) => {
   // comme une promesse qui renvoie un booléen.
   return authService.isAdmin()
     .then(admin => {
-        if (admin) {
-          console.log("GUARD: Navigation autorisée");
-          return true;
-        } else {
-          console.log("GUARD: Navigation NON autorisée");
-          router.navigate(['/home']);
-          return false;
-        }
+      if (admin) {
+        console.log("GUARD: Navigation autorisée");
+        return true;
+      } else {
+        console.log("GUARD: Navigation NON autorisée");
+        router.navigate(['/home']);
+        return false;
       }
+    }
     );
-    
+
 };

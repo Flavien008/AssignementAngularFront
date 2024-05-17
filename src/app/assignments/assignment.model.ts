@@ -3,7 +3,7 @@ export class Assignment {
   titre!: string;
   description!: string;
   matiere!: string;
-  groupe!: { idGroupe: string }[]; 
-  dateLimite!: Date; 
+  groupe!: { idGroupe: string }[];
+  dateLimite!: Date;
   lien!: string;
 }

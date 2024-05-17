@@ -56,8 +56,8 @@ export class CardGroupComponent {
     }
 
     fetchData(): void { //on ajoutera la condition lequel fetcher selon le role
-        if(this.isProf()) this.getGroupeFromServicePaginate();
-        if(this.isStudent()) this.getGroupeFromServicePaginateStudent();
+        if (this.isProf()) this.getGroupeFromServicePaginate();
+        if (this.isStudent()) this.getGroupeFromServicePaginateStudent();
     }
 
     onPageChange(event: PageEvent) {

@@ -1,12 +1,18 @@
 <h2 mat-dialog-title style="margin-left: 25px;">Confirmation</h2>
 <mat-dialog-content *ngIf="data.groupe == null">
-    <p>Êtes-vous sûr de vouloir supprimer l' assignment {{data.assignment.titre}} ?</p>
+    <p>Êtes-vous sûr de vouloir supprimer l' assignment
+        {{data.assignment.titre}} ?</p>
 </mat-dialog-content>
 <mat-dialog-content *ngIf="data.groupe != null">
-    <p>Êtes-vous sûr de retirer l'étudiant {{data.user.name}} du {{ data.groupe.nom }}?</p>
+    <p>Êtes-vous sûr de retirer l'étudiant {{data.user.name}} du {{
+        data.groupe.nom }}?</p>
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Non</button>
-    <button mat-button *ngIf="data.groupe == null" [mat-dialog-close]="{ confirmed: true, assignment: data.assignment }" cdkFocusInitial>Oui</button> 
-    <button mat-button  *ngIf="data.groupe != null" [mat-dialog-close]="{ confirmed: true, groupe: data.groupe , user :data.user }" cdkFocusInitial>Oui</button>   
+    <button mat-button *ngIf="data.groupe == null"
+        [mat-dialog-close]="{ confirmed: true, assignment: data.assignment }"
+        cdkFocusInitial>Oui</button>
+    <button mat-button *ngIf="data.groupe != null"
+        [mat-dialog-close]="{ confirmed: true, groupe: data.groupe , user :data.user }"
+        cdkFocusInitial>Oui</button>
 </mat-dialog-actions>

@@ -16,7 +16,7 @@ export class MailService {
         this.headers = this.auth.createAuthorizationHeader();
     }
 
-    sendMail(data: any){
+    sendMail(data: any) {
         this.headers = this.auth.createAuthorizationHeader();
         return this.http.post(this.uri, data, { headers: this.headers });
     }

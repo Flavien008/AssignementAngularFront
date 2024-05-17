@@ -1,50 +1,45 @@
 .conteneur-cartes {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    margin: 0 auto;
-  }
-  
-  .carte {
-    width: calc(33.33% - 20px);
-    margin: 10px;
-    box-sizing: border-box;
-  }
-  
-  .carte:hover {
-    cursor: pointer; /* Rétablit le curseur par défaut au survol */
-  }
-  
-  @media (max-width: 768px) {
-    .conteneur-cartes {
-      flex-direction: column; 
-      justify-content: center; 
-    }
-  
-    .carte {
-      width: 100%; 
-    }
-  }
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0 auto;
+}
 
-  .loading-spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .pagination-container {
-    display: flex;
+.carte {
+  width: calc(33.33% - 20px);
+  margin: 10px;
+  box-sizing: border-box;
+}
+
+.carte:hover {
+  cursor: pointer;
+  /* Rétablit le curseur par défaut au survol */
+}
+
+@media (max-width: 768px) {
+  .conteneur-cartes {
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
   }
 
-  .pagination-container button {
-      margin: 0 4px;
+  .carte {
+    width: 100%;
   }
-  
+}
 
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
-  
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-
+.pagination-container button {
+  margin: 0 4px;
+}

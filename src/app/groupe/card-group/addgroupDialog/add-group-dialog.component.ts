@@ -29,14 +29,14 @@ export class AddGroupDialogComponent implements OnInit {
         public dialogRef: MatDialogRef<AddGroupDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private groupeService: GroupeService,
-        private router:Router) {
+        private router: Router) {
     }
     ngOnInit(): void {
-        
+
     }
 
     addGroupe() {
-        if(this.nom == '') return;
+        if (this.nom == '') return;
         this.addingGroupe = true;
         let nouveauGrp = new Groupe();
         nouveauGrp.nom = this.nom;

@@ -1,43 +1,39 @@
 .form {
-  display:flex;
+  display: flex;
   flex-direction: column;
-  margin:5px;
+  margin: 5px;
 }
 
 .custom-form-field {
-  width: 50%; 
+  width: 50%;
 }
 
 .suivantbtn {
   background-color: #4c85d6 !important;
-  color: #ffffff !important; 
+  color: #ffffff !important;
 }
 
 .suivantbtn:hover {
-  background-color: #2e45c4; /* Change color on hover */
+  background-color: #2e45c4;
+  /* Change color on hover */
 }
 
-.reinitialiseBtn
-{
+.reinitialiseBtn {
   background-color: #d74553 !important;
-  color: #ffffff !important; 
+  color: #ffffff !important;
 }
 
 .reinitialiseBtn:hover {
-  background-color: #c11c29; /* Change color on hover */
+  background-color: #c11c29;
+  /* Change color on hover */
 }
 
-.saveBtn
-{
+.saveBtn {
   background-color: #52cc7d !important;
-  color: #ffffff !important; 
+  color: #ffffff !important;
 }
 
 .saveBtn:hover {
-  background-color: #21ba13; /* Change color on hover */
+  background-color: #21ba13;
+  /* Change color on hover */
 }
-
-
-
-
-

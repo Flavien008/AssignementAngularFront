@@ -50,6 +50,8 @@ export class AssignmentDetailComponent implements OnInit {
   hasNextPage!: boolean;
   hasPrevPage!: boolean;
   rendus: Rendu[] = [];
+  rendusetu: Rendu[] = [];
+  dejarendu: boolean = false;
 
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
@@ -67,6 +69,15 @@ export class AssignmentDetailComponent implements OnInit {
     this.getAssignmentsFromService();
     this.userData = this.getUserData();
     this.getRenduFromService();
+    if (this.isStudent()) {
+      this.getRenduFromServiceByStudent()
+      if (this.rendusetu.length > 0) {
+        this.dejarendu = true;
+      }
+    }
+
+    console.log("kle,l,o,eo", this.getRenduFromServiceByStudent())
+    console.log("Frrrrr", this.dejarendu)
   }
 
   openDialog(rendu: Rendu) {
@@ -130,6 +141,8 @@ export class AssignmentDetailComponent implements OnInit {
           this.message = "Il y a eu un problème !";
         }
       );
+    this.getRenduFromServiceByStudent()
+    this.dejarendu = true;
 
   }
 
@@ -162,8 +175,24 @@ export class AssignmentDetailComponent implements OnInit {
         console.log("Donnnééééé  : 65e61be77722f153d4da1717" + this.userData._id, data);
       });
     console.log('Requête envoyée');
-
   }
+
+  copyLinkToClipboard() {
+    const linkElement = document.getElementById('gitLink');
+    if (linkElement) {
+      const range = document.createRange();
+      range.selectNode(linkElement);
+      window.getSelection()?.removeAllRanges();
+      window.getSelection()?.addRange(range);
+      document.execCommand('copy');
+      window.getSelection()?.removeAllRanges();
+    }
+  }
+
+
+
+
+
 
   getRenduFromServicePourScrollInfini() {
     const url = this.route.snapshot.url;
@@ -241,5 +270,30 @@ export class AssignmentDetailComponent implements OnInit {
 
   isStudent() {
     return this.authService.isEtudiant();
+  }
+
+  getRenduFromServiceByStudent() {
+    const url = this.route.snapshot.url;
+    const lastSegment = url[url.length - 1];
+    const id = lastSegment.path;
+    // on récupère les rendus depuis le service
+    this.assignmentsService
+      .getRenduPaginesListeByStudent(this.page, this.limit, id, this.filtre, this.userData._id)
+      .subscribe((data) => {
+        // les données arrivent ici au bout d'un certain temps
+        console.log('Données arrivées rendu');
+        this.rendusetu = data.docs;
+        this.totalDocs = data.totalDocs;
+        this.totalPages = data.totalPages;
+        this.nextPage = data.nextPage;
+        this.prevPage = data.prevPage;
+        this.hasNextPage = data.hasNextPage;
+        this.hasPrevPage = data.hasPrevPage;
+        console.log("Donnnééééé  : Lelelelelelele" + this.userData._id, data);
+        if (data.docs.length > 0) {
+          this.dejarendu = true;
+        }
+      });
+    console.log('Requête envoyée');
   }
 }

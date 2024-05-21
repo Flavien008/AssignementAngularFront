@@ -33,7 +33,7 @@ export class EditAssignmentComponent implements OnInit {
     private assignmentsService: AssignmentsService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     // on récupère l'id dans l'url

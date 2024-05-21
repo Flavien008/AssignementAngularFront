@@ -11,6 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { AssignmentDetailComponent } from '../assignment-detail/assignment-detail.component';
 import { AssignmentsService } from '../../shared/assignments.service';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-noter-rendu',
@@ -31,9 +32,10 @@ export class NoterRenduComponent {
   newnote: undefined;
   newremarque: undefined;
 
-  constructor(private assignmentsService: AssignmentsService, private dialogRef: MatDialogRef<AssignmentDetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private assignmentsService: AssignmentsService, private dialogRef: MatDialogRef<AssignmentDetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private authService: AuthService,) {
     this.rendu = data.rendu;
     console.log(this.rendu);
+
   }
 
   copyLinkToClipboard() {
@@ -58,8 +60,21 @@ export class NoterRenduComponent {
     } else {
 
     }
-    this.assignmentsService.updateRendu(this.rendu);
 
+    console.log(this.rendu);
+    this.assignmentsService.updateRendu(this.rendu).subscribe(
+      () => {
+        console.log("Note envoyé");
+      },
+      error => {
+        console.error('Erreur lors de la connexion:', error);
+        // Afficher un message d'erreur approprié à l'utilisateur
+      }
+    );
+  }
+
+  isStudent() {
+    return this.authService.isEtudiant();
   }
 
 }

@@ -1,7 +1,7 @@
 .spinner-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px; /* Réglez la hauteur selon vos besoins */
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  /* Réglez la hauteur selon vos besoins */
+}

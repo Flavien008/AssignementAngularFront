@@ -23,19 +23,19 @@ import { MatSelectModule } from '@angular/material/select';
 @Component({
     selector: 'app-assignement-edit',
     standalone: true,
-    imports: [MatSelectModule,MatInputModule,MatLabel,MatOption,CommonModule,MatSpinner,MatInput, ReactiveFormsModule, MatFormField, MatButton, MatDialogActions, MatDialogTitle, MatDialogContent, MatDialogClose],
+    imports: [MatSelectModule, MatInputModule, MatLabel, MatOption, CommonModule, MatSpinner, MatInput, ReactiveFormsModule, MatFormField, MatButton, MatDialogActions, MatDialogTitle, MatDialogContent, MatDialogClose],
     templateUrl: './assignement-edit.component.html',
     styleUrl: './assignement-edit.component.css'
 })
 
 export class AssignementEditComponent {
     assignmentForm: FormGroup;
-    isSaving : boolean = false;
-    matieres : Matiere[] | undefined;
-    isLoading : boolean = false;
+    isSaving: boolean = false;
+    matieres: Matiere[] | undefined;
+    isLoading: boolean = false;
     datePipe = new DatePipe('en-US');
     constructor(private dialogRef: MatDialogRef<AssignementEditComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-        private formBuilder: FormBuilder, private assignmentsService: AssignmentsService,private matiereService:MatiereService) {
+        private formBuilder: FormBuilder, private assignmentsService: AssignmentsService, private matiereService: MatiereService) {
         const dateLimiteValue = data.assignement?.dateLimite ? this.datePipe.transform(new Date(data.assignement?.dateLimite), 'yyyy-MM-dd') : '';
         this.assignmentForm = this.formBuilder.group({
             _id: [data.assignement._id],
@@ -54,11 +54,11 @@ export class AssignementEditComponent {
     getMatiereFromService() {
         this.isLoading = true
         this.matiereService.getMatiere()
-        .subscribe((matiere) => {
-            this.isLoading = false
-            console.log("matiere"+matiere);
-          this.matieres = matiere;
-        });
+            .subscribe((matiere) => {
+                this.isLoading = false
+                console.log("matiere" + matiere);
+                this.matieres = matiere;
+            });
         console.log('Requête envoyée pour recuperer matiers');
     }
 

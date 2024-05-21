@@ -16,11 +16,11 @@ export class AuthService {
 
   logIn(username: string, password: string): Observable<any> {
     const data = {
-      "username" : username,
-      "password" : password
+      "username": username,
+      "password": password
     }
     console.log(data);
-    return this.http.post(this.uri+"/login", data).pipe(
+    return this.http.post(this.uri + "/login", data).pipe(
       tap(response => this.storeUserData(response)),
       catchError(error => {
         console.error('Erreur lors de la connexion:', error);
@@ -31,16 +31,16 @@ export class AuthService {
 
   private storeUserData(userData: any): void {
     localStorage.setItem('token', userData.token);
-    console.log('userData.user'+userData.user);
-    
-    localStorage.setItem('user', JSON.stringify(userData.user)); 
+    console.log('userData.user' + userData.user);
+
+    localStorage.setItem('user', JSON.stringify(userData.user));
     this.loggedIn = true;
     console.log(localStorage)
   }
 
   getToken(): string {
     const token = localStorage.getItem('token');
-    return token ||'';
+    return token || '';
   }
 
   createAuthorizationHeader(): HttpHeaders {
@@ -60,15 +60,15 @@ export class AuthService {
     this.loggedIn = false;
   }
 
-  signIn(username: string, password : string, name : string, matricule : string){
+  signIn(username: string, password: string, name: string, matricule: string) {
     const data = {
-      "username" : username,
-      "password" : password,
-      "name" : name,
-      "role" : "student",
-      "matricule" : matricule
+      "username": username,
+      "password": password,
+      "name": name,
+      "role": "student",
+      "matricule": matricule
     }
-    return this.http.post(this.uri+"/signup", data).pipe(
+    return this.http.post(this.uri + "/signup", data).pipe(
       catchError(error => {
         console.error('Erreur lors de la connexion:', error);
         throw error;
@@ -76,22 +76,22 @@ export class AuthService {
     );
   }
 
-  
+
   // propriété pour savoir si l'utilisateur est connecté
 
-  isEtudiant(){
+  isEtudiant() {
     const userData = this.getUserData();
-    if(userData.role === 'student') return true;
+    if (userData.role === 'student') return true;
     else return false;
   }
 
-  isProf(){
+  isProf() {
     const userData = this.getUserData();
-    if(userData.role === 'prof') return true;
+    if (userData.role === 'prof') return true;
     else return false;
   }
 
-  
+
   isAdmin() {
     const promesse = new Promise((resolve, reject) => {
       // ici accès BD? Web Service ? etc...

@@ -8,18 +8,21 @@
           <input matInput placeholder="Titre" formControlName="titre">
         </mat-form-field>
         <mat-form-field>
-          <textarea matInput placeholder="Description" formControlName="description"></textarea>
+          <textarea matInput placeholder="Description"
+            formControlName="description"></textarea>
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="date" placeholder="Date limite" formControlName="dateLimite">
+          <input matInput type="date" placeholder="Date limite"
+            formControlName="dateLimite">
         </mat-form-field>
         <mat-form-field>
           <mat-label>Matière</mat-label>
           <mat-select formControlName="matiere">
-            <mat-option *ngFor="let m of matieres" [value]="m.nom">{{ m.nom }}</mat-option>
+            <mat-option *ngFor="let m of matieres" [value]="m.nom">{{ m.nom
+              }}</mat-option>
           </mat-select>
         </mat-form-field>
-        
+
         <mat-form-field>
           <input matInput placeholder="Lien" formControlName="lien">
         </mat-form-field>
@@ -33,7 +36,8 @@
 <mat-dialog-actions>
   <button mat-raised-button (click)="closeDialog()">Annuler</button>
 
-  <button  mat-raised-button color="primary" [disabled]="isSaving || isLoading" (click)="saveChanges()">
+  <button mat-raised-button color="primary" [disabled]="isSaving || isLoading"
+    (click)="saveChanges()">
     <span *ngIf="!isSaving">Enregistrer</span>
     <mat-spinner *ngIf="isSaving" diameter="20" color="primary"></mat-spinner>
   </button>

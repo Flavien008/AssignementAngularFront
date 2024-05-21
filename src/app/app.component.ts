@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [CommonModule,RouterOutlet, RouterLink, MatButtonModule, MatDividerModule,
+    imports: [CommonModule, RouterOutlet, RouterLink, MatButtonModule, MatDividerModule,
         MatIconModule, MatSlideToggleModule,
         AssignmentsComponent, MatToolbarModule, MatSidenavModule, CustomSidenavComponent]
 })
@@ -42,24 +42,24 @@ export class AppComponent {
                 } else {
                     this.isLoginPage = false;
                 }
-                
+
             }
 
             // Check user data and redirect if necessary
             if (event instanceof NavigationEnd && this.authService.getUserData() !== null) {
                 const userData = this.authService.getUserData();
-                if(userData.role !== null && event.url === '/login' || event.url === '/' || event.url === '/inscription'){
+                if (userData.role !== null && event.url === '/login' || event.url === '/' || event.url === '/inscription') {
                     if (userData.role === 'student') {
                         this.router.navigateByUrl('/groups');
-                      } else if (userData.role === 'prof') {
+                    } else if (userData.role === 'prof') {
                         this.router.navigateByUrl('/dashboard');
-                      }
+                    }
                 }
-              }
-            else  if (event instanceof NavigationEnd && this.authService.getUserData() === null && event.url !== '/inscription') {
+            }
+            else if (event instanceof NavigationEnd && this.authService.getUserData() === null && event.url !== '/inscription') {
                 this.router.navigateByUrl('/login');
             }
-          
+
         });
     }
 

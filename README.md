@@ -41,7 +41,7 @@ environments/: Les fichiers de configuration pour les différents environnements
 https://assignementangularfront.onrender.com
 
 ## Connexion
-Login Professeur:
+Login Professeur, qui est aussi administateur de l'application:
 ```
     Identifiant: "prof"
     Mot de passe: "1234"

@@ -52,7 +52,7 @@
             <mat-card-title>{{rendu.auteur}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <p>Date du rendu : {{ rendu.dateRendu }}</p>
+            <p>Date de rendu: {{ rendu.dateRendu | date : "dd/MM/yyyy" }}</p>
             <p>Description : {{ rendu.description }}</p>
             <p>Lien du dossier ou Git : <a href="{{ rendu.file }}"
                     target="_blank" id="gitLink">{{ rendu.file }}</a>

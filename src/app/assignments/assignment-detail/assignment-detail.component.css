@@ -153,7 +153,6 @@ section {
 }
 
 
-/* src/app/components/document-list/document-list.component.css */
 .conteneur-cartes {
   display: flex;
   flex-wrap: wrap;
@@ -164,10 +163,6 @@ section {
 .carte {
   width: 100%;
   margin-bottom: 16px;
-}
-
-mat-card-header {
-  background-color: #f5f5f5;
 }
 
 

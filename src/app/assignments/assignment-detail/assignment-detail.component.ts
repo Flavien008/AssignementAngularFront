@@ -52,6 +52,7 @@ export class AssignmentDetailComponent implements OnInit {
   rendus: Rendu[] = [];
   rendusetu: Rendu[] = [];
   dejarendu: boolean = false;
+  chargement: boolean = false;
 
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
@@ -143,7 +144,6 @@ export class AssignmentDetailComponent implements OnInit {
       );
     this.getRenduFromServiceByStudent()
     this.dejarendu = true;
-
   }
 
   getUserData(): any {
@@ -164,7 +164,6 @@ export class AssignmentDetailComponent implements OnInit {
       .getRenduPaginesListe(this.page, this.limit, id, this.filtre, this.userData._id)
       .subscribe((data) => {
         // les données arrivent ici au bout d'un certain temps
-        console.log('Données arrivées rendu');
         this.rendus = data.docs;
         this.totalDocs = data.totalDocs;
         this.totalPages = data.totalPages;
@@ -172,7 +171,6 @@ export class AssignmentDetailComponent implements OnInit {
         this.prevPage = data.prevPage;
         this.hasNextPage = data.hasNextPage;
         this.hasPrevPage = data.hasPrevPage;
-        console.log("Donnnééééé  : 65e61be77722f153d4da1717" + this.userData._id, data);
       });
     console.log('Requête envoyée');
   }
@@ -188,11 +186,6 @@ export class AssignmentDetailComponent implements OnInit {
       window.getSelection()?.removeAllRanges();
     }
   }
-
-
-
-
-
 
   getRenduFromServicePourScrollInfini() {
     const url = this.route.snapshot.url;
@@ -276,11 +269,10 @@ export class AssignmentDetailComponent implements OnInit {
     const url = this.route.snapshot.url;
     const lastSegment = url[url.length - 1];
     const id = lastSegment.path;
-    // on récupère les rendus depuis le service
+    this.chargement = true
     this.assignmentsService
       .getRenduPaginesListeByStudent(this.page, this.limit, id, this.filtre, this.userData._id)
       .subscribe((data) => {
-        // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées rendu');
         this.rendusetu = data.docs;
         this.totalDocs = data.totalDocs;
@@ -289,7 +281,6 @@ export class AssignmentDetailComponent implements OnInit {
         this.prevPage = data.prevPage;
         this.hasNextPage = data.hasNextPage;
         this.hasPrevPage = data.hasPrevPage;
-        console.log("Donnnééééé  : Lelelelelelele" + this.userData._id, data);
         if (data.docs.length > 0) {
           this.dejarendu = true;
         }

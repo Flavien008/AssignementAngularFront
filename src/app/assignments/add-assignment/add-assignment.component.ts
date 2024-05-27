@@ -102,22 +102,13 @@ export class AddAssignmentComponent {
       nouvelAssignment.groupe = this.groupes.map(id => ({ idGroupe: id }))
       nouvelAssignment.matiere = this.matierechamp;
       nouvelAssignment.lien = this.lien;
-
-      // nouvelAssignment.rendu = false;
-
-      // on utilise le service pour directement ajouter
-      // le nouvel assignment dans le tableau
-
-      console.log(nouvelAssignment.groupe);
-      // this.assignmentsService
-      //     .addAssignment(nouvelAssignment)
-      //     .subscribe((reponse) => {
-      //     console.log(reponse);
-      //     this.isSaving = false;
-      //     // On navigue pour afficher la liste des assignments
-      //     // en utilisant le router de manière programmatique
-      //     this.router.navigate(['/assignments']);
-      // });
+      this.assignmentsService
+          .addAssignment(nouvelAssignment)
+          .subscribe((reponse) => {
+          console.log(reponse);
+          this.isSaving = false;
+          this.router.navigate(['/assignments']);
+      });
     }
   }
 

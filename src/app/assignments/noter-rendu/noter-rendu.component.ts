@@ -12,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { AssignmentDetailComponent } from '../assignment-detail/assignment-detail.component';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { AuthService } from '../../shared/auth.service';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-noter-rendu',
@@ -22,6 +24,7 @@ import { AuthService } from '../../shared/auth.service';
     MatFormFieldModule,
     MatDatepickerModule,
     MatButtonModule,
+    CommonModule,
     MatCardModule, MatDividerModule, MatButtonModule, MatIconModule
   ],
   templateUrl: './noter-rendu.component.html',

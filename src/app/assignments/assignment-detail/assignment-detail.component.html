@@ -81,33 +81,28 @@
         </cdk-virtual-scroll-viewport>
       </div>
       <div *ngIf="isStudent() && dejarendu">
-        <div class="pour-prof">
-          <h3>Mon rendu</h3>
-        </div>
-        <ng-container *ngIf="rendusetu.length === 0">
-          <mat-list-item>
-            <p style="text-align: center;">Aucun document trouvé</p>
-          </mat-list-item>
-        </ng-container>
-        <ng-container *ngFor="let doc of rendusetu">
-          <mat-card class="carte">
-            <mat-card-subtitle>Date de rendu: {{ doc.dateRendu | date:
-              'longDate' }}</mat-card-subtitle>
-            <mat-card-content>
-              <p><strong>Description:</strong> {{ doc.description }}</p>
-              <p><strong>Lien du dossier ou Git : </strong><a
-                  href="{{ doc.file }}" target="_blank" id="gitLink">{{ doc.file
-                  }}</a>
-                <button mat-icon-button (click)="copyLinkToClipboard()">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-              </p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-raised-button color="primary"
-                (click)="openDialog(doc)">Voir détails</button>
-            </mat-card-actions>
-          </mat-card>
+        <mat-card-header>
+          <mat-card-title>Mon rendu</mat-card-title>
+          <mat-card-subtitle>
+            Date de rendu: {{ rendusetu[0].dateRendu | date: 'longDate' }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <ng-container *ngIf="rendusetu.length > 0">      
+          <mat-card-content>
+            <p><strong>Description:</strong> {{ rendusetu[0].description }}</p>
+            <p>
+              <strong>Lien du dossier ou Git : </strong>
+              <a href="{{ rendusetu[0].file }}" target="_blank" id="gitLink">{{ rendusetu[0].file }}</a>
+              <button mat-icon-button (click)="copyLinkToClipboard()">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="openDialog(rendusetu[0])">
+              Voir détails
+            </button>
+          </mat-card-actions>
         </ng-container>
       </div>
     </mat-card>

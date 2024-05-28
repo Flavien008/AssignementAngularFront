@@ -62,6 +62,9 @@
                 </mat-select>
             </div>
             </div>
+            <div *ngIf="rendus.length==0" style="display: flex; justify-content: center;  height: 100%;" >
+                <p>Il n'y a pas encore de rendu!</p>
+            </div>
             <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
             <mat-list *cdkVirtualFor="let a of rendus" class="example-item">
                 <h3 mat-subheader>

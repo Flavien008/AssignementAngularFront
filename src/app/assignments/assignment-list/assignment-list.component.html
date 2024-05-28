@@ -46,8 +46,11 @@
                 style="display: flex; flex-direction: column;">
                 <a routerLink="/assignments/{{ a._id }}" style="text-decoration:none">
                   <h3 mat-subheader>
+                    <p>
+                      <img *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" class="matiere-icon ">
+                    </p>
                     Matiere : {{ a.matiere}} | Date limite: {{ a.dateLimite | date :
-                    "dd/MM/yyyy" }}
+                      "dd/MM/yyyy" }}
                   </h3>
                 </a>
                 <mat-list-item>
@@ -55,7 +58,6 @@
                 </mat-list-item>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                   <!-- Affichage de la miniature de la photo de la matière -->
-                  <img *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" width="50" height="50">
                   <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
                     <button mat-raised-button color="primary" (click)="openDialog(a)"
                       style="margin-right: 10px;">Modifier</button>
@@ -156,8 +158,11 @@
         style="display: flex; flex-direction: column;">
         <a routerLink="/assignments/{{ a._id }}" style="text-decoration:none">
           <h3 mat-subheader>
+            <p>
+              <img *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" class="matiere-icon ">
+            </p>
             Matiere : {{ a.matiere}} | Date limite: {{ a.dateLimite | date :
-            "dd/MM/yyyy" }}
+              "dd/MM/yyyy" }}
           </h3>
         </a>
         <mat-list-item>
@@ -165,7 +170,6 @@
         </mat-list-item>
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <!-- Affichage de la miniature de la photo de la matière -->
-          <img *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" width="50" height="50">
           <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
             <button mat-raised-button color="primary" (click)="openDialog(a)"
               style="margin-right: 10px;">Modifier</button>

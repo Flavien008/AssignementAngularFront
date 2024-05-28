@@ -154,6 +154,8 @@ export class AssignmentListComponent implements OnInit {
     this.assignmentsService
       .getAssignmentsPaginesListe(this.page, this.limit, this.titrefiltre, this.matierefiltre, this.groupeid)
       .subscribe((data) => {
+        console.log(data);
+        
         // les données arrivent ici au bout d'un certain temps
         this.assignments = data.docs;
         this.totalDocs = data.totalDocs;

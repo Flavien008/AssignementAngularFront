@@ -14,17 +14,14 @@
     <mat-tab label="Liste des assignments">
       <div class="example-small-box mat-elevation-z4">
         <div class="content-wrapper">
-          <div
-            style="display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
             <h3></h3>
             <div style="display: flex; gap: 10px;">
               <!-- Utilisez flexbox avec un espace entre les éléments -->
               <mat-form-field appearance="fill" class="search-container">
-                <input matInput type="text" [(ngModel)]="titrefiltre"
-                  placeholder="Rechercher..."
+                <input matInput type="text" [(ngModel)]="titrefiltre" placeholder="Rechercher..."
                   (ngModelChange)="applyFilters()">
-                <button matSuffix mat-icon-button aria-label="Clear"
-                  (click)="titrefiltre='';applyFilters()">
+                <button matSuffix mat-icon-button aria-label="Clear" (click)="titrefiltre='';applyFilters()">
                   <mat-icon>close</mat-icon>
                 </button>
               </mat-form-field>
@@ -43,56 +40,51 @@
             style="display: flex; justify-content: center; align-items: center;height:75vh">
             <mat-spinner diameter="30" color="accent"></mat-spinner>
           </div>
-          <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport"
-            #scroller>
+          <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
             <ng-container *ngIf="assignments.length > 0; else emptyList">
-              <mat-list *cdkVirtualFor="let a of assignments"
-                class="example-item"
+              <mat-list *cdkVirtualFor="let a of assignments" class="example-item"
                 style="display: flex; flex-direction: column;">
-                <a routerLink="/assignments/{{ a._id }}"
-                  style="text-decoration:none">
+                <a routerLink="/assignments/{{ a._id }}" style="text-decoration:none">
                   <h3 mat-subheader>
-                    Matiere : {{ a.matiere}} | Date limite: {{ a.dateLimite |
-                    date : "dd/MM/yyyy" }}
+                    Matiere : {{ a.matiere}} | Date limite: {{ a.dateLimite | date :
+                    "dd/MM/yyyy" }}
                   </h3>
                 </a>
                 <mat-list-item>
                   <p>{{ a.titre }} , description : {{ a.description }}</p>
                 </mat-list-item>
-                <div
-                  style="display: flex; justify-content: flex-end; margin-top: 10px;"
-                  *ngIf="isProf()">
-                  <button mat-raised-button color="primary"
-                    (click)="openDialog(a)"
-                    style="margin-right: 10px;">Modifier</button>
-                  <button mat-raised-button
-                    style="background-color:rgb(194, 14, 53); color:white;"
-                    (click)="confirmDelete(a)">Supprimer</button>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <!-- Affichage de la miniature de la photo de la matière -->
+                  <img *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" width="50" height="50">
+                  <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                    <button mat-raised-button color="primary" (click)="openDialog(a)"
+                      style="margin-right: 10px;">Modifier</button>
+                    <button mat-raised-button style="background-color:rgb(194, 14, 53); color:white;"
+                      (click)="confirmDelete(a)">Supprimer</button>
+                  </div>
                 </div>
                 <mat-divider style="margin-top: 10px;"></mat-divider>
               </mat-list>
             </ng-container>
             <ng-template #emptyList>
-              <p>Aucune assignement n'a été trouvée.</p>
+              <p>Aucun assignement n'a été trouvé.</p>
             </ng-template>
           </cdk-virtual-scroll-viewport>
+          
         </div>
       </div>
     </mat-tab>
     <mat-tab label="Liste des membres">
       <div class="example-large-box mat-elevation-z4">
         <div class="content-wrapper">
-          <div
-            style="display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
             <h3></h3>
             <div style="display: flex; gap: 10px;">
               <!-- Utilisez flexbox avec un espace entre les éléments -->
               <mat-form-field appearance="fill" class="search-container">
-                <input matInput type="text" [(ngModel)]="filtreEdudiant"
-                  placeholder="Nom ou email..."
+                <input matInput type="text" [(ngModel)]="filtreEdudiant" placeholder="Nom ou email..."
                   (ngModelChange)="applyFiltersStudents()">
-                <button matSuffix mat-icon-button aria-label="Clear"
-                  (click)="filtreEdudiant='';applyFiltersStudents()">
+                <button matSuffix mat-icon-button aria-label="Clear" (click)="filtreEdudiant='';applyFiltersStudents()">
                   <mat-icon>close</mat-icon>
                 </button>
               </mat-form-field>
@@ -108,30 +100,23 @@
             style="display: flex; justify-content: center; align-items: center;height:75vh">
             <p>Aucun resultat.</p>
           </div>
-          <mat-list *ngFor="let s of students" class="example-item"
-            style="display: flex; flex-direction: column;">
+          <mat-list *ngFor="let s of students" class="example-item" style="display: flex; flex-direction: column;">
             <h3 mat-subheader>
               Email : {{ s.username}}
             </h3>
             <mat-list-item>
               <p>{{ s.name }}</p>
             </mat-list-item>
-            <div
-              style="display: flex; justify-content: flex-end; margin-top: 10px;"
-              *ngIf="isProf()">
-              <button mat-raised-button color="primary"
-                style="margin-right: 10px;"
+            <div style="display: flex; justify-content: flex-end; margin-top: 10px;" *ngIf="isProf()">
+              <button mat-raised-button color="primary" style="margin-right: 10px;"
                 (click)="confirmRemoveStudent(s)">Retirer</button>
             </div>
             <mat-divider style="margin-top: 10px;"></mat-divider>
           </mat-list>
         </div>
-        <mat-paginator *ngIf="!isLoadingStudents" [length]="totalDocsEtudiant"
-          [pageSize]="limitEtudiant"
-          [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChange($event)"
-          aria-label="Select page"
-          [pageIndex]="pageEtudiant - 1"
-          itemsPerPageLabel="Éléments par page">
+        <mat-paginator *ngIf="!isLoadingStudents" [length]="totalDocsEtudiant" [pageSize]="limitEtudiant"
+          [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChange($event)" aria-label="Select page"
+          [pageIndex]="pageEtudiant - 1" itemsPerPageLabel="Éléments par page">
         </mat-paginator>
       </div>
     </mat-tab>
@@ -139,17 +124,14 @@
 </div>
 
 <div class="content-wrapper" *ngIf="groupeid===''">
-  <div
-    style="display: flex; justify-content: space-between; align-items: center;">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
     <h3>Liste des assignments</h3>
     <div style="display: flex; gap: 10px;">
       <!-- Utilisez flexbox avec un espace entre les éléments -->
       <mat-form-field appearance="fill" class="search-container">
-        <input matInput type="text" [(ngModel)]="titrefiltre"
-          placeholder="Rechercher..."
+        <input matInput type="text" [(ngModel)]="titrefiltre" placeholder="Rechercher..."
           (ngModelChange)="applyFilters()">
-        <button matSuffix mat-icon-button aria-label="Clear"
-          (click)="titrefiltre='';applyFilters()">
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="titrefiltre='';applyFilters()">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
@@ -159,15 +141,13 @@
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field> -->
-      <button mat-raised-button color="primary" class="add-button"
-        routerLink="/add"><mat-icon>add</mat-icon>
+      <button mat-raised-button color="primary" class="add-button" routerLink="/add"><mat-icon>add</mat-icon>
         Ajouter</button>
     </div>
   </div>
 
   <mat-divider></mat-divider>
-  <div *ngIf="isLoadingAssignments"
-    style="display: flex; justify-content: center; align-items: center;height:75vh">
+  <div *ngIf="isLoadingAssignments" style="display: flex; justify-content: center; align-items: center;height:75vh">
     <mat-spinner diameter="30" color="accent"></mat-spinner>
   </div>
   <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
@@ -183,20 +163,23 @@
         <mat-list-item>
           <p>{{ a.titre }} , description : {{ a.description }}</p>
         </mat-list-item>
-        <div
-          style="display: flex; justify-content: flex-end; margin-top: 10px;">
-          <button mat-raised-button color="primary" (click)="openDialog(a)"
-            style="margin-right: 10px;">Modifier</button>
-          <button mat-raised-button
-            style="background-color:rgb(194, 14, 53); color:white;"
-            (click)="confirmDelete(a)">Supprimer</button>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <!-- Affichage de la miniature de la photo de la matière -->
+          <img *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" width="50" height="50">
+          <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+            <button mat-raised-button color="primary" (click)="openDialog(a)"
+              style="margin-right: 10px;">Modifier</button>
+            <button mat-raised-button style="background-color:rgb(194, 14, 53); color:white;"
+              (click)="confirmDelete(a)">Supprimer</button>
+          </div>
         </div>
         <mat-divider style="margin-top: 10px;"></mat-divider>
       </mat-list>
     </ng-container>
     <ng-template #emptyList>
-      <p>Aucun assignement n'a été trouvée.</p>
+      <p>Aucun assignement n'a été trouvé.</p>
     </ng-template>
   </cdk-virtual-scroll-viewport>
+  
 
 </div>

@@ -1,3 +1,8 @@
+.dynamic-image {
+  max-width: 100%; /* Set the maximum width to the width of its container */
+  max-height: 100%; /* Set the maximum height to the height of its container */
+}
+
 .conteneur-cartes {
     display: flex;
     flex-wrap: wrap;

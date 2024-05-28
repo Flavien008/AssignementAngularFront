@@ -1,25 +1,21 @@
-<div style="display: flex; flex-wrap: wrap;">
-    <div style="flex: 0 0 calc(75% - 10px); margin-right: 10px;">
-        <mat-card>
+<div style="display: flex;">
+    <div style="flex: 0 0 75%; margin-right: 10px; width: 75%;">
+        <mat-card style="width: 100%;">
             <mat-card-content>
-                <div
-                    style="display: flex; align-items: center; margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
                     <mat-form-field style="margin-right: 10px;">
-                        <input matInput type="date" placeholder="Start Date"
-                            [(ngModel)]="date1">
+                        <input matInput type="date" placeholder="Start Date" [(ngModel)]="date1">
                     </mat-form-field>
                     <mat-form-field style="margin-right: 10px;">
-                        <input matInput type="date" placeholder="End Date"
-                            [(ngModel)]="date2">
+                        <input matInput type="date" placeholder="End Date" [(ngModel)]="date2">
                     </mat-form-field>
-                    <button mat-flat-button color="primary"
-                        (click)="afficher()">Voir</button>
+                    <button mat-flat-button color="primary" (click)="afficher()">Voir</button>
                 </div>
                 <canvas id="Line">{{ line }}</canvas>
             </mat-card-content>
         </mat-card>
     </div>
-    <div style="flex: 0 0 calc(25% - 10px);">
+    <div style="flex: 0 0 25%; width: 25%;">
         <mat-card style="width: 100%;">
             <mat-card-content>
                 <canvas id="Donus">{{ donut }}</canvas>

@@ -92,19 +92,20 @@ export class AuthService {
   }
 
 
-  isAdmin() {
-    const promesse = new Promise((resolve, reject) => {
-      // ici accès BD? Web Service ? etc...
-      resolve(this.loggedIn);
-      // pas de cas d'erreur ici, donc pas de reject
-    });
+  async isAdmin() {
+    try {
+        // Accès à la base de données ou à un service Web pour vérifier si l'utilisateur est authentifié et a le statut d'administrateur
+        const isProfessor = this.isProf(); // Supposons que isProf est une fonction qui vérifie si l'utilisateur est un professeur
+        
+        if ( isProfessor) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.error("Erreur lors de la vérification de l'authentification :", error);
+        throw error; // Propager l'erreur à l'appelant
+    }
+}
 
-    return promesse.then(loggedIn => {
-      if (loggedIn && this.isProf()) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-  }
 }

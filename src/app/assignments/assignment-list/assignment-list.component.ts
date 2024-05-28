@@ -296,8 +296,6 @@ export class AssignmentListComponent implements OnInit {
     });
   }
 
-
-
   isAdmin() {
     return this.authService.loggedIn;
   }

@@ -7,10 +7,12 @@
             <mat-card-title>Matiere: {{assignmentTransmis.matiere}}</mat-card-title>
             <mat-card-subtitle>Titre :
             {{assignmentTransmis.titre}}</mat-card-subtitle>
+            <mat-card-subtitle>Publié le : {{assignmentTransmis.dateCreation |
+                date:'dd/MM/yyyy'}}</mat-card-subtitle>
             <mat-card-subtitle>A rendre avant le : {{assignmentTransmis.dateLimite |
             date:'dd/MM/yyyy'}}</mat-card-subtitle>
         </mat-card-header>
-        <img *ngIf="assignmentTransmis.matierePhoto" [src]="assignmentTransmis.matierePhoto" alt="Matiere Photo" class="dynamic-image">
+        <img style="margin: 15px;" *ngIf="assignmentTransmis.matierePhoto" [src]="assignmentTransmis.matierePhoto" alt="Matiere Photo" class="dynamic-image">
         <mat-card-content>
             <b>Description :</b>
             <p>

@@ -5,6 +5,7 @@ export class Assignment {
   matiere!: string;
   groupe!: { idGroupe: string }[];
   dateLimite!: Date;
+  dateCreation!: Date;
   lien!: string;
   matierePhoto? : String;
 }

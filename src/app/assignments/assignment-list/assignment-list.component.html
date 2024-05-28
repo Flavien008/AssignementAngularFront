@@ -49,8 +49,12 @@
                     <p>
                       <img *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" class="matiere-icon ">
                     </p>
-                    Matiere : {{ a.matiere}} | Date limite: {{ a.dateLimite | date :
-                      "dd/MM/yyyy" }}
+                    <p>
+                      Publié le : {{ a.dateCreation | date :
+                        "dd/MM/yyyy"}}  | Date limite: {{ a.dateLimite | date :
+                          "dd/MM/yyyy" }}
+                    </p>
+                    Matiere : {{ a.matiere}} 
                   </h3>
                 </a>
                 <mat-list-item>

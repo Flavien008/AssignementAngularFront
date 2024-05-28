@@ -31,11 +31,8 @@
             <ng-template matStepLabel>Date limite</ng-template>
             <mat-form-field class="custom-form-field" appearance="fill">
                 <mat-label>Date limite</mat-label>
-                <input matInput [matDatepicker]="picker"
-                    [(ngModel)]="dateLimite" name="date" required>
-                <mat-datepicker-toggle matIconSuffix
-                    [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                <input matInput type="date" placeholder="Start Date"
+                            [(ngModel)]="dateLimite" name="date">
             </mat-form-field>
             <div>
                 <button mat-button mat-raised-button matStepperPrevious

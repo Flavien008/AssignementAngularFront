@@ -99,6 +99,12 @@ export class AuthService {
       // pas de cas d'erreur ici, donc pas de reject
     });
 
-    return promesse;
+    return promesse.then(loggedIn => {
+      if (loggedIn && this.isProf()) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   }
 }

@@ -17,19 +17,13 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'home', component: AssignmentsComponent },
-  { path: "add", component: AddAssignmentComponent },
   { path: "groups", component: CardGroupComponent },
   { path: "groups/:id", component: AssignmentListComponent },
   { path: "assignments/:id", component: AssignmentDetailComponent },
   { path: "rendu/assignment/:id", component: ListeRenduComponent },
-  { path: "assignments", component: AssignmentListComponent },
-  { path: "dashboard", component: DashboardComponent },
-  { path: "matiere", component: MatiereComponent },
-
-
-  {
-    path: "assignment/:id/edit",
-    component: EditAssignmentComponent,
-    canActivate: [authGuard]
-  }
+  { path: "assignments", component: AssignmentListComponent , canActivate: [authGuard]},
+  { path: "dashboard", component: DashboardComponent , canActivate: [authGuard]},
+  { path: "matiere", component: MatiereComponent, canActivate: [authGuard] },
+  { path: "add", component: AddAssignmentComponent, canActivate: [authGuard]},
+  { path: "assignment/:id/edit", component: EditAssignmentComponent, canActivate: [authGuard]}
 ];

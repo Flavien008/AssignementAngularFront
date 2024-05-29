@@ -21,7 +21,7 @@
         </mat-card-content>
         </mat-card>
         <mat-card class="formulaire-card">
-        <div *ngIf="isStudent() && !dejarendu">
+        <div *ngIf="isStudent() && !dejarendu && !isLate()">
             <mat-card-header>
             <mat-card-title>Rendre l'assignement</mat-card-title>
             </mat-card-header>
@@ -52,6 +52,10 @@
 
             </div>
             </mat-card-actions>
+        </div>
+        <div *ngIf="isLate()" style="display: flex; justify-content: center;  height: 100%;" >
+            <p>C'est déjà trop tard, la date limite est le: {{assignmentTransmis.dateLimite |
+                date:'dd/MM/yyyy'}}</p>
         </div>
         <div *ngIf="isProf()">
             <div class="pour-prof">

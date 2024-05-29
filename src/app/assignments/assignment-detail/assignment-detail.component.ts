@@ -251,7 +251,18 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
 
-
+  isLate() {
+    if (this.assignmentTransmis) {
+      if (new Date(this.assignmentTransmis.dateLimite) < new Date()) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false; 
+    }
+  }
+  
 
   isAdmin() {
     return this.authService.loggedIn;

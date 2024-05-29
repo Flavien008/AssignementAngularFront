@@ -31,9 +31,8 @@
             <ng-template matStepLabel>Date limite</ng-template>
             <mat-form-field class="custom-form-field" appearance="fill">
                 <mat-label>Date limite</mat-label>
-                <input matInput type="date" placeholder="Start Date"
-                            [(ngModel)]="dateLimite" name="date">
-            </mat-form-field>
+                <input matInput type="date" placeholder="Start Date" [ngModel]="dateLimite | date:'yyyy-MM-dd'" (ngModelChange)="dateLimite = $event" name="date">
+              </mat-form-field>              
             <div>
                 <button mat-button mat-raised-button matStepperPrevious
                     style="margin-right: 10px;">Retour</button>

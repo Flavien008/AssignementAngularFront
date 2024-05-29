@@ -41,7 +41,7 @@ export class AddAssignmentComponent {
   // champs du formulaire
   titre = '';
   description = '';
-  dateLimite = undefined;
+  dateLimite: Date | undefined;
   groupes = '';
   matierechamp = '';
   lien = '';
@@ -49,7 +49,7 @@ export class AddAssignmentComponent {
   //données formulaire
   matieres: Matiere[] = [];
   selectedStudentGroups: string[] = [];
-  studentGroups: Groupe[] = [];
+  studentGroups: Groupe[] = []; 
   isSaving: boolean = false;
 
   constructor(private assignmentsService: AssignmentsService,
@@ -59,6 +59,12 @@ export class AddAssignmentComponent {
   ngOnInit() {
     this.getMatiereFromService();
     this.getGroupeFromService();
+    
+    this.dateLimite = new Date();
+  }
+
+  onDateChange(event: any) {
+    this.dateLimite = new Date(event.target.value);
   }
 
   getGroupeFromService() {

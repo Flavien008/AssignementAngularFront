@@ -44,7 +44,7 @@ export class AddMemberDialogComponent implements OnInit {
         public dialogRef: MatDialogRef<AddMemberDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private studentService: StudentService, private groupeService: GroupeService, private mailService: MailService) {
-        console.log('groue' + this.data.group.nom);
+        console.log('groupe' + this.data.group.nom);
 
         this.titre = this.data.group.nom;
     }
@@ -59,7 +59,6 @@ export class AddMemberDialogComponent implements OnInit {
         this.getStudentNotInGroupsFromService(this.page, this.limit, this.data.group._id, this.filtre);
     }
 
-
     applyFilters(): void {
         this.getStudentNotInGroupsFromService(this.page, this.limit, this.data.group._id, this.filtre);
     }
@@ -68,9 +67,14 @@ export class AddMemberDialogComponent implements OnInit {
         this.selectAll = event.checked;
         this.students.forEach(student => {
             this.selectedStudents[student._id] = this.selectAll;
+            this.selectedStudentsMail[student.username] = this.selectAll;
         });
     }
 
+    updateStudentSelection(student: User, event: any) {
+        this.selectedStudents[student._id] = event.checked;
+        this.selectedStudentsMail[student.username] = event.checked;
+    }
 
     getStudentNotInGroupsFromService(page: number, limit: number, groupId: string, filtre: string) {
         this.loadingStudents = true;
@@ -84,13 +88,12 @@ export class AddMemberDialogComponent implements OnInit {
             this.hasNextPage = data.hasNextPage;
             this.hasPrevPage = data.hasPrevPage;
             this.loadingStudents = false;
-
         });
     }
 
     addMembers() {
-        const selectedStudentIds = Object.keys(this.selectedStudents); // Obtenez les clés de l'objet selectedStudents
-        const selectesStudentMails = Object.keys(this.selectedStudentsMail);
+        const selectedStudentIds = Object.keys(this.selectedStudents).filter(id => this.selectedStudents[id]); // Filtrer les étudiants sélectionnés
+        const selectesStudentMails = Object.keys(this.selectedStudentsMail).filter(username => this.selectedStudentsMail[username]);
 
         if (selectedStudentIds.length === 0) {
             console.log('Aucun étudiant sélectionné.');
@@ -104,18 +107,32 @@ export class AddMemberDialogComponent implements OnInit {
 
         console.log(payload);
         console.log(selectesStudentMails)
-        var pourmails = "";
-        for (var i = 0; i < selectedStudentIds.length; i++) {
-            pourmails = pourmails + "," + selectesStudentMails[i]
-        }
+        var pourmails = selectesStudentMails.join(",");
 
         const emailData = {
             from: "Assignment App",
             to: pourmails,
             subject: "Ajout dans un groupe sur Assignment App",
-            text: "Bonjour,vous avez été ajouté dans le groupe " + this.data.group.nom + " dans Assignment App"
+            html: `
+                <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
+                    <div style="background-color: #083880; color: white; padding: 20px; text-align: center;">
+                        <h1 style="margin: 0;">Assignment App</h1>
+                    </div>
+                    <div style="padding: 20px;">
+                        <h2 style="color: #083880;">Bonjour,</h2>
+                        <p style="font-size: 16px;">Vous avez été ajouté dans le groupe <strong>${this.data.group.nom}</strong> dans Assignment App.</p>
+                        <p style="font-size: 16px;">Merci de vérifier votre compte pour plus de détails.</p>
+                        <div style="margin: 20px 0; text-align: center;">
+                            <a href="https://assignementangularfront.onrender.com" style="background-color: #083880; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Accéder à Assignment App</a>
+                        </div>
+                    </div>
+                    <div style="background-color: #f7f7f7; color: #777; padding: 20px; text-align: center;">
+                        <p style="margin: 0;">Cordialement,<br>L'équipe Assignment App</p>
+                    </div>
+                </div>
+            `
         };
-
+        
 
         console.log(emailData)
 
@@ -127,8 +144,6 @@ export class AddMemberDialogComponent implements OnInit {
             });
             this.dialogRef.close(true);
             this.addingMembers = true;
-
         });
     }
 }
-

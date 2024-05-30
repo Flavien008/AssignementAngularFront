@@ -1,7 +1,7 @@
 <h3 style="margin-left: 10px;">Ajouter des membres dans {{ titre}}</h3>
 
 <mat-form-field appearance="fill" style="margin-left: 10px;">
-    <mat-label>Ajouter un membre par nom</mat-label>
+    <mat-label>Ajouter un membre</mat-label>
     <input matInput placeholder="Nom de membre" [(ngModel)]="filtre"
         (ngModelChange)="applyFilters()">
 </mat-form-field>
@@ -13,8 +13,8 @@
     <div *ngFor="let student of students"
         style="flex-grow: 1; margin-left: 10px;">
         <mat-checkbox color="primary"
-            [(ngModel)]="selectedStudents[student._id]"
-            [(ngModel)]="selectedStudentsMail[student.username]">{{ student.name
+            [checked]="selectedStudents[student._id]"
+            (change)="updateStudentSelection(student, $event)">{{ student.name
             }}</mat-checkbox>
     </div>
 </mat-dialog-content>

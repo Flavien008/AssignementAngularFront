@@ -7,6 +7,33 @@
   /* 100vh for full viewport height */
 }
 
+.assignments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 10px;
+}
+
+.assignment-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  max-height: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dynamic-image {
+  max-width: auto;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.dynamic-image:hover {
+  cursor: pointer; 
+}
 
 
 

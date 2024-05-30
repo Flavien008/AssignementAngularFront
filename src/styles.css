@@ -1,4 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 70; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Importez les styles de la police Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Définir Roboto comme police par défaut */
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 50;
+  font-size: 15px;
+}
+

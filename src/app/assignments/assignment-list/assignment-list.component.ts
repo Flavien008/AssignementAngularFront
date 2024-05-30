@@ -29,16 +29,20 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { Groupe } from '../../groupe/goupe.model';
 import { StudentService } from '../../shared/user.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-assignment-list',
   standalone: true,
-  imports: [MatPaginator, MatTabsModule, MatSpinner, MatDialogClose, MatOption, MatInputModule, MatFormFieldModule, FormsModule, MatIcon, MatFormField, CommonModule, RouterLink,
+  imports: [MatSelect,MatPaginator, MatTabsModule, MatSpinner, MatDialogClose, MatOption, MatInputModule, MatFormFieldModule, FormsModule, MatIcon, MatFormField, CommonModule, RouterLink,
     MatButtonModule, MatCardModule, MatCheckboxModule, CdkVirtualScrollViewport, ScrollingModule, MatListModule],
   templateUrl: './assignment-list.component.html',
   styleUrl: './assignment-list.component.css'
 })
 export class AssignmentListComponent implements OnInit {
+  triType: string = ''; // Stocke le type de tri (par exemple, titre, date de création)
+triDirection: string = 'asc'; // Stocke la direction du tri (ascendant ou descendant)
+
   assignments: Assignment[] = [];
   filtreEdudiant = '';
   students: User[] = [];

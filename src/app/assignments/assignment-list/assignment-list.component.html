@@ -14,8 +14,25 @@
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <h3></h3>
             <div style="display: flex; gap: 10px;">
+              <mat-form-field appearance="fill" class="sort-container">
+                <mat-label>Trier par :</mat-label>
+                <mat-select [(value)]="triType">
+                  <mat-option value="titre">Titre</mat-option>
+                  <mat-option value="dateCreation">Date de création</mat-option>
+                  <!-- Ajoutez d'autres options de tri au besoin -->
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="sort-container">
+                <mat-label>Type de tri :</mat-label>
+                <mat-select [(value)]="triType">
+                  <mat-option value="titre">Titre</mat-option>
+                  <mat-option value="dateCreation">Date de création</mat-option>
+                  <!-- Ajoutez d'autres options de tri au besoin -->
+                </mat-select>
+              </mat-form-field>
               <mat-form-field appearance="fill" class="search-container">
-                <input matInput type="text" [(ngModel)]="titrefiltre" placeholder="Rechercher..." (ngModelChange)="applyFilters()">
+                <input matInput type="text" [(ngModel)]="titrefiltre" placeholder="Rechercher..."
+                  (ngModelChange)="applyFilters()">
                 <button matSuffix mat-icon-button aria-label="Clear" (click)="titrefiltre='';applyFilters()">
                   <mat-icon>close</mat-icon>
                 </button>
@@ -24,7 +41,8 @@
           </div>
 
           <mat-divider></mat-divider>
-          <div *ngIf="isLoadingAssignments" style="display: flex; justify-content: center; align-items: center;height:75vh">
+          <div *ngIf="isLoadingAssignments"
+            style="display: flex; justify-content: center; align-items: center;height:75vh">
             <mat-spinner diameter="30" color="accent"></mat-spinner>
           </div>
           <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
@@ -35,10 +53,11 @@
                     <mat-card-header>
                       <mat-card-title class="description">{{ a.titre }}</mat-card-title>
                       <mat-card-subtitle>
-                        Publié le : {{ a.dateCreation | date : "dd/MM/yyyy" }} | Date limite: {{ a.dateLimite | date : "dd/MM/yyyy" }}
+                        Publié le : {{ a.dateCreation | date : "dd/MM/yyyy" }} | Date limite: {{ a.dateLimite | date :
+                        "dd/MM/yyyy" }}
                       </mat-card-subtitle>
                     </mat-card-header>
-                    <img class="dynamic-image" *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" >
+                    <img class="dynamic-image" *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" routerLink="/assignments/{{ a._id }}">
                     <mat-card-content>
                       <p class="description">Matiere : {{ a.matiere }}</p>
                       <p class="description">{{ a.description }}</p>
@@ -65,7 +84,8 @@
             <h3></h3>
             <div style="display: flex; gap: 10px;">
               <mat-form-field appearance="fill" class="search-container">
-                <input matInput type="text" [(ngModel)]="filtreEdudiant" placeholder="Nom ou email..." (ngModelChange)="applyFiltersStudents()">
+                <input matInput type="text" [(ngModel)]="filtreEdudiant" placeholder="Nom ou email..."
+                  (ngModelChange)="applyFiltersStudents()">
                 <button matSuffix mat-icon-button aria-label="Clear" (click)="filtreEdudiant='';applyFiltersStudents()">
                   <mat-icon>close</mat-icon>
                 </button>
@@ -74,10 +94,12 @@
           </div>
 
           <mat-divider></mat-divider>
-          <div *ngIf="isLoadingStudents" style="display: flex; justify-content: center; align-items: center;height:75vh">
+          <div *ngIf="isLoadingStudents"
+            style="display: flex; justify-content: center; align-items: center;height:75vh">
             <mat-spinner diameter="30" color="accent"></mat-spinner>
           </div>
-          <div *ngIf="!isLoadingStudents && students.length == 0" style="display: flex; justify-content: center; align-items: center;height:75vh">
+          <div *ngIf="!isLoadingStudents && students.length == 0"
+            style="display: flex; justify-content: center; align-items: center;height:75vh">
             <p>Aucun resultat.</p>
           </div>
           <div *ngFor="let s of students" class="example-item" style="display: flex; flex-direction: column;">
@@ -92,24 +114,45 @@
             </mat-card>
           </div>
         </div>
-        <mat-paginator *ngIf="!isLoadingStudents" [length]="totalDocsEtudiant" [pageSize]="limitEtudiant" [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChange($event)" aria-label="Select page" [pageIndex]="pageEtudiant - 1" itemsPerPageLabel="Éléments par page">
+        <mat-paginator *ngIf="!isLoadingStudents" [length]="totalDocsEtudiant" [pageSize]="limitEtudiant"
+          [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChange($event)" aria-label="Select page"
+          [pageIndex]="pageEtudiant - 1" itemsPerPageLabel="Éléments par page">
         </mat-paginator>
       </div>
     </mat-tab>
   </mat-tab-group>
 </div>
 
-<div class="content-wrapper" *ngIf="groupeid===''" >
+<div class="content-wrapper" *ngIf="groupeid===''">
   <div style="display: flex; justify-content: space-between; align-items: center;">
     <h3>Liste des assignments</h3>
     <div style="display: flex; gap: 10px;">
+      <!-- Exemple de menu déroulant pour choisir le type de tri -->
+      <mat-form-field appearance="fill" class="sort-container">
+        <mat-label>Trier par :</mat-label>
+        <mat-select [(value)]="triType">
+          <mat-option value="titre">Titre</mat-option>
+          <mat-option value="dateCreation">Date de création</mat-option>
+          <!-- Ajoutez d'autres options de tri au besoin -->
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="sort-container">
+        <mat-label>Type de tri :</mat-label>
+        <mat-select [(value)]="triType">
+          <mat-option value="titre">Titre</mat-option>
+          <mat-option value="dateCreation">Date de création</mat-option>
+          <!-- Ajoutez d'autres options de tri au besoin -->
+        </mat-select>
+      </mat-form-field>
       <mat-form-field appearance="fill" class="search-container">
-        <input matInput type="text" [(ngModel)]="titrefiltre" placeholder="Rechercher..." (ngModelChange)="applyFilters()">
+        <input matInput type="text" [(ngModel)]="titrefiltre" placeholder="Rechercher..."
+          (ngModelChange)="applyFilters()">
         <button matSuffix mat-icon-button aria-label="Clear" (click)="titrefiltre='';applyFilters()">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-      <button mat-raised-button color="primary" class="add-button" routerLink="/add"><mat-icon>add</mat-icon> Ajouter</button>
+      <button mat-raised-button color="primary" class="add-button" routerLink="/add"><mat-icon>add</mat-icon>
+        Ajouter</button>
     </div>
   </div>
 
@@ -122,17 +165,18 @@
       <div class="assignments-grid">
         <div *cdkVirtualFor="let a of assignments" class="assignment-card">
           <mat-card>
-            <mat-card-header>
-              <mat-card-title class="description">{{ a.titre }}</mat-card-title>
-              <mat-card-subtitle>
-                Publié le : {{ a.dateCreation | date : "dd/MM/yyyy" }} | Date limite: {{ a.dateLimite | date : "dd/MM/yyyy" }}
-              </mat-card-subtitle>
-            </mat-card-header>
-            <img class="dynamic-image" *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" >
-            <mat-card-content>
-              <p class="description">Matiere : {{ a.matiere }}</p>
-              <p class="description">{{ a.description }}</p>
-            </mat-card-content>
+              <mat-card-header>
+                <mat-card-title class="description">{{ a.titre }}</mat-card-title>
+                <mat-card-subtitle>
+                  Publié le : {{ a.dateCreation | date : "dd/MM/yyyy" }} | Date limite: {{ a.dateLimite | date :
+                  "dd/MM/yyyy" }}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <img class="dynamic-image" *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" routerLink="/assignments/{{ a._id }}">
+              <mat-card-content>
+                <p class="description">Matiere : {{ a.matiere }}</p>
+                <p class="description">{{ a.description }}</p>
+              </mat-card-content>
             <mat-card-actions style="display: flex; justify-content: flex-end;">
               <button mat-button color="primary" (click)="openDialog(a)">Modifier</button>
               <button mat-button style="color:rgb(194, 14, 53);" (click)="confirmDelete(a)">Supprimer</button>
@@ -146,31 +190,3 @@
     </ng-template>
   </cdk-virtual-scroll-viewport>
 </div>
-
-<style>
-  .assignments-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-    gap: 10px;
-  }
-  .assignment-card {
-    display: flex;
-    flex-direction: column;
-  }
-
-
-  .description {
-    max-height: 100px; /* Ajustez la hauteur maximale selon vos besoins */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .dynamic-image {
-    max-width: auto; /* La largeur maximale de l'image sera égale à la largeur de son conteneur */
-    max-height: 150px; /* Ajustez la hauteur maximale selon vos besoins */
-    object-fit: contain; /* Assure que l'image est contenue dans les dimensions spécifiées sans distorsion */
-  }
-  
-  
-</style>

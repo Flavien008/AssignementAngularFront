@@ -49,7 +49,7 @@ Login Professeur, qui est aussi administateur de l'application:
     
 Login Etudiant:
 ```
-    Identifiant: "tendry"
+    Identifiant: "flavienrakotoarison8@gmail.com"
     Mot de passe: "1234"
 ```
 

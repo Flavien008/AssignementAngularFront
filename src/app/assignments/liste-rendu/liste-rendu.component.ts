@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatSliderModule } from '@angular/material/slider';
 import { NoterRenduComponent } from '../noter-rendu/noter-rendu.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-liste-rendu',
@@ -27,7 +28,8 @@ import { NoterRenduComponent } from '../noter-rendu/noter-rendu.component';
     CommonModule,
     MatDividerModule,
     MatIconModule,
-    DatePipe
+    DatePipe,
+    MatSelectModule
   ],
   templateUrl: './liste-rendu.component.html',
   styleUrls: ['./liste-rendu.component.css']

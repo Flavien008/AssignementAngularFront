@@ -44,4 +44,13 @@
     font-size: 1.2em;
     color: #666666;
   }
+
+  
+.selectio {
+    display: flex;
+    gap: 10px;
+    margin: 20px;
+    width: 250px;
+  }
+  
   

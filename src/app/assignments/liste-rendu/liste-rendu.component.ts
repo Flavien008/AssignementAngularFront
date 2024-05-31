@@ -69,6 +69,10 @@ export class ListeRenduComponent implements OnInit {
     if (this.isStudent()) {
       this.getAllRenduFromServiceByStudent();
     }
+    if(this.isProf()){
+      this.getAllRenduFromServiceByProf();
+      console.log("atoooo prrr")
+    }
   }
 
   getUserData(): any {
@@ -77,7 +81,9 @@ export class ListeRenduComponent implements OnInit {
   }
 
   applyFilters(): void {
-    this.getAllRenduFromServiceByStudent();
+    if (this.isStudent()) {
+      this.getAllRenduFromServiceByStudent();
+    }
   }
 
   getAllRenduFromServiceByStudent() {
@@ -102,10 +108,37 @@ export class ListeRenduComponent implements OnInit {
     console.log('Requête envoyée');
   }
 
+  getAllRenduFromServiceByProf() {
+    const url = this.route.snapshot.url;
+    const lastSegment = url[url.length - 1];
+    const id = lastSegment.path;
+    this.chargement = true;
+    this.assignmentsService
+      .getAllRenduPaginesListeByProf(this.page, this.limit, this.filtre)
+      .subscribe((data) => {
+        console.log('Données arrivées rendu');
+        this.rendus = data.docs;
+        this.dataSource.data = this.rendus;
+        this.totalDocs = data.totalDocs;
+        this.totalPages = data.totalPages;
+        this.nextPage = data.nextPage;
+        this.prevPage = data.prevPage;
+        this.hasNextPage = data.hasNextPage;
+        this.hasPrevPage = data.hasPrevPage;
+        this.chargement = false;
+      });
+    console.log('Requête envoyée');
+  }
+
   onPageChange(event: PageEvent) {
     this.page = event.pageIndex + 1; // pageIndex commence à 0, donc nous ajoutons 1
     this.limit = event.pageSize;
-    this.getAllRenduFromServiceByStudent();
+    if (this.isStudent()) {
+      this.getAllRenduFromServiceByStudent();
+    }
+    if(this.isProf()){
+      this.getAllRenduFromServiceByProf();
+    }
   }
 
   isProf() {
@@ -125,7 +158,12 @@ export class ListeRenduComponent implements OnInit {
     dialogNoteref.afterClosed().subscribe(result => {
       console.log("confirmation : " + result);
       if (result) {
-        this.getAllRenduFromServiceByStudent();
+        if (this.isStudent()) {
+          this.getAllRenduFromServiceByStudent();
+        }
+        if(this.isProf()){
+          this.getAllRenduFromServiceByProf();
+        }
       }
     });
   }

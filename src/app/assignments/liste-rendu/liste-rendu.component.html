@@ -1,22 +1,26 @@
 <div>
-  <h1>Liste des rendus de cet assignment</h1>
+  <h1>Liste des rendus</h1>
   <mat-divider></mat-divider>
   <mat-list>
-    <!-- @for(a of assignments; track a.titre) { -->
-    <mat-list-item>
-      <nav>
-        <a routerLink="/assignment/515dbhevyudzv">
-          <div>
-            <h3
-              matListItemTitle>
-              Titreee
-            </h3>
-            <p matListItemLine>Date Limiteeee</p>
-          </div>
-        </a>
-      </nav>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <!-- } -->
+    <div mat-subheader>Liste de mes rendus</div>
+    <div *ngIf="rendus.length==0" style="display: flex; justify-content: center; height: 100%;">
+      <p>Il n'y a pas encore de rendu!</p>
+    </div>
+    
+    <div *ngIf="rendus.length > 0">
+      @for (rendu of rendus; track rendu) {
+        <mat-list-item>
+          <mat-icon matListItemIcon>note</mat-icon>
+          <div matListItemTitle>{{ rendu.nomMatiere }}</div>
+          <div matListItemLine>{{ rendu.dateRendu | date }}</div>
+          <div matListItemLine>{{ rendu.titreAssignment }}</div>
+          <img [src]="rendu.matierePhoto" alt="Photo de la matière" style="width:50px; height:50px;">
+          <div matListItemLine>{{ rendu.description }}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      }
+    </div>
   </mat-list>
+  <mat-paginator *ngIf="!chargement" [length]="totalDocs" [pageSize]="limit" [pageSizeOptions]="[6, 9, 12, 30]" (page)="onPageChange($event)" aria-label="Select page" [pageIndex]="page - 1" itemsPerPageLabel="Éléments par page">
+  </mat-paginator>
 </div>

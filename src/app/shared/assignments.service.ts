@@ -127,6 +127,11 @@ export class AssignmentsService {
     return this.http.get<Rendu[]>(this.urirendu + "?page=" + page + "&limit=" + limit + "&filter=" + filter + "&idEtudiant=" + idEtudiant + "&idAssignment=" + idAssignment, { headers: this.headers });
   }
 
+  getAllRenduPaginesListeByStudent(page: number, limit: number, filter: string, idEtudiant: string): Observable<any> {
+    this.headers = this.auth.createAuthorizationHeader();
+    return this.http.get<Rendu[]>(this.urirendu + "?page=" + page + "&limit=" + limit + "&filter=" + filter + "&idEtudiant=" + idEtudiant + "&idAssignment=", { headers: this.headers });
+  }
+
   // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)
   peuplerBD() {
     // on utilise les données de test générées avec mockaroo.com pour peupler la base

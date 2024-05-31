@@ -123,9 +123,15 @@ export class AssignmentDetailComponent implements OnInit {
     nouvelRendu.idAssignment = id;
     nouvelRendu.idEtudiant = this.userData._id;
     nouvelRendu.matricule = this.userData.matricule;
-
-
-
+    if(this.assignmentTransmis){
+      nouvelRendu.titreAssignment = this.assignmentTransmis.titre;
+      if(this.assignmentTransmis.matiere != undefined){
+        nouvelRendu.nomMatiere = this.assignmentTransmis.matiere;
+      }
+      nouvelRendu.nomMatiere = this.assignmentTransmis.matiere;
+      if(this.assignmentTransmis.matierePhoto != undefined)
+      nouvelRendu.matierePhoto = this.assignmentTransmis.matierePhoto;
+    }
     console.log(nouvelRendu);
 
     this.assignmentsService.addRendu(nouvelRendu)

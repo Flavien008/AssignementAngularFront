@@ -140,6 +140,7 @@ export class AssignmentDetailComponent implements OnInit {
           this.isloading = false;
           console.log('Rendu envoyé avec succes');
           this.message = "Rendu envoyé avec succes !";
+          this.getRenduFromServiceByStudent()
         },
         error => {
           console.error('Erreur lors de la connexion:', error);
@@ -148,7 +149,8 @@ export class AssignmentDetailComponent implements OnInit {
           this.message = "Il y a eu un problème !";
         }
       );
-    this.getRenduFromServiceByStudent()
+    
+    console.log(this.rendusetu);
     this.dejarendu = true;
   }
 
@@ -301,6 +303,7 @@ export class AssignmentDetailComponent implements OnInit {
         if (data.docs.length > 0) {
           this.dejarendu = true;
         }
+        this.chargement=false
       });
     console.log('Requête envoyée');
   }

@@ -56,7 +56,7 @@ export class CustomSidenavComponent {
         },
         {
             icon: 'assignment_turned_in',
-            label: 'Mes rendus',
+            label: 'Tous les rendus',
             route: 'rendus',
         }
     ]);

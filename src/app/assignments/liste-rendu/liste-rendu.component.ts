@@ -71,7 +71,6 @@ export class ListeRenduComponent implements OnInit {
     }
     if(this.isProf()){
       this.getAllRenduFromServiceByProf();
-      console.log("atoooo prrr")
     }
   }
 
@@ -83,6 +82,9 @@ export class ListeRenduComponent implements OnInit {
   applyFilters(): void {
     if (this.isStudent()) {
       this.getAllRenduFromServiceByStudent();
+    }
+    if(this.isProf()){
+      this.getAllRenduFromServiceByProf();
     }
   }
 

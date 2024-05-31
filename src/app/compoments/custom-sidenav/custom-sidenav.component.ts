@@ -73,7 +73,7 @@ export class CustomSidenavComponent {
                 },
                 {
                     icon: 'assignment_turned_in',
-                    label: 'Liste de mes rendus',
+                    label: 'Mes rendus',
                     route: 'rendus',
                 }
             ]);

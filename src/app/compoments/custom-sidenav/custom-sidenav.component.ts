@@ -70,6 +70,11 @@ export class CustomSidenavComponent {
                     icon: 'groups',
                     label: 'Groups',
                     route: 'groups',
+                },
+                {
+                    icon: 'assignment_turned_in',
+                    label: 'Mes rendus',
+                    route: 'rendus',
                 }
             ]);
         }

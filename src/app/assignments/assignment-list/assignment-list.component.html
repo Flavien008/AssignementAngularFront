@@ -1,12 +1,9 @@
-<!-- Enveloppe du contenu -->
 <div *ngIf="groupeid!==''">
   <mat-card>
     <mat-card-header>
-      <mat-card-title *ngIf="groupe !=null">{{ groupe!.nom ||
-        ""}}</mat-card-title>
+      <mat-card-title *ngIf="groupe != null">{{ groupe!.nom || "" }}</mat-card-title>
       <mat-card-subtitle>
-        <h3>{{ groupe?.utilisateurs ? groupe?.utilisateurs?.length +
-          " membre(s)" : "0 membre(s)" }}</h3>
+        <h3>{{ groupe?.utilisateurs ? groupe?.utilisateurs?.length + " membre(s)" : "0 membre(s)" }}</h3>
       </mat-card-subtitle>
     </mat-card-header>
   </mat-card>
@@ -14,10 +11,26 @@
     <mat-tab label="Liste des assignments">
       <div class="example-small-box mat-elevation-z4">
         <div class="content-wrapper">
+          <br>
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <h3></h3>
             <div style="display: flex; gap: 10px;">
-              <!-- Utilisez flexbox avec un espace entre les éléments -->
+              <mat-form-field appearance="fill" class="sort-container">
+                <mat-label>Trier par :</mat-label>
+                <mat-select [(value)]="triType" (selectionChange)="applyFilters()">
+                  <mat-option value="titre">Titre</mat-option>
+                  <mat-option value="dateCreation">Date de création</mat-option>
+                  <!-- Ajoutez d'autres options de tri au besoin -->
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="sort-container">
+                <mat-label>Type de tri :</mat-label>
+                <mat-select [(value)]="triDirection" (selectionChange)="applyFilters()">
+                  <mat-option value="asc">Ascendant</mat-option>
+                  <mat-option value="desc">Descendant</mat-option>
+                  <!-- Ajoutez d'autres options de tri au besoin -->
+                </mat-select>
+              </mat-form-field>
               <mat-form-field appearance="fill" class="search-container">
                 <input matInput type="text" [(ngModel)]="titrefiltre" placeholder="Rechercher..."
                   (ngModelChange)="applyFilters()">
@@ -25,68 +38,63 @@
                   <mat-icon>close</mat-icon>
                 </button>
               </mat-form-field>
-              <!-- <mat-form-field appearance="fill" class="search-container">
-                <input matInput type="text" [(ngModel)]="matierefiltre" placeholder="Matiere"
-                  (ngModelChange)="applyFilters()">
-                <button matSuffix mat-icon-button aria-label="Clear" (click)="matierefiltre='';applyFilters()">
-                  <mat-icon>close</mat-icon>
-                </button>
-              </mat-form-field> -->
+              <mat-form-field appearance="fill" class="sort-container">
+                <mat-label>Matière :</mat-label>
+                <mat-select [(value)]="matierefiltre" (selectionChange)="applyFilters()">
+                  <mat-option value="">Tous</mat-option> 
+                  <mat-option *ngFor="let m of matieres" [value]="m.nom">{{ m.nom
+                    }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
           </div>
 
           <mat-divider></mat-divider>
+          <br>
           <div *ngIf="isLoadingAssignments"
             style="display: flex; justify-content: center; align-items: center;height:75vh">
             <mat-spinner diameter="30" color="accent"></mat-spinner>
           </div>
           <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
             <ng-container *ngIf="assignments.length > 0; else emptyList">
-              <mat-list *cdkVirtualFor="let a of assignments" class="example-item"
-                style="display: flex; flex-direction: column;">
-                <a routerLink="/assignments/{{ a._id }}" style="text-decoration:none">
-                  <h3 mat-subheader>
-                    <p>
-                      <img *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" class="matiere-icon ">
-                    </p>
-                    <p>
-                      Publié le : {{ a.dateCreation | date :
-                        "dd/MM/yyyy"}}  | Date limite: {{ a.dateLimite | date :
-                          "dd/MM/yyyy" }}
-                    </p>
-                    Matiere : {{ a.matiere}} 
-                  </h3>
-                </a>
-                <mat-list-item>
-                  <p>{{ a.titre }} , description : {{ a.description }}</p>
-                </mat-list-item>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <!-- Affichage de la miniature de la photo de la matière -->
-                  <div *ngIf="isProf()"  style="display: flex; justify-content: flex-end; margin-top: 10px;">
-                    <button mat-raised-button color="primary" (click)="openDialog(a)"
-                      style="margin-right: 10px;">Modifier</button>
-                    <button mat-raised-button style="background-color:rgb(194, 14, 53); color:white;"
-                      (click)="confirmDelete(a)">Supprimer</button>
-                  </div>
+              <div class="assignments-grid">
+                <div *cdkVirtualFor="let a of assignments" class="assignment-card">
+                  <mat-card>
+                    <mat-card-header>
+                      <mat-card-title class="description">{{ a.titre }}</mat-card-title>
+                      <mat-card-subtitle>
+                        Publié le : {{ a.dateCreation | date : "dd/MM/yyyy" }} | Date limite: {{ a.dateLimite | date :
+                        "dd/MM/yyyy" }}
+                      </mat-card-subtitle>
+                    </mat-card-header>
+                    <img class="dynamic-image" *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo"
+                      routerLink="/assignments/{{ a._id }}">
+                    <mat-card-content>
+                      <p class="description">Matiere : {{ a.matiere }}</p>
+                      <p class="description">{{ a.description }}</p>
+                    </mat-card-content>
+                    <mat-card-actions *ngIf="isProf()" style="display: flex; justify-content: flex-end;">
+                      <button mat-button color="primary" (click)="openDialog(a)" class="editbtn">Modifier</button>
+                      <button mat-button style="color:rgb(194, 14, 53);" (click)="confirmDelete(a)" class="deleteBtn">Supprimer</button>
+                    </mat-card-actions>
+                  </mat-card>
                 </div>
-                <mat-divider style="margin-top: 10px;"></mat-divider>
-              </mat-list>
+              </div>
             </ng-container>
             <ng-template #emptyList>
               <p>Aucun assignement n'a été trouvé.</p>
             </ng-template>
           </cdk-virtual-scroll-viewport>
-          
         </div>
       </div>
     </mat-tab>
     <mat-tab label="Liste des membres">
       <div class="example-large-box mat-elevation-z4">
         <div class="content-wrapper">
+          <br>
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <h3></h3>
             <div style="display: flex; gap: 10px;">
-              <!-- Utilisez flexbox avec un espace entre les éléments -->
               <mat-form-field appearance="fill" class="search-container">
                 <input matInput type="text" [(ngModel)]="filtreEdudiant" placeholder="Nom ou email..."
                   (ngModelChange)="applyFiltersStudents()">
@@ -98,6 +106,7 @@
           </div>
 
           <mat-divider></mat-divider>
+          <br>
           <div *ngIf="isLoadingStudents"
             style="display: flex; justify-content: center; align-items: center;height:75vh">
             <mat-spinner diameter="30" color="accent"></mat-spinner>
@@ -106,19 +115,17 @@
             style="display: flex; justify-content: center; align-items: center;height:75vh">
             <p>Aucun resultat.</p>
           </div>
-          <mat-list *ngFor="let s of students" class="example-item" style="display: flex; flex-direction: column;">
-            <h3 mat-subheader>
-              Email : {{ s.username}}
-            </h3>
-            <mat-list-item>
-              <p>{{ s.name }}</p>
-            </mat-list-item>
-            <div style="display: flex; justify-content: flex-end; margin-top: 10px;" *ngIf="isProf()">
-              <button mat-raised-button color="primary" style="margin-right: 10px;"
-                (click)="confirmRemoveStudent(s)">Retirer</button>
-            </div>
-            <mat-divider style="margin-top: 10px;"></mat-divider>
-          </mat-list>
+          <div *ngFor="let s of students" class="example-item" style="display: flex; flex-direction: column;">
+            <mat-card style="margin-bottom: 10px;">
+              <mat-card-header>
+                <mat-card-title>{{ s.name }}</mat-card-title>
+                <mat-card-subtitle>Email : {{ s.username }}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-actions *ngIf="isProf()" style="display: flex; justify-content: flex-end;">
+                <button mat-button color="primary" (click)="confirmRemoveStudent(s)" class="deleteBtn">Retirer</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
         </div>
         <mat-paginator *ngIf="!isLoadingStudents" [length]="totalDocsEtudiant" [pageSize]="limitEtudiant"
           [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChange($event)" aria-label="Select page"
@@ -128,12 +135,35 @@
     </mat-tab>
   </mat-tab-group>
 </div>
-
 <div class="content-wrapper" *ngIf="groupeid===''">
-  <div style="display: flex; justify-content: space-between; align-items: center;">
-    <h3>Liste des assignments</h3>
+  <div style="display: flex; justify-content: space-between; align-items: center">
+  <h3>Liste des assignments</h3>
     <div style="display: flex; gap: 10px;">
-      <!-- Utilisez flexbox avec un espace entre les éléments -->
+      <!-- Exemple de menu déroulant pour choisir le type de tri -->
+      <mat-form-field appearance="fill" class="sort-container">
+        <mat-label>Trier par :</mat-label>
+        <mat-select [(value)]="triType" (selectionChange)="applyFilters()">
+          <mat-option value="titre">Titre</mat-option>
+          <mat-option value="dateCreation">Date de création</mat-option>
+          <!-- Ajoutez d'autres options de tri au besoin -->
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="sort-container">
+        <mat-label>Type de tri :</mat-label>
+        <mat-select [(value)]="triDirection" (selectionChange)="applyFilters()">
+          <mat-option value="asc">Ascendant</mat-option>
+          <mat-option value="desc">Descendant</mat-option>
+          <!-- Ajoutez d'autres options de tri au besoin -->
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="sort-container">
+        <mat-label>Matière :</mat-label>
+        <mat-select [(value)]="matierefiltre" (selectionChange)="applyFilters()">
+          <mat-option value="">Tous</mat-option> 
+          <mat-option *ngFor="let m of matieres" [value]="m.nom">{{ m.nom
+            }}</mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field appearance="fill" class="search-container">
         <input matInput type="text" [(ngModel)]="titrefiltre" placeholder="Rechercher..."
           (ngModelChange)="applyFilters()">
@@ -141,52 +171,41 @@
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-      <!-- <mat-form-field appearance="fill" class="search-container">
-        <input matInput type="text" [(ngModel)]="matierefiltre" placeholder="Matiere" (ngModelChange)="applyFilters()">
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="matierefiltre='';applyFilters()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field> -->
       <button mat-raised-button color="primary" class="add-button" routerLink="/add"><mat-icon>add</mat-icon>
         Ajouter</button>
     </div>
   </div>
 
   <mat-divider></mat-divider>
+  <br>
   <div *ngIf="isLoadingAssignments" style="display: flex; justify-content: center; align-items: center;height:75vh">
     <mat-spinner diameter="30" color="accent"></mat-spinner>
   </div>
   <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
     <ng-container *ngIf="assignments.length > 0; else emptyList">
-      <mat-list *cdkVirtualFor="let a of assignments" class="example-item"
-        style="display: flex; flex-direction: column;">
-        <a routerLink="/assignments/{{ a._id }}" style="text-decoration:none">
-          <h3 mat-subheader>
-            <p>
-              <img *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" class="matiere-icon ">
-            </p>
-            <p>
-              Publié le : {{ a.dateCreation | date :
-                "dd/MM/yyyy"}}  | Date limite: {{ a.dateLimite | date :
-                  "dd/MM/yyyy" }}
-            </p>
-            Matiere : {{ a.matiere}} 
-          </h3>
-        </a>
-        <mat-list-item>
-          <p>{{ a.titre }} , description : {{ a.description }}</p>
-        </mat-list-item>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <!-- Affichage de la miniature de la photo de la matière -->
-          <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
-            <button mat-raised-button color="primary" (click)="openDialog(a)"
-              style="margin-right: 10px;">Modifier</button>
-            <button mat-raised-button style="background-color:rgb(194, 14, 53); color:white;"
-              (click)="confirmDelete(a)">Supprimer</button>
-          </div>
+      <div class="assignments-grid">
+        <div *cdkVirtualFor="let a of assignments" class="assignment-card">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title class="description">{{ a.titre }}</mat-card-title>
+              <mat-card-subtitle>
+                Publié le : {{ a.dateCreation | date : "dd/MM/yyyy" }} | Date limite: {{ a.dateLimite | date :
+                "dd/MM/yyyy" }}
+              </mat-card-subtitle>
+            </mat-card-header>
+            <img class="dynamic-image" *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo"
+              routerLink="/assignments/{{ a._id }}">
+            <mat-card-content>
+              <p class="description">Matiere : {{ a.matiere }}</p>
+              <p class="description">{{ a.description }}</p>
+            </mat-card-content>
+            <mat-card-actions style="display: flex; justify-content: flex-end;">
+              <button mat-button color="primary" (click)="openDialog(a)" class="editbtn">Modifier</button>
+              <button mat-button style="color:rgb(212, 25, 66);" (click)="confirmDelete(a)" class="deleteBtn">Supprimer</button>
+            </mat-card-actions>
+          </mat-card>
         </div>
-        <mat-divider style="margin-top: 10px;"></mat-divider>
-      </mat-list>
+      </div>
     </ng-container>
     <ng-template #emptyList>
       <p>Aucun assignement n'a été trouvé.</p>

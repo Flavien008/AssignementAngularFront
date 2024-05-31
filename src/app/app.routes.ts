@@ -20,7 +20,7 @@ export const routes: Routes = [
   { path: "groups", component: CardGroupComponent },
   { path: "groups/:id", component: AssignmentListComponent },
   { path: "assignments/:id", component: AssignmentDetailComponent },
-  { path: "rendu/assignment/:id", component: ListeRenduComponent },
+  { path: "rendus", component: ListeRenduComponent },
   { path: "assignments", component: AssignmentListComponent , canActivate: [authGuard]},
   { path: "dashboard", component: DashboardComponent , canActivate: [authGuard]},
   { path: "matiere", component: MatiereComponent, canActivate: [authGuard] },

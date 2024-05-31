@@ -7,9 +7,55 @@
   /* 100vh for full viewport height */
 }
 
-.matiere-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 10px;
+.assignments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 10px;
 }
+
+.assignment-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  max-height: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dynamic-image {
+  max-width: auto;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.dynamic-image:hover {
+  cursor: pointer; 
+}
+
+.editbtn {
+  background-color: #4c85d6 !important;
+  color: #ffffff !important;
+  margin-right: 10px;
+}
+
+.editbtn:hover {
+  background-color: #2e45c4;
+  /* Change color on hover */
+}
+
+.deleteBtn {
+  background-color: #d74553 !important;
+  color: #ffffff !important;
+}
+
+.deleteBtn:hover {
+  background-color: #c11c29;
+  /* Change color on hover */
+}
+
+
+
+

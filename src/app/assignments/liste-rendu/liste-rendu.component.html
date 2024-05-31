@@ -1,26 +1,62 @@
 <div>
   <h1>Liste des rendus</h1>
   <mat-divider></mat-divider>
-  <mat-list>
-    <div mat-subheader>Liste de mes rendus</div>
-    <div *ngIf="rendus.length==0" style="display: flex; justify-content: center; height: 100%;">
-      <p>Il n'y a pas encore de rendu!</p>
-    </div>
-    
-    <div *ngIf="rendus.length > 0">
-      @for (rendu of rendus; track rendu) {
-        <mat-list-item>
-          <mat-icon matListItemIcon>note</mat-icon>
-          <div matListItemTitle>{{ rendu.nomMatiere }}</div>
-          <div matListItemLine>{{ rendu.dateRendu | date }}</div>
-          <div matListItemLine>{{ rendu.titreAssignment }}</div>
-          <img [src]="rendu.matierePhoto" alt="Photo de la matière" style="width:50px; height:50px;">
-          <div matListItemLine>{{ rendu.description }}</div>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      }
-    </div>
-  </mat-list>
-  <mat-paginator *ngIf="!chargement" [length]="totalDocs" [pageSize]="limit" [pageSizeOptions]="[6, 9, 12, 30]" (page)="onPageChange($event)" aria-label="Select page" [pageIndex]="page - 1" itemsPerPageLabel="Éléments par page">
-  </mat-paginator>
+  
+  <div *ngIf="rendus.length == 0" class="empty-message">
+    <p>Il n'y a pas encore de rendu!</p>
+  </div>
+  
+  <div *ngIf="rendus.length > 0">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 styled-table">
+
+       <!-- Matière Photo Column -->
+       <ng-container matColumnDef="matierePhoto">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let rendu">
+          <img [src]="rendu.matierePhoto" alt="Photo de la matière" class="matiere-photo">
+        </td>
+      </ng-container>
+
+      <!-- Nom de la matière Column -->
+      <ng-container matColumnDef="nomMatiere">
+        <th mat-header-cell *matHeaderCellDef> Nom de la matière </th>
+        <td mat-cell *matCellDef="let rendu"> {{rendu.nomMatiere}} </td>
+      </ng-container>
+
+          <!-- Titre Assignment Column -->
+          <ng-container matColumnDef="titreAssignment">
+            <th mat-header-cell *matHeaderCellDef> Titre de l'assignment </th>
+            <td mat-cell *matCellDef="let rendu"> {{rendu.titreAssignment}} </td>
+          </ng-container>
+
+      <!-- Date du rendu Column -->
+      <ng-container matColumnDef="dateRendu">
+        <th mat-header-cell *matHeaderCellDef> Date du rendu </th>
+        <td mat-cell *matCellDef="let rendu"> {{rendu.dateRendu | date}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Note </th>
+        <td mat-cell *matCellDef="let rendu">
+          <span *ngIf="rendu.note !== null">{{ rendu.note }} </span>
+          @if(rendu.note === null){<mat-icon color="warn">clear</mat-icon>}
+        </td>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef>Details</th>
+        <td mat-cell *matCellDef="let rendu">
+          <button mat-button color="primary" (click)="openDialog(rendu)" class="editbtn">Voir détails</button>
+        </td>
+      </ng-container>
+
+      <!-- Header and Row Declarations -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [length]="totalDocs" [pageSize]="limit" [pageSizeOptions]="[6, 9, 12, 30]" (page)="onPageChange($event)" aria-label="Select page" [pageIndex]="page - 1" itemsPerPageLabel="Éléments par page">
+    </mat-paginator>
+  </div>
 </div>

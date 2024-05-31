@@ -14,6 +14,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatSliderModule } from '@angular/material/slider';
 import { NoterRenduComponent } from '../noter-rendu/noter-rendu.component';
 import { MatSelectModule } from '@angular/material/select';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-liste-rendu',
@@ -125,4 +127,32 @@ export class ListeRenduComponent implements OnInit {
       }
     });
   }
+
+  exportToExcel() {
+    // Créer une copie des rendus en excluant la colonne matierePhoto
+    const rendusWithoutPhoto = this.rendus.map(rendu => {
+      const { matierePhoto, ...renduWithoutPhoto } = rendu;
+      return renduWithoutPhoto;
+    });
+  
+    // Convertir la liste des rendus sans la colonne matierePhoto en feuille de calcul
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(rendusWithoutPhoto);
+    
+    // Créer le reste du fichier Excel comme avant
+    const workbook: XLSX.WorkBook = {
+      Sheets: { 'data': worksheet },
+      SheetNames: ['data']
+    };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, 'liste_rendus');
+  }
+  
+
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
+    FileSaver.saveAs(data, `${fileName}_${new Date().getTime()}${EXCEL_EXTENSION}`);
+  }
 }
+
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_EXTENSION = '.xlsx';

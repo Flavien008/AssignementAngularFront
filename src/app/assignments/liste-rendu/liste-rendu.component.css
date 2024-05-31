@@ -52,5 +52,12 @@
     margin: 20px;
     width: 250px;
   }
+
+  .toolbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+  }
+  
   
   

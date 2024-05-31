@@ -1,13 +1,16 @@
 <div>
   <h1>Liste des rendus</h1>
   <mat-divider></mat-divider>
-  <div class="selectio">
-    <mat-select [(value)]="filtre" (selectionChange)="applyFilters()">
-    <mat-option value="all">Tous les rendus</mat-option>
-    <mat-option value="withNotes">Déjà noté</mat-option>
-    <mat-option value="withoutNotes">Pas noté</mat-option>
-    </mat-select>
-</div>
+  <div class="toolbar-container">
+    <div class="selectio">
+      <mat-select [(value)]="filtre" (selectionChange)="applyFilters()">
+        <mat-option value="all">Tous les rendus</mat-option>
+        <mat-option value="withNotes">Déjà noté</mat-option>
+        <mat-option value="withoutNotes">Pas noté</mat-option>
+      </mat-select>
+    </div>
+    <button mat-raised-button color="primary" (click)="exportToExcel()">Export to Excel</button>
+  </div>
   
   <div *ngIf="rendus.length == 0" class="empty-message">
     <p>Il n'y a pas encore de rendu!</p>

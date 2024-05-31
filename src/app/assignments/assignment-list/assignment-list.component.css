@@ -35,5 +35,27 @@
   cursor: pointer; 
 }
 
+.editbtn {
+  background-color: #4c85d6 !important;
+  color: #ffffff !important;
+  margin-right: 10px;
+}
+
+.editbtn:hover {
+  background-color: #2e45c4;
+  /* Change color on hover */
+}
+
+.deleteBtn {
+  background-color: #d74553 !important;
+  color: #ffffff !important;
+}
+
+.deleteBtn:hover {
+  background-color: #c11c29;
+  /* Change color on hover */
+}
+
+
 
 

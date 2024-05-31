@@ -72,8 +72,8 @@
                       <p class="description">{{ a.description }}</p>
                     </mat-card-content>
                     <mat-card-actions *ngIf="isProf()" style="display: flex; justify-content: flex-end;">
-                      <button mat-button color="primary" (click)="openDialog(a)">Modifier</button>
-                      <button mat-button style="color:rgb(194, 14, 53);" (click)="confirmDelete(a)">Supprimer</button>
+                      <button mat-button color="primary" (click)="openDialog(a)" class="editbtn">Modifier</button>
+                      <button mat-button style="color:rgb(194, 14, 53);" (click)="confirmDelete(a)" class="deleteBtn">Supprimer</button>
                     </mat-card-actions>
                   </mat-card>
                 </div>
@@ -118,7 +118,7 @@
                 <mat-card-subtitle>Email : {{ s.username }}</mat-card-subtitle>
               </mat-card-header>
               <mat-card-actions *ngIf="isProf()" style="display: flex; justify-content: flex-end;">
-                <button mat-button color="primary" (click)="confirmRemoveStudent(s)">Retirer</button>
+                <button mat-button color="primary" (click)="confirmRemoveStudent(s)" class="deleteBtn">Retirer</button>
               </mat-card-actions>
             </mat-card>
           </div>
@@ -131,10 +131,8 @@
     </mat-tab>
   </mat-tab-group>
 </div>
-
 <div class="content-wrapper" *ngIf="groupeid===''">
-  <div style="display: flex; justify-content: space-between; align-items: center;">
-    <h3>Liste des assignments</h3>
+  <div style="display: flex; justify-content: space-between; align-items: center">
     <div style="display: flex; gap: 10px;">
       <!-- Exemple de menu déroulant pour choisir le type de tri -->
       <mat-form-field appearance="fill" class="sort-container">
@@ -196,8 +194,8 @@
               <p class="description">{{ a.description }}</p>
             </mat-card-content>
             <mat-card-actions style="display: flex; justify-content: flex-end;">
-              <button mat-button color="primary" (click)="openDialog(a)">Modifier</button>
-              <button mat-button style="color:rgb(194, 14, 53);" (click)="confirmDelete(a)">Supprimer</button>
+              <button mat-button color="primary" (click)="openDialog(a)" class="editbtn">Modifier</button>
+              <button mat-button style="color:rgb(212, 25, 66);" (click)="confirmDelete(a)" class="deleteBtn">Supprimer</button>
             </mat-card-actions>
           </mat-card>
         </div>

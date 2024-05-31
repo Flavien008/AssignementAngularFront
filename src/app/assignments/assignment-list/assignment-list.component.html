@@ -37,6 +37,14 @@
                   <mat-icon>close</mat-icon>
                 </button>
               </mat-form-field>
+              <mat-form-field appearance="fill" class="sort-container">
+                <mat-label>Matière :</mat-label>
+                <mat-select [(value)]="matierefiltre" (selectionChange)="applyFilters()">
+                  <mat-option value="">Tous</mat-option> 
+                  <mat-option *ngFor="let m of matieres" [value]="m.nom">{{ m.nom
+                    }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
           </div>
 
@@ -57,7 +65,8 @@
                         "dd/MM/yyyy" }}
                       </mat-card-subtitle>
                     </mat-card-header>
-                    <img class="dynamic-image" *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" routerLink="/assignments/{{ a._id }}">
+                    <img class="dynamic-image" *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo"
+                      routerLink="/assignments/{{ a._id }}">
                     <mat-card-content>
                       <p class="description">Matiere : {{ a.matiere }}</p>
                       <p class="description">{{ a.description }}</p>
@@ -144,6 +153,14 @@
           <!-- Ajoutez d'autres options de tri au besoin -->
         </mat-select>
       </mat-form-field>
+      <mat-form-field appearance="fill" class="sort-container">
+        <mat-label>Matière :</mat-label>
+        <mat-select [(value)]="matierefiltre" (selectionChange)="applyFilters()">
+          <mat-option value="">Tous</mat-option> 
+          <mat-option *ngFor="let m of matieres" [value]="m.nom">{{ m.nom
+            }}</mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field appearance="fill" class="search-container">
         <input matInput type="text" [(ngModel)]="titrefiltre" placeholder="Rechercher..."
           (ngModelChange)="applyFilters()">
@@ -165,18 +182,19 @@
       <div class="assignments-grid">
         <div *cdkVirtualFor="let a of assignments" class="assignment-card">
           <mat-card>
-              <mat-card-header>
-                <mat-card-title class="description">{{ a.titre }}</mat-card-title>
-                <mat-card-subtitle>
-                  Publié le : {{ a.dateCreation | date : "dd/MM/yyyy" }} | Date limite: {{ a.dateLimite | date :
-                  "dd/MM/yyyy" }}
-                </mat-card-subtitle>
-              </mat-card-header>
-              <img class="dynamic-image" *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo" routerLink="/assignments/{{ a._id }}">
-              <mat-card-content>
-                <p class="description">Matiere : {{ a.matiere }}</p>
-                <p class="description">{{ a.description }}</p>
-              </mat-card-content>
+            <mat-card-header>
+              <mat-card-title class="description">{{ a.titre }}</mat-card-title>
+              <mat-card-subtitle>
+                Publié le : {{ a.dateCreation | date : "dd/MM/yyyy" }} | Date limite: {{ a.dateLimite | date :
+                "dd/MM/yyyy" }}
+              </mat-card-subtitle>
+            </mat-card-header>
+            <img class="dynamic-image" *ngIf="a.matierePhoto" [src]="a.matierePhoto" alt="Matiere Photo"
+              routerLink="/assignments/{{ a._id }}">
+            <mat-card-content>
+              <p class="description">Matiere : {{ a.matiere }}</p>
+              <p class="description">{{ a.description }}</p>
+            </mat-card-content>
             <mat-card-actions style="display: flex; justify-content: flex-end;">
               <button mat-button color="primary" (click)="openDialog(a)">Modifier</button>
               <button mat-button style="color:rgb(194, 14, 53);" (click)="confirmDelete(a)">Supprimer</button>

@@ -52,7 +52,6 @@ export class AuthService {
 
   getUserData(): User {
     const userData = localStorage.getItem('user');
-    if(userData == null) this.router.navigate(['/login']);
     return userData ? JSON.parse(userData) : null;
   }
 
@@ -83,12 +82,14 @@ export class AuthService {
 
   isEtudiant() {
     const userData = this.getUserData();
+    if(userData == null) this.router.navigate(['/login']);
     if (userData.role === 'student') return true;
     else return false;
   }
 
   isProf() {
     const userData = this.getUserData();
+    if(userData == null) this.router.navigate(['/login']);
     if (userData.role === 'prof') return true;
     else return false;
   }

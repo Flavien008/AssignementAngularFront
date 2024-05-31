@@ -40,8 +40,8 @@ import { MatSelect } from '@angular/material/select';
   styleUrl: './assignment-list.component.css'
 })
 export class AssignmentListComponent implements OnInit {
-  triType: string = ''; // Stocke le type de tri (par exemple, titre, date de création)
-triDirection: string = 'asc'; // Stocke la direction du tri (ascendant ou descendant)
+  triType: string = 'dateCreation'; // Stocke le type de tri (par exemple, titre, date de création)
+  triDirection: string = 'desc'; // Stocke la direction du tri (ascendant ou descendant)
 
   assignments: Assignment[] = [];
   filtreEdudiant = '';
@@ -156,7 +156,7 @@ triDirection: string = 'asc'; // Stocke la direction du tri (ascendant ou descen
     // on récupère les assignments depuis le service
     this.isLoadingAssignments = true;
     this.assignmentsService
-      .getAssignmentsPaginesListe(this.page, this.limit, this.titrefiltre, this.matierefiltre, this.groupeid)
+      .getAssignmentsPaginesListe(this.page, this.limit, this.titrefiltre, this.matierefiltre, this.groupeid,this.triType,this.triDirection)
       .subscribe((data) => {
         console.log(data);
         
@@ -219,7 +219,7 @@ triDirection: string = 'asc'; // Stocke la direction du tri (ascendant ou descen
   getAssignmentsFromServicePourScrollInfini() {
     // on récupère les assignments depuis le service
     this.assignmentsService
-      .getAssignmentsPaginesListe(this.page, this.limit, this.titrefiltre, this.matierefiltre, this.groupeid)
+      .getAssignmentsPaginesListe(this.page, this.limit, this.titrefiltre, this.matierefiltre, this.groupeid,this.triType,this.triDirection)
       .subscribe((data) => {
         // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées scroll');

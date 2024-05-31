@@ -16,7 +16,7 @@
             <div style="display: flex; gap: 10px;">
               <mat-form-field appearance="fill" class="sort-container">
                 <mat-label>Trier par :</mat-label>
-                <mat-select [(value)]="triType">
+                <mat-select [(value)]="triType" (selectionChange)="applyFilters()">
                   <mat-option value="titre">Titre</mat-option>
                   <mat-option value="dateCreation">Date de création</mat-option>
                   <!-- Ajoutez d'autres options de tri au besoin -->
@@ -24,9 +24,9 @@
               </mat-form-field>
               <mat-form-field appearance="fill" class="sort-container">
                 <mat-label>Type de tri :</mat-label>
-                <mat-select [(value)]="triType">
-                  <mat-option value="titre">Titre</mat-option>
-                  <mat-option value="dateCreation">Date de création</mat-option>
+                <mat-select [(value)]="triDirection" (selectionChange)="applyFilters()">
+                  <mat-option value="asc">Ascendant</mat-option>
+                  <mat-option value="desc">Descendant</mat-option>
                   <!-- Ajoutez d'autres options de tri au besoin -->
                 </mat-select>
               </mat-form-field>
@@ -130,7 +130,7 @@
       <!-- Exemple de menu déroulant pour choisir le type de tri -->
       <mat-form-field appearance="fill" class="sort-container">
         <mat-label>Trier par :</mat-label>
-        <mat-select [(value)]="triType">
+        <mat-select [(value)]="triType" (selectionChange)="applyFilters()">
           <mat-option value="titre">Titre</mat-option>
           <mat-option value="dateCreation">Date de création</mat-option>
           <!-- Ajoutez d'autres options de tri au besoin -->
@@ -138,9 +138,9 @@
       </mat-form-field>
       <mat-form-field appearance="fill" class="sort-container">
         <mat-label>Type de tri :</mat-label>
-        <mat-select [(value)]="triType">
-          <mat-option value="titre">Titre</mat-option>
-          <mat-option value="dateCreation">Date de création</mat-option>
+        <mat-select [(value)]="triDirection" (selectionChange)="applyFilters()">
+          <mat-option value="asc">Ascendant</mat-option>
+          <mat-option value="desc">Descendant</mat-option>
           <!-- Ajoutez d'autres options de tri au besoin -->
         </mat-select>
       </mat-form-field>

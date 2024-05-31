@@ -41,9 +41,9 @@ export class AssignmentsService {
     return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit + "&titre=" + titre + "&matiere=" + matiere, { headers: this.headers });
   }
 
-  getAssignmentsPaginesListe(page: number, limit: number, titre: string, matiere: string, groupe: string): Observable<any> {
+  getAssignmentsPaginesListe(page: number, limit: number, titre: string, matiere: string, groupe: string, triType:string, triDirection:string): Observable<any> {
     this.headers = this.auth.createAuthorizationHeader();
-    return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit + "&titre=" + titre + "&matiere=" + matiere + "&groupe=" + groupe, { headers: this.headers });
+    return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit + "&titre=" + titre + "&matiere=" + matiere + "&groupe=" + groupe + "&sortField="+triType + "&sortOrder="+triDirection, { headers: this.headers });
   }
 
   // renvoie un assignment par son id, renvoie undefined si pas trouvé

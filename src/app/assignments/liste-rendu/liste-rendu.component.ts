@@ -41,7 +41,7 @@ import * as FileSaver from 'file-saver';
 export class ListeRenduComponent implements OnInit {
   rendus: Rendu[] = [];
   dataSource = new MatTableDataSource<Rendu>(this.rendus);
-  displayedColumns: string[] = ['matierePhoto', 'nomMatiere', 'titreAssignment', 'dateRendu', 'description','details'];
+  displayedColumns: string[] = ['matierePhoto', 'nomMatiere', 'titreAssignment','Auteur', 'dateRendu', 'description','details'];
   page = 1;
   limit = 9;
   totalDocs!: number;

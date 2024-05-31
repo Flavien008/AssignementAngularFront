@@ -56,6 +56,11 @@
         <td mat-cell *matCellDef="let rendu"> {{rendu.dateRendu | date}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="Auteur">
+        <th mat-header-cell *matHeaderCellDef> Nom de l'etudiant</th>
+        <td mat-cell *matCellDef="let rendu"> {{rendu.auteur}} </td>
+      </ng-container>
+
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef> Dejà noté? </th>
         <td mat-cell *matCellDef="let rendu">

@@ -9,4 +9,8 @@ export class Rendu {
   description!: string;
   note!: string;
   remarque!: string;
+  titreAssignment!: string;
+  descriptionAssignment!: string;
+  nomMatiere!:String;
+  matierePhoto!:String;
 }

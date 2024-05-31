@@ -53,6 +53,11 @@ export class CustomSidenavComponent {
             icon: 'book',
             label: 'Matiere',
             route: 'matiere',
+        },
+        {
+            icon: 'assignment_turned_in',
+            label: 'Tous les rendus',
+            route: 'rendus',
         }
     ]);
 

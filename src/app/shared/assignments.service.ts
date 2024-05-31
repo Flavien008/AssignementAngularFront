@@ -26,9 +26,9 @@ export class AssignmentsService {
   urirendu = environment.baseUrl + "/rendu";
 
 
-  getAssignmentsStat(date1: String, date2: String): Observable<Stat[]> {
+  getAssignmentsStat(date1: String, date2: String,matiere:string): Observable<Stat[]> {
     this.headers = this.auth.createAuthorizationHeader();
-    return this.http.get<Stat[]>(this.uri + "/statistique?date1=" + date1 + "&date2=" + date2, { headers: this.headers });
+    return this.http.get<Stat[]>(this.uri + "/statistique?date1=" + date1 + "&date2=" + date2 +"&matiere="+matiere, { headers: this.headers });
   }
   // retourne tous les assignments
   getAssignments(): Observable<Assignment[]> {

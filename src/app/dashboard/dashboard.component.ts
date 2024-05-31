@@ -9,25 +9,29 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatiereService } from '../shared/matiere.service';
 import { FormsModule } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 // pour date picker
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
-
+import { MatOption, provideNativeDateAdapter } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { Matiere } from '../matiere/matiere.model';
 @Component({
     selector: 'app-dahsboard',
     standalone: true,
     providers: [provideNativeDateAdapter()],
-    imports: [DatePipe, MatDatepickerModule, FormsModule, MatButton, MatInputModule, MatCardActions, MatLabel, MatDatepicker, MatDatepickerToggle, MatFormField, MatCardContent, MatGridTile, MatGridList, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle],
+    imports: [CommonModule,MatSelect,MatOption,DatePipe, MatDatepickerModule, FormsModule, MatButton, MatInputModule, MatCardActions, MatLabel, MatDatepicker, MatDatepickerToggle, MatFormField, MatCardContent, MatGridTile, MatGridList, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
+
     public donut: any;
     public date1: string;
     public date2: string;
     public line: any;
     datePipe = new DatePipe('en-US');
+    matierefiltre: string='';
+    matieres: Matiere[] | undefined;
 
     constructor(private matiereService: MatiereService, private assignmentsService: AssignmentsService) {
         const d1 = new Date();
@@ -37,6 +41,22 @@ export class DashboardComponent {
 
         this.date1 = this.formatDate(d1);
         this.date2 = this.formatDate(d2);
+    }
+
+    getMatiereFromService() {
+        this.matiereService.getMatiere()
+            .subscribe((matiere) => {
+                console.log(" matiere dashboard" + matiere);
+                this.matieres = matiere;
+            });
+        console.log('Requête envoyée pour recuperer matiers');
+    }
+
+    applyFilters() {
+        if (this.line) {
+            this.line.destroy();
+        }
+        this.createChartLine();
     }
 
     formatDate(date: Date): string {
@@ -56,6 +76,7 @@ export class DashboardComponent {
 
 
     ngOnInit(): void {
+        this.getMatiereFromService();
         this.createChartDonus();
         this.createChartLine();
     }
@@ -103,7 +124,7 @@ export class DashboardComponent {
     }
 
     createChartLine() {
-        this.assignmentsService.getAssignmentsStat(this.date1, this.date2).subscribe(data => {
+        this.assignmentsService.getAssignmentsStat(this.date1, this.date2,this.matierefiltre).subscribe(data => {
             const labels = data.map(entry => entry._id); // Utiliser les dates comme labels
             const counts = data.map(entry => entry.count); // Utiliser les counts comme données
 

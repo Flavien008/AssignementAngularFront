@@ -58,4 +58,4 @@ Version node : v18.17.1
 Version d'angular : 17.2.2
 
 ## Auteurs
-Ce projet a été développé par N° 21, RAKOTOARISON Tojo Fandresena Flavien et N°22, RAKOTOARIVONY Tendry Hery ny Aina
+Ce projet a été développé par N° 19, RAKOTOARISON Tojo Fandresena Flavien et N°20, RAKOTOARIVONY Tendry Hery ny Aina

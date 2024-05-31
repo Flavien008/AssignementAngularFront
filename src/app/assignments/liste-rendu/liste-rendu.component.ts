@@ -14,6 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSliderModule } from '@angular/material/slider';
 import { NoterRenduComponent } from '../noter-rendu/noter-rendu.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSpinner } from '@angular/material/progress-spinner';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 
@@ -31,7 +32,8 @@ import * as FileSaver from 'file-saver';
     MatDividerModule,
     MatIconModule,
     DatePipe,
-    MatSelectModule
+    MatSelectModule,
+    MatSpinner
   ],
   templateUrl: './liste-rendu.component.html',
   styleUrls: ['./liste-rendu.component.css']

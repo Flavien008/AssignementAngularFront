@@ -3,6 +3,7 @@ import { environment } from '../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
 import { User } from '../login/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
   uri = environment.baseUrl;
   loggedIn = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router: Router) { }
 
   logIn(username: string, password: string): Observable<any> {
     const data = {
@@ -51,6 +52,7 @@ export class AuthService {
 
   getUserData(): User {
     const userData = localStorage.getItem('user');
+    if(userData == null) this.router.navigate(['/login']);
     return userData ? JSON.parse(userData) : null;
   }
 
